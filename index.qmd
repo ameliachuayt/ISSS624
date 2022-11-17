@@ -1,5 +1,6 @@
 ---
 title: "ISSS624"
+editor: visual
 ---
 
 Welcome to ISSS624 Geospatial Analytics Applications!
