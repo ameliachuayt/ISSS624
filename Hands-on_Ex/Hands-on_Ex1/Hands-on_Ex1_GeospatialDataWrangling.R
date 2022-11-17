@@ -1,5 +1,7 @@
 #Hands-on Exercise 1 Part 1
 
+setwd("C:/ameliachuayt/ISSS624/Hands-on_Ex/Hands-on_Ex1")
+
 packages = c('sf','tidyverse')
 for (p in packages){
   if(!require(p, character.only = T)){
@@ -10,12 +12,11 @@ for (p in packages){
 
 # or pacman::p_load(sf, tidyverse)
 #1.4.1. Import polygon feature date in shapefile shp format ####
-setwd("C:\\Users\\ameli\\Documents\\GitHub\\ameliachuayt\\ISSS624\\Hands-on_Ex\\Hands-on_Ex1\\")
 
 mpsz = st_read(dsn="data\\geospatial",
                layer = "MP14_SUBZONE_WEB_PL")
 #st_read has two arguments
-#dsn: define data path (note that working directory is "C:\Users\ameli\Documents\GitHub\ameliachuayt\ISSS624\Hands-on_Ex\Hands-on_Ex1\)
+#dsn: define data path
 #layer: provide shapefile name
 #output shows that there are 323 multipolygon features and 15 fields 
 #bounding box provides the x extend and y extend of the data
