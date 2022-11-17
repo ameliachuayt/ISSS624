@@ -1,4 +1,4 @@
-setwd("C:\\Users\\ameli\\Documents\\GitHub\\ameliachuayt\\ISSS624\\Hands-on_Ex\\Hands-on_Ex1")
+setwd("C:\\ameliachuayt\\ISSS624\\Hands-on_Ex\\Hands-on_Ex1")
 getwd()
 
 #2.3.1 install and load packages ####
@@ -12,7 +12,6 @@ pacman::p_load(sf, tmap, tidyverse)
 mpsz <- st_read(dsn="data\\geospatial",
                 layer='MP14_SUBZONE_WEB_PL')
 
-mpsz
 
 #2.3.3 Import Attribute Data
 popdata <- read_csv('data\\aspatial\\respopagesextod2011to2020.csv')
