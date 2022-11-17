@@ -374,7 +374,7 @@ ggplot(data=mpsz3414,
 
 #### 1.10.2 Relationship between Pre-school Density and Pre-school Count using Scatterplot
 
-Conventionally, *plot()* of R Graphics can be used to plot a scatterplot to reveal the relationship between pre-school density and pre-school count.
+DIY: Conventionally, *plot()* of R Graphics can be used to plot a scatterplot to reveal the relationship between pre-school density and pre-school count.
 
 ```{r}
 plot(mpsz3414$`PreSch Density`, mpsz3414$`PreSch Count`, main="Pre-school Count vs Pre-school Density",
@@ -578,3 +578,115 @@ tm_shape(mpsz_pop2020)+
 ```
 
 The steps to creating the above map will be detailed in this sub-section.
+
+#### 2.4.2.1 Drawing a base map
+
+The basic building block of **tmap** is *tm_shape()* followed by one or more layer elemments such as *tm_fill()* and *tm_polygons()*:
+
+-   tm_shape() defines the input data
+
+-   tm_polygons() draws the planning subzone polygons
+
+```{r}
+tm_shape(mpsz_pop2020) +
+  tm_polygons()
+```
+
+#### 2.4.2.2 Drawing a choropleth map using *tm_polygons()*
+
+To draw a choropleth map showing the geographical distribution of a selected variable by planning subzone, we assign the target variable such as *Dependency* to *tm_polygons()*.
+
+By default, missing values will be shaded in grey.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_polygons("DEPENDENCY")
+```
+
+#### 
+2.4.2.3 Drawing a choropleth map using *tm_fill()* and *tm_border*()
+
+-   tm_fill(): shades the polygons using the default colour scheme
+
+-   *tm_border():* Add borders to the polygons. The arguments are as follows:
+
+    -   *alpha* specifies the transparency or opaqueness of the borders. By default, the alpha value of the col is used (normally 1 i.e. not transparent). There
+
+    -   *col* specifies the border colour,
+
+    -   *lwd* specifies the border line width. The default is 1, and
+
+    -   *lty* specifies the border line type. The default is \"solid\".
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY")+
+  tm_borders(lwd = 0.1,  alpha = 1)
+```
+
+### 2.4.3 Data classification methods of **tmap**
+
+Choropleth maps employ some methods of data classification so to take a large number of observations and group them into data ranges or classes.
+
+**tmap** provides a total ten data classification methods, namely: *fixed*, *sd*, *equal*, *pretty* (default), *quantile*, *kmeans*, *hclust*, *bclust*, *fisher*, and *jenks*.
+
+To define a data classification method, the *style* argument of *tm_fill()* or *tm_polygons()* will be used.
+
+#### 2.4.3.1 Plotting choropleth maps with built-in classification methods
+
+The code chunk below shows a quantile data classification that used 5 classes (*n* = 5). This method classifies data into a certain number of categories with an equal number of units in each category.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "quantile") +
+  tm_borders(alpha = 0.5)
+```
+
+In the code chunk below, *equal* data classification method is used. This method sets the value ranges in each category equal in size.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "equal") +
+  tm_borders(alpha = 0.5)
+```
+
+DIY: We can see that the distribution of **quantile** data classification method are more evenly distributed than **equal** data classification method.
+
+Let's us examine other types of classification methods:
+
+-   Top Left: pretty (default),
+
+-   Top Right: equal,
+
+-   Bottom Left: jenks and
+
+-   Bottom Right: kmeans.
+
+```{r}
+tm_shape(mpsz_pop2020)+ 
+  tm_fill(c("DEPENDENCY","DEPENDENCY","DEPENDENCY","DEPENDENCY"),,
+              style = c("pretty", "equal","jenks","kmeans"), 
+              palette = list("Blues","Oranges","Reds","Greens")) +
+  tm_layout(legend.position = c("right", "bottom"))+
+  tm_borders(alpha = 0.2)
+```
+
+We can observe that pretty and equal gives similar distributions and not as even as the other two. Comparing jenks and kmeans classification methods, we can see that kmeans is more evenly distributed.
+
+DIY: The below code chunk uses the quantile classification method with different numbers of classes: 2 (top left), 6 (top right), 10 (bottom left), 20 (bottom right).
+
+```{r}
+tm_shape(mpsz_pop2020)+ 
+  tm_fill(c("DEPENDENCY","DEPENDENCY","DEPENDENCY","DEPENDENCY"),
+              n = c(2,6,10,20),
+              style = c("quantile", "quantile","quantile","quantile"), 
+              palette = list("Blues","Oranges","Reds","Greens")) +
+  tm_layout(legend.position = c("right", "bottom"))+
+  tm_borders(alpha = 0.2)
+```
+
+Unsurprisingly, we can see that as the number of classes increases, the more distributed the data is. Although the differences between the chart diminishes as the number of classes increase--for e.g., classes 10 and 20 are quite similar.
