@@ -531,7 +531,7 @@ mpsz_pop2020 <- left_join(mpsz, popdata2020,
 Write the resulting file into a .rds file.
 
 ```{r}
-write_rds(mpsz_pop2020, "chap02/data/rds/mpszpop2020.rds")
+write_rds(mpsz_pop2020, "data\\rds\\mpszpop2020_amelia.rds")
 ```
 
 ## 2.4 Choropleth Mapping Geospatial Data Using tmap package
