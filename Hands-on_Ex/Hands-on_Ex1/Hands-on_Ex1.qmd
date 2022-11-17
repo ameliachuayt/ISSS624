@@ -1,0 +1,53 @@
+---
+title: "Hands-on Exercise 1: Geospatial Data Wrangling with R"
+editor: visual
+---
+
+## Overview 
+
+In this hands-on exercise, I learned how to import, and wrangle geospatial data using appropriate R packages.
+
+## Getting Started
+
+pacman is a R package management tool. It provides intuitively named functions for the base functions. The code chunk below installs and loads sf and tidyverse packages into R environment:
+
+```{r}
+pacman::p_load(sf, tidyverse)
+
+```
+
+An alternate way to install and import the libraries is as follows:
+
+```{r}
+packages = c('sf','tidyverse')
+for (p in packages){
+  if(!require(p, character.only = T)){
+    install.packages(p)
+  }
+  library(p, character.only = T)
+}
+```
+
+## Import Geospatial Data
+
+In this section, I learned how to import the following geospatial data into R by using [*st_read()*](https://r-spatial.github.io/sf/reference/st_read.html) of **sf** package:
+
+-   `MP14_SUBZONE_WEB_PL`, a polygon feature layer in ESRI shapefile format,
+
+-   `CyclingPath`, a line feature layer in ESRI shapefile format, and
+
+-   `PreSchool`, a point feature layer in kml file format.
+
+### Import polygon feature date in shapefile format (.shp)
+
+The code chunk below uses *st_read()* function of **sf** package to import `MP14_SUBZONE_WEB_PL` shapefile into R as a polygon feature data frame.
+
+When the input geospatial data is in shapefile format, two arguments will be used, namely: `dsn` to define the data path and `layer` to provide the shapefile name. Also note that no extension such as .shp, .dbf, .prj and .shx are needed.
+
+```{r}
+mpsz = st_read(dsn="data\\geospatial",
+               layer = "MP14_SUBZONE_WEB_PL")
+
+```
+
+The output shows that there are 323 multipolygon features and 15 fields. The Bounding box provides the x extend and y extend of the data.
