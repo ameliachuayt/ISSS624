@@ -603,9 +603,7 @@ tm_shape(mpsz_pop2020)+
   tm_polygons("DEPENDENCY")
 ```
 
-#### 
-
-2.4.2.3 Drawing a choropleth map using *tm_fill()* and *tm_border*()
+#### 2.4.2.3 Drawing a choropleth map using *tm_fill()* and *tm_border*()
 
 -   tm_fill(): shades the polygons using the default colour scheme
 
@@ -712,7 +710,7 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-2.4.4 Colour Scheme
+### 2.4.4 Colour Scheme
 
 **tmap** supports colour ramps either defined by the user or a set of predefined colour ramps from the **RColorBrewer** package
 
@@ -915,4 +913,4 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
 
 -   R for Geospatial Data Science and Analytics - [Chapter 1: Geospatial Data Wrangling with R](https://r4gdsa.netlify.app/chap01.html)
 
--   R for Geospatial Data Science and Analytics - [Chapter 2: Choropleth Mapping with R](https://r4gdsa.netlify.app/chap02.html) s
+-   R for Geospatial Data Science and Analytics - [Chapter 2: Choropleth Mapping with R](https://r4gdsa.netlify.app/chap02.html)
