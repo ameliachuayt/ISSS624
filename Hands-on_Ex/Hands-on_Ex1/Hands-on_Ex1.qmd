@@ -910,3 +910,9 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
             frame = FALSE) +
   tm_borders(alpha = 0.5)
 ```
+
+## 3 References
+
+-   R for Geospatial Data Science and Analytics - [Chapter 1: Geospatial Data Wrangling with R](https://r4gdsa.netlify.app/chap01.html)
+
+-   R for Geospatial Data Science and Analytics - [Chapter 2: Choropleth Mapping with R](https://r4gdsa.netlify.app/chap02.html)
