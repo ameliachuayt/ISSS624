@@ -220,6 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#plotting-choropleth-quickly-using-qtm" id="toc-plotting-choropleth-quickly-using-qtm" class="nav-link" data-scroll-target="#plotting-choropleth-quickly-using-qtm">2.4.1 Plotting choropleth quickly using <em>qtm()</em></a></li>
   <li><a href="#creating-choropleth-map-using-tmaps-elements" id="toc-creating-choropleth-map-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-choropleth-map-using-tmaps-elements">2.4.2 Creating choropleth map using tmap’s elements</a></li>
   <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap">2.4.3 Data classification methods of <strong>tmap</strong></a></li>
+  <li><a href="#colour-scheme" id="toc-colour-scheme" class="nav-link" data-scroll-target="#colour-scheme">2.4.4 Colour Scheme</a></li>
   <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts">2.4.5 Map Layouts</a></li>
   <li><a href="#drawing-small-multiple-choropleth-maps-of-facet-maps" id="toc-drawing-small-multiple-choropleth-maps-of-facet-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps-of-facet-maps">2.4.6 Drawing Small Multiple Choropleth Maps of Facet Maps</a></li>
   <li><a href="#mappping-spatial-object-meeting-a-selection-criterion" id="toc-mappping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mappping-spatial-object-meeting-a-selection-criterion">2.4.7 Mappping Spatial Object Meeting a Selection Criterion</a></li>
@@ -1204,9 +1205,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="section" class="level4">
-<h4 class="anchored" data-anchor-id="section"></h4>
-<p>2.4.2.3 Drawing a choropleth map using <em>tm_fill()</em> and <em>tm_border</em>()</p>
+<section id="drawing-a-choropleth-map-using-tm_fill-and-tm_border" class="level4">
+<h4 class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_fill-and-tm_border">2.4.2.3 Drawing a choropleth map using <em>tm_fill()</em> and <em>tm_border</em>()</h4>
 <ul>
 <li><p>tm_fill(): shades the polygons using the default colour scheme</p></li>
 <li><p><em>tm_border():</em> Add borders to the polygons. The arguments are as follows:</p>
@@ -1291,8 +1291,8 @@ dbl (2): Pop, Time
 </div>
 <p>Unsurprisingly, we can see that as the number of classes increases, the more distributed the data is. Although the differences between the chart diminishes as the number of classes increase–for e.g., classes 10 and 20 are quite similar.</p>
 </section>
-<section id="section-1" class="level4">
-<h4 class="anchored" data-anchor-id="section-1"></h4>
+<section id="section" class="level4">
+<h4 class="anchored" data-anchor-id="section"></h4>
 <p>2.4.3.2 Plotting choropleth map with custom break</p>
 <p>We can set breakpoints using the <em>breaks</em> argument in <em>tm_fill().</em> For <strong>tmap</strong>, breaks include a minimum and maximum. Therefore, to have n categories, n+1 elements must be specified in <strong>ascending order</strong>.</p>
 <p>First, some descriptive stats</p>
@@ -1316,9 +1316,11 @@ dbl (2): Pop, Time
 <p><img src="Hands-on_Ex1_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>2.4.4 Colour Scheme</p>
-<p><strong>tmap</strong> supports colour ramps either defined by the user or a set of predefined colour ramps from the <strong>RColorBrewer</strong> package</p>
 </section>
+</section>
+<section id="colour-scheme" class="level3">
+<h3 class="anchored" data-anchor-id="colour-scheme">2.4.4 Colour Scheme</h3>
+<p><strong>tmap</strong> supports colour ramps either defined by the user or a set of predefined colour ramps from the <strong>RColorBrewer</strong> package</p>
 <section id="using-colorbrewer-palette" class="level4">
 <h4 class="anchored" data-anchor-id="using-colorbrewer-palette">2.4.4.1 Using <strong>ColorBrewer</strong> Palette</h4>
 <p>To change the colour palette, we assign the preferred colour to <em>palette</em> argument of <em>tm_fill()</em> as shown below.</p>
@@ -1420,7 +1422,7 @@ dbl (2): Pop, Time
 <p><img src="Hands-on_Ex1_files/figure-html/unnamed-chunk-59-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>To reset to the default style, use the below.</p>
+<p>To reset to the default style, use the below code chunk.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_style</span>(<span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">

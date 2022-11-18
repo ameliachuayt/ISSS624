@@ -801,7 +801,7 @@ tm_shape(mpsz_pop2020) +
              position = c("left", "bottom"))
 ```
 
-To reset to the default style, use the below.
+To reset to the default style, use the below code chunk.
 
 ```{r}
 tmap_style("white")
