@@ -1,0 +1,6 @@
+---
+title: "Hands-on Exercises"
+editor: visual
+---
+
+This is the section page where you may easily navigate to all the hands-on exercises that I have done.

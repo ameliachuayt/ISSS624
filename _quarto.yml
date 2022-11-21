@@ -4,16 +4,31 @@ project:
 website:
   title: "ISSS624"
   navbar:
+    background: primary
+    search: true
     left: 
-      - text: Hands-on Exercises
+      - text: "Hand-on Exercises"
         menu: 
           - text: Hands-on Exercise 1
-            href: Hands-on_Ex\\Hands-on_Ex1\\Hands-on_Ex1.qmd
+            href: Exercises\\Hands-on_Ex1\\Hands-on_Ex1.qmd
+      - text: "In-class Exercises"
+        menu: 
+          - text: In-class Exercise 1
+            href: Exercises\\In-class_Ex1\\In-class_Ex1.qmd
     right:
       - href: index.qmd
         text: Home
-      - about.qmd
-
+      - text: "About" 
+        file: about.qmd
+        
+    # sidebar:
+    #   - title: "About"
+    #     style: "docked"
+    #     background: light
+    #     #collapse-level: 2
+    #     contents:
+    #       - hands-on.qmd
+    #       - Exercises\\Hands-on_Ex1\\Hands-on_Ex1.qmd
 format:
   html:
     theme: cosmo

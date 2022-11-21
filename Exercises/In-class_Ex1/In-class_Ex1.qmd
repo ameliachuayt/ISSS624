@@ -1,0 +1,78 @@
+---
+title: "In-class Exercise 1"
+editor: visual
+number-sections: true
+---
+
+## Overview
+
+In this in-class exercise, I learned how to compute spatial weights using R. Detailed objectives are as follows::
+
+-   import geospatial data using appropriate function(s) of **sf** package,
+
+-   import csv file using appropriate function of **readr** package,
+
+-   perform relational join using appropriate join function of **dplyr** package,
+
+-   compute spatial weights using appropriate functions of **spdep** package, and
+
+-   calculate spatially lagged variables using appropriate functions of **spdep** package.
+
+## Study Area and Data
+
+Two data sets will be used in this hands-on exercise, they are:
+
+-   Hunan county boundary layer. This is a geospatial data set in ESRI shapefile format.
+
+-   Hunan_2012.csv: This csv file contains selected Hunan\'s local development indicators in 2012.
+
+## Getting Started
+
+The code chunk below will install and load **sf**, **spdep**, **tmap** and **tidyverse** packages.
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse)
+```
+
+## Import Data into R Environment
+
+### Importing shape file into R
+
+The code chunk below will import ESRI shape file into R.
+
+```{r}
+hunan <- st_read(dsn = "data\\geospatial",
+                layer = "Hunan")
+```
+
+The output shows that there are 88 multipolygon features and 7 fields.
+
+### Import csv file into R
+
+The code chunk below uses *read_csv()* of **readr** package to import `Hunan_2012` csv file into R. The output R object is called `hunan_2012` and is in R dataframe class.
+
+```{r}
+
+hunan2012<- read_csv("data/aspatial/Hunan_2012.csv")
+```
+
+### Performing relational join
+
+The code chunk below will be used to update the attribute table of hunan's SpatialPolygonsDataFrame with the attribute fields of hunan2012 dataframe. This is performed by using *left_join()* of **dplyr** package.
+
+```{r}
+hunan <- left_join(hunan, hunan2012)
+```
+
+### Visualising Regional Development Indicator
+
+I am going to prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using *gtm()* of **tmap** package. GDPPC refers to Gross Domestic Product per capita. *qtm()* allows us to plot thematic maps quickly.
+
+```{r}
+basemap <- tm_shape(hunan) + 
+  tm_polygons() +
+  tm_text("NAME_3", size = 0.5)
+
+gdppc <- qtm(hunan, "GDPPC")
+tmap_arrange(basemap,gdppc, asp = 1, ncol = 2)
+```
