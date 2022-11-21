@@ -222,5 +222,12 @@
     "title": "Hands-on Exercise 1: Geospatial Data Wrangling and Choropleth Mapping with R",
     "section": "2.1 Overview of Choropleth Mapping with R",
     "text": "2.1 Overview of Choropleth Mapping with R\nIn the second of this two-part hands-on exercise, I learned how to plot functional and truthful choropleth maps by using an R package called tmap package.\nChoropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary."
+  },
+  {
+    "objectID": "Exercises/Hands-on_Ex2/Hands-on_Ex2.html",
+    "href": "Exercises/Hands-on_Ex2/Hands-on_Ex2.html",
+    "title": "Global and Local Measures of Spatial Autocorrelation",
+    "section": "",
+    "text": "Hello"
   }
 ]
