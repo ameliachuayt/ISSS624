@@ -11,10 +11,15 @@ website:
         menu: 
           - text: Hands-on Exercise 1
             href: Exercises\\Hands-on_Ex1\\Hands-on_Ex1.qmd
+          - text: Hands-on Exercise 2
+            #href:
       - text: "In-class Exercises"
         menu: 
           - text: In-class Exercise 1
             href: Exercises\\In-class_Ex1\\In-class_Ex1.qmd
+      - text: "Take Home Exercises"
+        menu: 
+          - text: Take Home Exercise 1
     right:
       - href: index.qmd
         text: Home

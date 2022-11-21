@@ -160,6 +160,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>  
     </ul>
   </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercises" role="button" data-bs-toggle="dropdown" aria-expanded="false">Take Home Exercises</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercises">    
+        <li class="dropdown-header">Take Home Exercise 1</li>
+    </ul>
+  </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -183,58 +189,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview-of-part-i" id="toc-overview-of-part-i" class="nav-link active" data-scroll-target="#overview-of-part-i">1.1 Overview of Part I</a></li>
-  <li><a href="#data-acquisition" id="toc-data-acquisition" class="nav-link" data-scroll-target="#data-acquisition">1.2 Data Acquisition</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1.3 Getting Started</a></li>
-  <li><a href="#import-geospatial-data" id="toc-import-geospatial-data" class="nav-link" data-scroll-target="#import-geospatial-data">1.4 Import Geospatial Data</a>
+  <li><a href="#geospatial-data-wrangling" id="toc-geospatial-data-wrangling" class="nav-link active" data-scroll-target="#geospatial-data-wrangling"><span class="toc-section-number">1</span>  Geospatial Data Wrangling</a>
   <ul class="collapse">
-  <li><a href="#import-polygon-feature-date-in-shapefile-format" id="toc-import-polygon-feature-date-in-shapefile-format" class="nav-link" data-scroll-target="#import-polygon-feature-date-in-shapefile-format">1.4.1 Import polygon feature date in shapefile format</a></li>
-  <li><a href="#import-polyline-feature-data-in-shapefile-form" id="toc-import-polyline-feature-data-in-shapefile-form" class="nav-link" data-scroll-target="#import-polyline-feature-data-in-shapefile-form">1.4.2 Import polyline feature data in shapefile form</a></li>
-  <li><a href="#import-gis-data-in-kml-format" id="toc-import-gis-data-in-kml-format" class="nav-link" data-scroll-target="#import-gis-data-in-kml-format">1.4.3 Import GIS data in kml format</a></li>
-  </ul></li>
-  <li><a href="#checking-the-content-of-a-simple-feature-data-frame" id="toc-checking-the-content-of-a-simple-feature-data-frame" class="nav-link" data-scroll-target="#checking-the-content-of-a-simple-feature-data-frame">1.5 Checking the Content of A Simple Feature Data Frame</a>
+  <li><a href="#overview-of-geospatial-data-wrangling" id="toc-overview-of-geospatial-data-wrangling" class="nav-link" data-scroll-target="#overview-of-geospatial-data-wrangling"><span class="toc-section-number">1.1</span>  Overview of Geospatial Data Wrangling</a></li>
+  <li><a href="#data-acquisition" id="toc-data-acquisition" class="nav-link" data-scroll-target="#data-acquisition"><span class="toc-section-number">1.2</span>  Data Acquisition</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started"><span class="toc-section-number">1.3</span>  Getting Started</a></li>
+  <li><a href="#import-geospatial-data" id="toc-import-geospatial-data" class="nav-link" data-scroll-target="#import-geospatial-data"><span class="toc-section-number">1.4</span>  Import Geospatial Data</a>
   <ul class="collapse">
-  <li><a href="#working-with-st_geometry" id="toc-working-with-st_geometry" class="nav-link" data-scroll-target="#working-with-st_geometry">1.5.1 Working with <em>st_geometry()</em></a></li>
-  <li><a href="#working-with-glimpse." id="toc-working-with-glimpse." class="nav-link" data-scroll-target="#working-with-glimpse.">1.5.2 Working with <em>glimpse().</em></a></li>
-  <li><a href="#working-with-head" id="toc-working-with-head" class="nav-link" data-scroll-target="#working-with-head">1.5.3 Working with <em>head()</em></a></li>
+  <li><a href="#import-polygon-feature-date-in-shapefile-format" id="toc-import-polygon-feature-date-in-shapefile-format" class="nav-link" data-scroll-target="#import-polygon-feature-date-in-shapefile-format"><span class="toc-section-number">1.4.1</span>  Import polygon feature date in shapefile format</a></li>
+  <li><a href="#import-polyline-feature-data-in-shapefile-form" id="toc-import-polyline-feature-data-in-shapefile-form" class="nav-link" data-scroll-target="#import-polyline-feature-data-in-shapefile-form"><span class="toc-section-number">1.4.2</span>  Import polyline feature data in shapefile form</a></li>
+  <li><a href="#import-gis-data-in-kml-format" id="toc-import-gis-data-in-kml-format" class="nav-link" data-scroll-target="#import-gis-data-in-kml-format"><span class="toc-section-number">1.4.3</span>  Import GIS data in kml format</a></li>
   </ul></li>
-  <li><a href="#plotting-the-geospatial-data" id="toc-plotting-the-geospatial-data" class="nav-link" data-scroll-target="#plotting-the-geospatial-data">1.6 Plotting the Geospatial Data</a></li>
-  <li><a href="#working-with-projection" id="toc-working-with-projection" class="nav-link" data-scroll-target="#working-with-projection">1.7 Working with Projection</a>
+  <li><a href="#checking-the-content-of-a-simple-feature-data-frame" id="toc-checking-the-content-of-a-simple-feature-data-frame" class="nav-link" data-scroll-target="#checking-the-content-of-a-simple-feature-data-frame"><span class="toc-section-number">1.5</span>  Checking the Content of A Simple Feature Data Frame</a>
   <ul class="collapse">
-  <li><a href="#assigning-epsg-code-to-a-simple-feature-data-frame" id="toc-assigning-epsg-code-to-a-simple-feature-data-frame" class="nav-link" data-scroll-target="#assigning-epsg-code-to-a-simple-feature-data-frame">1.7.1 Assigning EPSG code to a simple feature data frame</a></li>
-  <li><a href="#transforming-the-projection-of-preschool-from-wgs84-to-svy21" id="toc-transforming-the-projection-of-preschool-from-wgs84-to-svy21" class="nav-link" data-scroll-target="#transforming-the-projection-of-preschool-from-wgs84-to-svy21">1.7.2 Transforming the projection of preschool from wgs84 to svy21</a></li>
+  <li><a href="#working-with-st_geometry" id="toc-working-with-st_geometry" class="nav-link" data-scroll-target="#working-with-st_geometry"><span class="toc-section-number">1.5.1</span>  Working with <em>st_geometry()</em></a></li>
+  <li><a href="#working-with-glimpse." id="toc-working-with-glimpse." class="nav-link" data-scroll-target="#working-with-glimpse."><span class="toc-section-number">1.5.2</span>  Working with <em>glimpse().</em></a></li>
+  <li><a href="#working-with-head" id="toc-working-with-head" class="nav-link" data-scroll-target="#working-with-head"><span class="toc-section-number">1.5.3</span>  Working with <em>head()</em></a></li>
   </ul></li>
-  <li><a href="#importing-and-converting-aspatial-data" id="toc-importing-and-converting-aspatial-data" class="nav-link" data-scroll-target="#importing-and-converting-aspatial-data">1.8 Importing and Converting Aspatial Data</a>
+  <li><a href="#plotting-the-geospatial-data" id="toc-plotting-the-geospatial-data" class="nav-link" data-scroll-target="#plotting-the-geospatial-data"><span class="toc-section-number">1.6</span>  Plotting the Geospatial Data</a></li>
+  <li><a href="#working-with-projection" id="toc-working-with-projection" class="nav-link" data-scroll-target="#working-with-projection"><span class="toc-section-number">1.7</span>  Working with Projection</a>
   <ul class="collapse">
-  <li><a href="#importing-aspatial-data" id="toc-importing-aspatial-data" class="nav-link" data-scroll-target="#importing-aspatial-data">1.8.1 Importing aspatial data</a></li>
-  <li><a href="#create-simple-feature-dataframe-from-aspatial-dataframe" id="toc-create-simple-feature-dataframe-from-aspatial-dataframe" class="nav-link" data-scroll-target="#create-simple-feature-dataframe-from-aspatial-dataframe">1.8.2 Create simple feature dataframe from aspatial dataframe</a></li>
+  <li><a href="#assigning-epsg-code-to-a-simple-feature-data-frame" id="toc-assigning-epsg-code-to-a-simple-feature-data-frame" class="nav-link" data-scroll-target="#assigning-epsg-code-to-a-simple-feature-data-frame"><span class="toc-section-number">1.7.1</span>  Assigning EPSG code to a simple feature data frame</a></li>
+  <li><a href="#transforming-the-projection-of-preschool-from-wgs84-to-svy21" id="toc-transforming-the-projection-of-preschool-from-wgs84-to-svy21" class="nav-link" data-scroll-target="#transforming-the-projection-of-preschool-from-wgs84-to-svy21"><span class="toc-section-number">1.7.2</span>  Transforming the projection of preschool from wgs84 to svy21</a></li>
   </ul></li>
-  <li><a href="#geo-processing-with-sf-package" id="toc-geo-processing-with-sf-package" class="nav-link" data-scroll-target="#geo-processing-with-sf-package">1.9 Geo-processing with sf package</a>
+  <li><a href="#importing-and-converting-aspatial-data" id="toc-importing-and-converting-aspatial-data" class="nav-link" data-scroll-target="#importing-and-converting-aspatial-data"><span class="toc-section-number">1.8</span>  Importing and Converting Aspatial Data</a>
   <ul class="collapse">
-  <li><a href="#buffering" id="toc-buffering" class="nav-link" data-scroll-target="#buffering">1.9.1 Buffering</a></li>
-  <li><a href="#point-in-polygon-count" id="toc-point-in-polygon-count" class="nav-link" data-scroll-target="#point-in-polygon-count">1.9.2 Point-in-polygon Count</a></li>
+  <li><a href="#importing-aspatial-data" id="toc-importing-aspatial-data" class="nav-link" data-scroll-target="#importing-aspatial-data"><span class="toc-section-number">1.8.1</span>  Importing aspatial data</a></li>
+  <li><a href="#create-simple-feature-dataframe-from-aspatial-dataframe" id="toc-create-simple-feature-dataframe-from-aspatial-dataframe" class="nav-link" data-scroll-target="#create-simple-feature-dataframe-from-aspatial-dataframe"><span class="toc-section-number">1.8.2</span>  Create simple feature dataframe from aspatial dataframe</a></li>
   </ul></li>
-  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda">1.10 Exploratory Data Analysis (EDA)</a></li>
-  <li><a href="#overview-of-part-ii" id="toc-overview-of-part-ii" class="nav-link" data-scroll-target="#overview-of-part-ii">2.1 Overview Of Part II</a></li>
-  <li><a href="#data-acquisition-1" id="toc-data-acquisition-1" class="nav-link" data-scroll-target="#data-acquisition-1">2.2 Data Acquisition</a></li>
-  <li><a href="#getting-started-importing-data" id="toc-getting-started-importing-data" class="nav-link" data-scroll-target="#getting-started-importing-data">2.3 Getting Started &amp; Importing Data</a></li>
-  <li><a href="#getting-started-1" id="toc-getting-started-1" class="nav-link" data-scroll-target="#getting-started-1">2.3.1 Getting Started</a></li>
-  <li><a href="#importing-geospatial-data-into-r" id="toc-importing-geospatial-data-into-r" class="nav-link" data-scroll-target="#importing-geospatial-data-into-r">2.3.2 Importing Geospatial Data into R</a>
+  <li><a href="#geo-processing-with-sf-package" id="toc-geo-processing-with-sf-package" class="nav-link" data-scroll-target="#geo-processing-with-sf-package"><span class="toc-section-number">1.9</span>  Geo-processing with sf package</a>
   <ul class="collapse">
-  <li><a href="#import-attribute-data" id="toc-import-attribute-data" class="nav-link" data-scroll-target="#import-attribute-data">2.3.3 Import Attribute Data</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">2.3.4 Data Preparation</a></li>
+  <li><a href="#buffering" id="toc-buffering" class="nav-link" data-scroll-target="#buffering"><span class="toc-section-number">1.9.1</span>  Buffering</a></li>
+  <li><a href="#point-in-polygon-count" id="toc-point-in-polygon-count" class="nav-link" data-scroll-target="#point-in-polygon-count"><span class="toc-section-number">1.9.2</span>  Point-in-polygon Count</a></li>
   </ul></li>
-  <li><a href="#choropleth-mapping-geospatial-data-using-tmap-package" id="toc-choropleth-mapping-geospatial-data-using-tmap-package" class="nav-link" data-scroll-target="#choropleth-mapping-geospatial-data-using-tmap-package">2.4 Choropleth Mapping Geospatial Data Using tmap package</a>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><span class="toc-section-number">1.10</span>  Exploratory Data Analysis (EDA)</a></li>
+  </ul></li>
+  <li><a href="#choropleth-mapping-with-r" id="toc-choropleth-mapping-with-r" class="nav-link" data-scroll-target="#choropleth-mapping-with-r"><span class="toc-section-number">2</span>  Choropleth Mapping with R</a>
   <ul class="collapse">
-  <li><a href="#plotting-choropleth-quickly-using-qtm" id="toc-plotting-choropleth-quickly-using-qtm" class="nav-link" data-scroll-target="#plotting-choropleth-quickly-using-qtm">2.4.1 Plotting choropleth quickly using <em>qtm()</em></a></li>
-  <li><a href="#creating-choropleth-map-using-tmaps-elements" id="toc-creating-choropleth-map-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-choropleth-map-using-tmaps-elements">2.4.2 Creating choropleth map using tmap’s elements</a></li>
-  <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap">2.4.3 Data classification methods of <strong>tmap</strong></a></li>
-  <li><a href="#colour-scheme" id="toc-colour-scheme" class="nav-link" data-scroll-target="#colour-scheme">2.4.4 Colour Scheme</a></li>
-  <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts">2.4.5 Map Layouts</a></li>
-  <li><a href="#drawing-small-multiple-choropleth-maps-of-facet-maps" id="toc-drawing-small-multiple-choropleth-maps-of-facet-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps-of-facet-maps">2.4.6 Drawing Small Multiple Choropleth Maps of Facet Maps</a></li>
-  <li><a href="#mappping-spatial-object-meeting-a-selection-criterion" id="toc-mappping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mappping-spatial-object-meeting-a-selection-criterion">2.4.7 Mappping Spatial Object Meeting a Selection Criterion</a></li>
+  <li><a href="#overview-of-choropleth-mapping-with-r" id="toc-overview-of-choropleth-mapping-with-r" class="nav-link" data-scroll-target="#overview-of-choropleth-mapping-with-r"><span class="toc-section-number">2.1</span>  Overview of Choropleth Mapping with R</a></li>
+  <li><a href="#data-acquisition-1" id="toc-data-acquisition-1" class="nav-link" data-scroll-target="#data-acquisition-1"><span class="toc-section-number">2.2</span>  Data Acquisition</a></li>
+  <li><a href="#getting-started-importing-data" id="toc-getting-started-importing-data" class="nav-link" data-scroll-target="#getting-started-importing-data"><span class="toc-section-number">2.3</span>  Getting Started &amp; Importing Data</a></li>
+  <li><a href="#getting-started-1" id="toc-getting-started-1" class="nav-link" data-scroll-target="#getting-started-1"><span class="toc-section-number">2.4</span>  Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#importing-geospatial-data-into-r" id="toc-importing-geospatial-data-into-r" class="nav-link" data-scroll-target="#importing-geospatial-data-into-r"><span class="toc-section-number">2.4.1</span>  Importing Geospatial Data into R</a></li>
+  <li><a href="#import-attribute-data" id="toc-import-attribute-data" class="nav-link" data-scroll-target="#import-attribute-data"><span class="toc-section-number">2.4.2</span>  Import Attribute Data</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation"><span class="toc-section-number">2.4.3</span>  Data Preparation</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">3 References</a></li>
+  <li><a href="#choropleth-mapping-geospatial-data-using-tmap-package" id="toc-choropleth-mapping-geospatial-data-using-tmap-package" class="nav-link" data-scroll-target="#choropleth-mapping-geospatial-data-using-tmap-package"><span class="toc-section-number">2.5</span>  Choropleth Mapping Geospatial Data Using tmap package</a>
+  <ul class="collapse">
+  <li><a href="#plotting-choropleth-quickly-using-qtm" id="toc-plotting-choropleth-quickly-using-qtm" class="nav-link" data-scroll-target="#plotting-choropleth-quickly-using-qtm"><span class="toc-section-number">2.5.1</span>  Plotting choropleth quickly using <em>qtm()</em></a></li>
+  <li><a href="#creating-choropleth-map-using-tmaps-elements" id="toc-creating-choropleth-map-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-choropleth-map-using-tmaps-elements"><span class="toc-section-number">2.5.2</span>  Creating choropleth map using tmap’s elements</a></li>
+  <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap"><span class="toc-section-number">2.5.3</span>  Data classification methods of <strong>tmap</strong></a></li>
+  <li><a href="#colour-scheme" id="toc-colour-scheme" class="nav-link" data-scroll-target="#colour-scheme"><span class="toc-section-number">2.5.4</span>  Colour Scheme</a></li>
+  <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts"><span class="toc-section-number">2.5.5</span>  Map Layouts</a></li>
+  <li><a href="#drawing-small-multiple-choropleth-maps-of-facet-maps" id="toc-drawing-small-multiple-choropleth-maps-of-facet-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps-of-facet-maps"><span class="toc-section-number">2.5.6</span>  Drawing Small Multiple Choropleth Maps of Facet Maps</a></li>
+  <li><a href="#mappping-spatial-object-meeting-a-selection-criterion" id="toc-mappping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mappping-spatial-object-meeting-a-selection-criterion"><span class="toc-section-number">2.5.7</span>  Mappping Spatial Object Meeting a Selection Criterion</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="toc-section-number">3</span>  References</a></li>
   </ul>
 </nav>
     </div>
@@ -257,12 +269,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="overview-of-part-i" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-part-i">1.1 Overview of Part I</h2>
+<p>There are two parts in this hands-on exercise:</p>
+<ul>
+<li><p>Geospatial Data Wrangling</p></li>
+<li><p>Choropleth Mapping with R</p></li>
+</ul>
+<section id="geospatial-data-wrangling" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Geospatial Data Wrangling</h1>
+<section id="overview-of-geospatial-data-wrangling" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="overview-of-geospatial-data-wrangling"><span class="header-section-number">1.1</span> Overview of Geospatial Data Wrangling</h2>
 <p>In the first of this two-part hands-on exercise, I learned how to import, and wrangle geospatial data using appropriate R packages.</p>
 </section>
-<section id="data-acquisition" class="level2">
-<h2 class="anchored" data-anchor-id="data-acquisition">1.2 Data Acquisition</h2>
+<section id="data-acquisition" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="data-acquisition"><span class="header-section-number">1.2</span> Data Acquisition</h2>
 <p>Data are key to data analytics including geospatial analytics. Hence, before analysing, we need to assemble the necessary data. For this hands-on exercise, data sets were extracted from the following sources:</p>
 <ul>
 <li><p>Master Plan 2014 Subzone Boundary (Web) from <a href="https://data.gov.sg/">data.gov.sg</a></p></li>
@@ -271,8 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Latest version of Singapore Airbnb listing data from <a href="http://insideairbnb.com/get-the-data.html">Inside Airbnb</a></p></li>
 </ul>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">1.3 Getting Started</h2>
+<section id="getting-started" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="getting-started"><span class="header-section-number">1.3</span> Getting Started</h2>
 <p>The code chunk below installs and loads sf and tidyverse packages into R environment. <a href="https://cran.r-project.org/web/packages/pacman/readme/README.html"><em>pacman()</em></a> is a R package management tool. It provides intuitively named functions for the base functions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -288,16 +307,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="import-geospatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="import-geospatial-data">1.4 Import Geospatial Data</h2>
+<section id="import-geospatial-data" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="import-geospatial-data"><span class="header-section-number">1.4</span> Import Geospatial Data</h2>
 <p>In this section, I learned how to import the following geospatial data into R by using <a href="https://r-spatial.github.io/sf/reference/st_read.html"><em>st_read()</em></a> of <strong>sf</strong> package:</p>
 <ul>
 <li><p><code>MP14_SUBZONE_WEB_PL</code>, a <strong>polygon feature layer</strong> in ESRI shapefile format,</p></li>
 <li><p><code>CyclingPath</code>, a <strong>line feature layer</strong> in ESRI shapefile format, and</p></li>
 <li><p><code>PreSchool</code>, a <strong>point feature layer</strong> in kml file format.</p></li>
 </ul>
-<section id="import-polygon-feature-date-in-shapefile-format" class="level3">
-<h3 class="anchored" data-anchor-id="import-polygon-feature-date-in-shapefile-format">1.4.1 Import polygon feature date in shapefile format</h3>
+<section id="import-polygon-feature-date-in-shapefile-format" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="import-polygon-feature-date-in-shapefile-format"><span class="header-section-number">1.4.1</span> Import polygon feature date in shapefile format</h3>
 <p>The code chunk below uses <em>st_read()</em> function of <strong>sf</strong> package to import <code>MP14_SUBZONE_WEB_PL</code> shapefile into R as a polygon feature data frame.</p>
 <p>When the input geospatial data is in shapefile format (<em>.shp</em>), two arguments will be used: <code>dsn</code> to define the data path and <code>layer</code> to provide the shapefile name. No extensions such as .shp, .dbf, .prj and .shx are reqquired.</p>
 <div class="cell">
@@ -316,8 +335,8 @@ Projected CRS: SVY21</code></pre>
 </div>
 <p>The output shows that there are 323 multipolygon features and 15 fields. The Bounding box provides the x extend and y extend of the data.</p>
 </section>
-<section id="import-polyline-feature-data-in-shapefile-form" class="level3">
-<h3 class="anchored" data-anchor-id="import-polyline-feature-data-in-shapefile-form">1.4.2 Import polyline feature data in shapefile form</h3>
+<section id="import-polyline-feature-data-in-shapefile-form" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="import-polyline-feature-data-in-shapefile-form"><span class="header-section-number">1.4.2</span> Import polyline feature data in shapefile form</h3>
 <p>The code chunk below uses <em>st_read()</em> function of <strong>sf</strong> package to import <code>CyclingPath</code> shapefile into R as a <strong>line feature</strong> data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cyclingpath <span class="ot">=</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">"data</span><span class="sc">\\</span><span class="st">geospatial"</span>,</span>
@@ -335,8 +354,8 @@ Projected CRS: SVY21</code></pre>
 </div>
 <p>The output shows that there are 1625 features and 2 fields in <code>CyclingPath</code> linestring feature data frame and it is in <strong>svy21</strong> projected coordinates system.</p>
 </section>
-<section id="import-gis-data-in-kml-format" class="level3">
-<h3 class="anchored" data-anchor-id="import-gis-data-in-kml-format">1.4.3 Import GIS data in kml format</h3>
+<section id="import-gis-data-in-kml-format" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="import-gis-data-in-kml-format"><span class="header-section-number">1.4.3</span> Import GIS data in kml format</h3>
 <p>The code chunk below uses <em>st_read()</em> function of <strong>sf</strong> package to import <code>pre-schools-location-kml</code> kml file into R as a <strong>point feature</strong> layer. Since we are dealing with a kml file, instead of specifying <code>dsn</code> and <code>layer</code>, we specify the complete path and file extension.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>preschool <span class="ot">=</span> <span class="fu">st_read</span>(<span class="st">"data</span><span class="sc">\\</span><span class="st">geospatial</span><span class="sc">\\</span><span class="st">pre-schools-location-kml.kml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -355,11 +374,11 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>The output reveals that <code>preschool</code> is a point feature data frame (see “Geometry type: POINT’”). There are a total of 1359 features and 2 fields. Different from the previous two simple feature data frame, preschool is in wgs84 coordinates system (see “Geodetic CRS: WGS 84”).</p>
 </section>
 </section>
-<section id="checking-the-content-of-a-simple-feature-data-frame" class="level2">
-<h2 class="anchored" data-anchor-id="checking-the-content-of-a-simple-feature-data-frame">1.5 Checking the Content of A Simple Feature Data Frame</h2>
+<section id="checking-the-content-of-a-simple-feature-data-frame" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="checking-the-content-of-a-simple-feature-data-frame"><span class="header-section-number">1.5</span> Checking the Content of A Simple Feature Data Frame</h2>
 <p>In the section, I learned different ways to retrieve information related to the contents of a simple feature data frame.</p>
-<section id="working-with-st_geometry" class="level3">
-<h3 class="anchored" data-anchor-id="working-with-st_geometry">1.5.1 Working with <em>st_geometry()</em></h3>
+<section id="working-with-st_geometry" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="working-with-st_geometry"><span class="header-section-number">1.5.1</span> Working with <em>st_geometry()</em></h3>
 <p>The column in the sf data.frame that contains the geometries is a list, of class <code>sfc</code>. We can retrieve the geometry list-column in this case by mpsz$geom or mpsz[[1]], but the more general way uses <em>st_geometry()</em> as shown in the code chunk below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_geometry</span>(mpsz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -389,8 +408,8 @@ First 5 geometries:</code></pre>
 </div>
 <p>The output displays basic information of the feature class such as type of geometry, the geographic extent of the features and the coordinate system of the data.</p>
 </section>
-<section id="working-with-glimpse." class="level3">
-<h3 class="anchored" data-anchor-id="working-with-glimpse.">1.5.2 Working with <em>glimpse().</em></h3>
+<section id="working-with-glimpse." class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="working-with-glimpse."><span class="header-section-number">1.5.2</span> Working with <em>glimpse().</em></h3>
 <p>To learn more about the associated attribute information in the data frame, we can use <strong><em>glimpse()</em></strong> of dplyr.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(mpsz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -418,8 +437,8 @@ $ geometry   &lt;MULTIPOLYGON [m]&gt; MULTIPOLYGON (((31495.56 30..., MULTIPOLYG
 <p>As we can see in the output, <strong><em>glimpse()</em></strong> reveals the data type of each field.</p>
 <p>For example, <code>FMEL-UPD_D</code> is in date data ‘&lt;date&gt;’, and <code>X_ADDR</code>, <code>Y_ADDR</code> are in double precision values ‘&lt;dbl&gt;’</p>
 </section>
-<section id="working-with-head" class="level3">
-<h3 class="anchored" data-anchor-id="working-with-head">1.5.3 Working with <em>head()</em></h3>
+<section id="working-with-head" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="working-with-head"><span class="header-section-number">1.5.3</span> Working with <em>head()</em></h3>
 <p>Sometimes, we would like to examine complete information of a feature object. We can use <a href="https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/head"><em>head()</em></a> of Base R to achieve this. The argument <code>n</code> allows us to indicate the number of records to display.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mpsz, <span class="at">n=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -451,8 +470,8 @@ Projected CRS: SVY21
 </div>
 </section>
 </section>
-<section id="plotting-the-geospatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-the-geospatial-data">1.6 Plotting the Geospatial Data</h2>
+<section id="plotting-the-geospatial-data" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="plotting-the-geospatial-data"><span class="header-section-number">1.6</span> Plotting the Geospatial Data</h2>
 <p>In geospatial analytics, we are definitely interested to visualise geospatial features. <em>plot()</em> provides a quick and simply way to visualise the data at hand.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpsz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -481,11 +500,11 @@ all</code></pre>
 </div>
 <p>As mentioned earlier, <em>plot()</em> is meant for plotting the geospatial object for quick look. For high cartographic quality plot with more customisation options, tmap or other packages should be used.</p>
 </section>
-<section id="working-with-projection" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-projection">1.7 Working with Projection</h2>
+<section id="working-with-projection" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="working-with-projection"><span class="header-section-number">1.7</span> Working with Projection</h2>
 <p>In order to perform geoprocessing using two geospatial data, we need to ensure that both geospatial data are projected using similar coordinate system. <strong>Projection Transformation</strong> is the process of projecting a simple feature data frame from one coordinate system to another coordinate system.</p>
-<section id="assigning-epsg-code-to-a-simple-feature-data-frame" class="level3">
-<h3 class="anchored" data-anchor-id="assigning-epsg-code-to-a-simple-feature-data-frame">1.7.1 Assigning EPSG code to a simple feature data frame</h3>
+<section id="assigning-epsg-code-to-a-simple-feature-data-frame" class="level3" data-number="1.7.1">
+<h3 data-number="1.7.1" class="anchored" data-anchor-id="assigning-epsg-code-to-a-simple-feature-data-frame"><span class="header-section-number">1.7.1</span> Assigning EPSG code to a simple feature data frame</h3>
 <p><a href="https://support.virtual-surveyor.com/en/support/solutions/articles/1000261353-what-is-an-epsg-code-#:~:text=EPSG%20stands%20for%20European%20Petroleum,spheroids%2C%20units%20and%20such%20alike.">EPSG</a> stands for European Petroleum Survey Group and is an organisation that maintains a public registry of geodetic parameter database with standard codes–the EPSG codes.</p>
 <p>One common issue faced during importing geospatial data into R is that the coordinate system of the source data was either missing (such as due to missing .proj for ESRI shapefile) or wrongly assigned during the importing process.</p>
 <p>We can examine the coordinate system of <code>mpsz</code> simple feature data frame by using <em>st_crs()</em> of <em>sf</em> package as shown in the code chunk below.</p>
@@ -590,8 +609,8 @@ PROJCRS["SVY21 / Singapore TM",
 </div>
 <p>Note that the EPSG code is 3414. See last line where “ID[”EPSG”,3414]“.</p>
 </section>
-<section id="transforming-the-projection-of-preschool-from-wgs84-to-svy21" class="level3">
-<h3 class="anchored" data-anchor-id="transforming-the-projection-of-preschool-from-wgs84-to-svy21">1.7.2 Transforming the projection of preschool from wgs84 to svy21</h3>
+<section id="transforming-the-projection-of-preschool-from-wgs84-to-svy21" class="level3" data-number="1.7.2">
+<h3 data-number="1.7.2" class="anchored" data-anchor-id="transforming-the-projection-of-preschool-from-wgs84-to-svy21"><span class="header-section-number">1.7.2</span> Transforming the projection of preschool from wgs84 to svy21</h3>
 <p>In this sub-section, we will learn how to transform original data from <strong>geographic coordinate system</strong> to <strong>projected coordinate system</strong>. We need to do this transformation because the geographic coordinate system is inappropriate if the analysis require the use of distance and/or area measurements.</p>
 <p>For the <code>preschool</code> simple feature data frame, the output of the code chunk below tells us that it is in the wgs84 coordinate system (see “Geodetic CRS: WGS 85”).</p>
 <div class="cell">
@@ -677,12 +696,12 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>While the results states that Geodetic CRS is WGS84, we can examine the dataframe and see that under <code>geometry</code> , the coordinates are no longer in wgs84 (the values are larger than 360).</p>
 </section>
 </section>
-<section id="importing-and-converting-aspatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-and-converting-aspatial-data">1.8 Importing and Converting Aspatial Data</h2>
+<section id="importing-and-converting-aspatial-data" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="importing-and-converting-aspatial-data"><span class="header-section-number">1.8</span> Importing and Converting Aspatial Data</h2>
 <p>It is common to have data such as <code>listing</code> of inside Airbnb. Such data are called aspatial data. They are not geospatial data, however, among the data fields, there are two fields that capture the x- and y- coordinates of the data points.</p>
 <p>In this section, I learned to import aspatial data in R environment and save it as a <a href="https://r4ds.had.co.nz/tibbles.html">tibble</a>data frame. Then, I will convert it into a simple feature data frame.</p>
-<section id="importing-aspatial-data" class="level3">
-<h3 class="anchored" data-anchor-id="importing-aspatial-data">1.8.1 Importing aspatial data</h3>
+<section id="importing-aspatial-data" class="level3" data-number="1.8.1">
+<h3 data-number="1.8.1" class="anchored" data-anchor-id="importing-aspatial-data"><span class="header-section-number">1.8.1</span> Importing aspatial data</h3>
 <p><code>listings.csv</code> data set is in csv format and we will use <em>read_csv()</em> of <strong>readr</strong> package to import the file. The output R object is called <code>listings</code> and is a tibble data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>listings <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data</span><span class="sc">\\</span><span class="st">aspatial</span><span class="sc">\\</span><span class="st">listings.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -749,8 +768,8 @@ $ availability_365               &lt;dbl&gt; 365, 365, 365, 365, 353, 364, 365, 
 </div>
 </div>
 </section>
-<section id="create-simple-feature-dataframe-from-aspatial-dataframe" class="level3">
-<h3 class="anchored" data-anchor-id="create-simple-feature-dataframe-from-aspatial-dataframe">1.8.2 Create simple feature dataframe from aspatial dataframe</h3>
+<section id="create-simple-feature-dataframe-from-aspatial-dataframe" class="level3" data-number="1.8.2">
+<h3 data-number="1.8.2" class="anchored" data-anchor-id="create-simple-feature-dataframe-from-aspatial-dataframe"><span class="header-section-number">1.8.2</span> Create simple feature dataframe from aspatial dataframe</h3>
 <p>The code chunk below converts <code>listing</code> data frame into a simple feature data frame by using <a href="https://r-spatial.github.io/sf/reference/st_as_sf.html"><em>st_as_sf()</em></a> of <strong>sf</strong> packages</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>listings_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(listings,</span>
@@ -791,16 +810,16 @@ $ geometry                       &lt;POINT [m]&gt; POINT (22646.02 35167.9), POI
 </div>
 </section>
 </section>
-<section id="geo-processing-with-sf-package" class="level2">
-<h2 class="anchored" data-anchor-id="geo-processing-with-sf-package">1.9 Geo-processing with sf package</h2>
+<section id="geo-processing-with-sf-package" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="geo-processing-with-sf-package"><span class="header-section-number">1.9</span> Geo-processing with sf package</h2>
 <p>Besides providing functions to handling (i.e.&nbsp;importing, exporting, assigning projection, transforming projection etc) geospatial data, <strong>sf</strong> package also offers a wide range of geoprocessing (also known as GIS analysis) functions.</p>
 <p>In this section, I learned how to perform two commonly used geoprocessing functions:</p>
 <ul>
 <li><p><a href="https://www.gislounge.com/buffers-in-gis/">buffering</a> and</p></li>
 <li><p>point in polygon count</p></li>
 </ul>
-<section id="buffering" class="level3">
-<h3 class="anchored" data-anchor-id="buffering">1.9.1 Buffering</h3>
+<section id="buffering" class="level3" data-number="1.9.1">
+<h3 data-number="1.9.1" class="anchored" data-anchor-id="buffering"><span class="header-section-number">1.9.1</span> Buffering</h3>
 <p>Buffering involves measuring the distance outward in all directions from an object. The output is a polygon.</p>
 <p>To illustrate how buffering works, how is a hypothetical scenario:</p>
 <div class="callout-note callout callout-style-simple no-icon">
@@ -835,8 +854,8 @@ $ geometry                       &lt;POINT [m]&gt; POINT (22646.02 35167.9), POI
 </div>
 </div>
 </section>
-<section id="point-in-polygon-count" class="level3">
-<h3 class="anchored" data-anchor-id="point-in-polygon-count">1.9.2 Point-in-polygon Count</h3>
+<section id="point-in-polygon-count" class="level3" data-number="1.9.2">
+<h3 data-number="1.9.2" class="anchored" data-anchor-id="point-in-polygon-count"><span class="header-section-number">1.9.2</span> Point-in-polygon Count</h3>
 <p>We can also count the frequency of observations within a polygon. To illustrate this, we have another hypothetical situation</p>
 <div class="callout-note callout callout-style-default no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -896,11 +915,11 @@ Projected CRS: SVY21 / Singapore TM
 </div>
 </section>
 </section>
-<section id="exploratory-data-analysis-eda" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda">1.10 Exploratory Data Analysis (EDA)</h2>
+<section id="exploratory-data-analysis-eda" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="exploratory-data-analysis-eda"><span class="header-section-number">1.10</span> Exploratory Data Analysis (EDA)</h2>
 <p>In this section, I learned appropriate <a href="https://ggplot2.tidyverse.org/">ggplot2</a> functions to create function yet truthful statistical graphs for EDA purposes.</p>
-<section id="distribution-of-pre-school-density-in-subzones-of-singapore-using-histograms" class="level4">
-<h4 class="anchored" data-anchor-id="distribution-of-pre-school-density-in-subzones-of-singapore-using-histograms">1.10.1 Distribution of Pre-school Density in Subzones of Singapore using Histograms</h4>
+<section id="distribution-of-pre-school-density-in-subzones-of-singapore-using-histograms" class="level4" data-number="1.10.0.1">
+<h4 data-number="1.10.0.1" class="anchored" data-anchor-id="distribution-of-pre-school-density-in-subzones-of-singapore-using-histograms"><span class="header-section-number">1.10.0.1</span> Distribution of Pre-school Density in Subzones of Singapore using Histograms</h4>
 <p>Conventionally, <em>hist()</em> of R Graphics can be used to plot a histogram of the distribution of pre-school density. While <em>hist()</em>’s syntax is easy to use, the output does not meet publication quality and it has limited room for customisation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mpsz3414<span class="sc">$</span><span class="st">`</span><span class="at">PreSch Density</span><span class="st">`</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -924,8 +943,8 @@ Projected CRS: SVY21 / Singapore TM
 </div>
 </div>
 </section>
-<section id="relationship-between-pre-school-density-and-pre-school-count-using-scatterplot" class="level4">
-<h4 class="anchored" data-anchor-id="relationship-between-pre-school-density-and-pre-school-count-using-scatterplot">1.10.2 Relationship between Pre-school Density and Pre-school Count using Scatterplot</h4>
+<section id="relationship-between-pre-school-density-and-pre-school-count-using-scatterplot" class="level4" data-number="1.10.0.2">
+<h4 data-number="1.10.0.2" class="anchored" data-anchor-id="relationship-between-pre-school-density-and-pre-school-count-using-scatterplot"><span class="header-section-number">1.10.0.2</span> Relationship between Pre-school Density and Pre-school Count using Scatterplot</h4>
 <p>DIY: Conventionally, <em>plot()</em> of R Graphics can be used to plot a scatterplot to reveal the relationship between pre-school density and pre-school count.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpsz3414<span class="sc">$</span><span class="st">`</span><span class="at">PreSch Density</span><span class="st">`</span>, mpsz3414<span class="sc">$</span><span class="st">`</span><span class="at">PreSch Count</span><span class="st">`</span>, <span class="at">main=</span><span class="st">"Pre-school Count vs Pre-school Density"</span>,</span>
@@ -950,24 +969,27 @@ Projected CRS: SVY21 / Singapore TM
 </div>
 </section>
 </section>
-<section id="overview-of-part-ii" class="level2">
-<h2 class="anchored" data-anchor-id="overview-of-part-ii">2.1 Overview Of Part II</h2>
+</section>
+<section id="choropleth-mapping-with-r" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Choropleth Mapping with R</h1>
+<section id="overview-of-choropleth-mapping-with-r" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="overview-of-choropleth-mapping-with-r"><span class="header-section-number">2.1</span> Overview of Choropleth Mapping with R</h2>
 <p>In the second of this two-part hands-on exercise, I learned how to plot functional and truthful choropleth maps by using an R package called <strong>tmap</strong> package.</p>
 <p>Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.</p>
 </section>
-<section id="data-acquisition-1" class="level2">
-<h2 class="anchored" data-anchor-id="data-acquisition-1">2.2 Data Acquisition</h2>
+<section id="data-acquisition-1" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="data-acquisition-1"><span class="header-section-number">2.2</span> Data Acquisition</h2>
 <p>Two data set will be used to create the choropleth map. They are:</p>
 <ul>
 <li><p>Master Plan 2014 Subzone Boundary (Web) (i.e.&nbsp;<code>MP14_SUBZONE_WEB_PL</code>) in ESRI shapefile format. It can be downloaded at <a href="https://data.gov.sg/">data.gov.sg</a> This is a geospatial data. It consists of the geographical boundary of Singapore at the planning subzone level. The data is based on URA Master Plan 2014.</p></li>
 <li><p>Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling, June 2011-2020 in csv format (i.e.&nbsp;<code>respopagesextod2011to2020.csv</code>). This is an aspatial data fie. It can be downloaded at <a href="https://www.singstat.gov.sg/">Department of Statistics, Singapore</a> Although it does not contain any coordinates values, but it’s PA and SZ fields can be used as unique identifiers to geocode to <code>MP14_SUBZONE_WEB_PL</code> shapefile.</p></li>
 </ul>
 </section>
-<section id="getting-started-importing-data" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started-importing-data">2.3 Getting Started &amp; Importing Data</h2>
+<section id="getting-started-importing-data" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="getting-started-importing-data"><span class="header-section-number">2.3</span> Getting Started &amp; Importing Data</h2>
 </section>
-<section id="getting-started-1" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started-1">2.3.1 Getting Started</h2>
+<section id="getting-started-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="getting-started-1"><span class="header-section-number">2.4</span> Getting Started</h2>
 <p>The key R package for this hands-on exercise is <a href="https://cran.r-project.org/web/packages/tmap/"><strong>tmap</strong></a> package in R. We will also be using four other R packages:</p>
 <ul>
 <li><p><a href="https://readr.tidyverse.org/"><strong>readr</strong></a> for importing delimited text file,</p></li>
@@ -980,9 +1002,8 @@ Projected CRS: SVY21 / Singapore TM
 <div class="cell">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tmap, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="importing-geospatial-data-into-r" class="level2">
-<h2 class="anchored" data-anchor-id="importing-geospatial-data-into-r">2.3.2 Importing Geospatial Data into R</h2>
+<section id="importing-geospatial-data-into-r" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="importing-geospatial-data-into-r"><span class="header-section-number">2.4.1</span> Importing Geospatial Data into R</h3>
 <p>We can use <em>st_read()</em> of <strong>sf</strong> package to import MP14_SUBZONE_WEB_PL shapefile in R as a simple feature data frame called <code>mpsz</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">"data</span><span class="sc">\\</span><span class="st">geospatial"</span>,</span>
@@ -1067,8 +1088,9 @@ Projected CRS: SVY21
 3   1740.926   160807.5 MULTIPOLYGON (((29932.33 29...</code></pre>
 </div>
 </div>
-<section id="import-attribute-data" class="level3">
-<h3 class="anchored" data-anchor-id="import-attribute-data">2.3.3 Import Attribute Data</h3>
+</section>
+<section id="import-attribute-data" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="import-attribute-data"><span class="header-section-number">2.4.2</span> Import Attribute Data</h3>
 <p>Next, I imported <em>respopagsex2000to2018.csv</em> file into RStudio and saved the file into an R dataframe called <em>popagsex</em> using <em>read_csv()</em> function of <strong>readr</strong> package as shown in the code chunk below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>popdata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'data</span><span class="sc">\\</span><span class="st">aspatial</span><span class="sc">\\</span><span class="st">respopagesextod2011to2020.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1084,8 +1106,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="data-preparation" class="level3">
-<h3 class="anchored" data-anchor-id="data-preparation">2.3.4 Data Preparation</h3>
+<section id="data-preparation" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">2.4.3</span> Data Preparation</h3>
 <p>I am interested to visualise population demographics in the Year 2020. Before a thematic map can be prepared, I need to prepare a data table with Year 2020 values. The following variables will be required for this tasks: <code>PA</code>, <code>SZ</code>, <code>YOUNG</code>, <code>ECONOMY ACTIVE,</code> <code>AGED</code>, <code>TOTAL</code>, <code>DEPENDENCY</code>.</p>
 <ul>
 <li><p><code>PA</code>: Planning Area</p></li>
@@ -1097,8 +1119,8 @@ dbl (2): Pop, Time
 <li><p><code>DEPENDENCY</code>: the ratio between young and aged against economy active group.</p></li>
 </ul>
 <p>As we can see, we will need to wrangle the data set and derive new columns like <code>YOUNG</code> and <code>AGED</code>.</p>
-<section id="data-wrangling" class="level4">
-<h4 class="anchored" data-anchor-id="data-wrangling">2.3.4.1 Data Wrangling</h4>
+<section id="data-wrangling" class="level4" data-number="2.4.3.1">
+<h4 data-number="2.4.3.1" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">2.4.3.1</span> Data Wrangling</h4>
 <p>The following data wrangling and transformation functions were used:</p>
 <ul>
 <li><p><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html"><em>pivot_wider()</em></a> of <strong>tidyr</strong> package, and</p>
@@ -1132,8 +1154,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="joining-attribute-data-and-geospatial-data" class="level4">
-<h4 class="anchored" data-anchor-id="joining-attribute-data-and-geospatial-data">2.3.4.2 Joining attribute data and geospatial data</h4>
+<section id="joining-attribute-data-and-geospatial-data" class="level4" data-number="2.4.3.2">
+<h4 data-number="2.4.3.2" class="anchored" data-anchor-id="joining-attribute-data-and-geospatial-data"><span class="header-section-number">2.4.3.2</span> Joining attribute data and geospatial data</h4>
 <p>We need to convert the <code>PA</code> and <code>SZ</code> values to uppercase.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>popdata2020 <span class="ot">&lt;-</span> popdata2020 <span class="sc">%&gt;%</span></span>
@@ -1163,15 +1185,15 @@ dbl (2): Pop, Time
 </section>
 </section>
 </section>
-<section id="choropleth-mapping-geospatial-data-using-tmap-package" class="level2">
-<h2 class="anchored" data-anchor-id="choropleth-mapping-geospatial-data-using-tmap-package">2.4 Choropleth Mapping Geospatial Data Using tmap package</h2>
+<section id="choropleth-mapping-geospatial-data-using-tmap-package" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="choropleth-mapping-geospatial-data-using-tmap-package"><span class="header-section-number">2.5</span> Choropleth Mapping Geospatial Data Using tmap package</h2>
 <p>There are two approaches to prepare thematic map using <em>tmap</em>, they are:</p>
 <ul>
 <li><p>Plotting a thematic map quickly by using <em>qtm()</em>.</p></li>
 <li><p>Plotting highly customisable thematic map by using tmap elements.</p></li>
 </ul>
-<section id="plotting-choropleth-quickly-using-qtm" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-choropleth-quickly-using-qtm">2.4.1 Plotting choropleth quickly using <em>qtm()</em></h3>
+<section id="plotting-choropleth-quickly-using-qtm" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="plotting-choropleth-quickly-using-qtm"><span class="header-section-number">2.5.1</span> Plotting choropleth quickly using <em>qtm()</em></h3>
 <p><em>qtm()</em> of <strong>tmap</strong> package provides a quick and concise visualisation.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">'plot'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1185,8 +1207,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="creating-choropleth-map-using-tmaps-elements" class="level3">
-<h3 class="anchored" data-anchor-id="creating-choropleth-map-using-tmaps-elements">2.4.2 Creating choropleth map using tmap’s elements</h3>
+<section id="creating-choropleth-map-using-tmaps-elements" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="creating-choropleth-map-using-tmaps-elements"><span class="header-section-number">2.5.2</span> Creating choropleth map using tmap’s elements</h3>
 <p>While <em>qtm()</em> can be used to get quick visualisation, the downside is that aesthetics of individual layers are harder to control. To get a high quality cartographic choropleth map, I will use <strong>tmap</strong>’s drawing elements.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
@@ -1211,8 +1233,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 <p>The steps to creating the above map will be detailed in this sub-section.</p>
-<section id="drawing-a-base-map" class="level4">
-<h4 class="anchored" data-anchor-id="drawing-a-base-map">2.4.2.1 Drawing a base map</h4>
+<section id="drawing-a-base-map" class="level4" data-number="2.5.2.1">
+<h4 data-number="2.5.2.1" class="anchored" data-anchor-id="drawing-a-base-map"><span class="header-section-number">2.5.2.1</span> Drawing a base map</h4>
 <p>The basic building block of <strong>tmap</strong> is <em>tm_shape()</em> followed by one or more layer elemments such as <em>tm_fill()</em> and <em>tm_polygons()</em>:</p>
 <ul>
 <li><p>tm_shape() defines the input data</p></li>
@@ -1226,8 +1248,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="drawing-a-choropleth-map-using-tm_polygons" class="level4">
-<h4 class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_polygons">2.4.2.2 Drawing a choropleth map using <em>tm_polygons()</em></h4>
+<section id="drawing-a-choropleth-map-using-tm_polygons" class="level4" data-number="2.5.2.2">
+<h4 data-number="2.5.2.2" class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_polygons"><span class="header-section-number">2.5.2.2</span> Drawing a choropleth map using <em>tm_polygons()</em></h4>
 <p>To draw a choropleth map showing the geographical distribution of a selected variable by planning subzone, we assign the target variable such as <em>Dependency</em> to <em>tm_polygons()</em>.</p>
 <p>By default, missing values will be shaded in grey.</p>
 <div class="cell">
@@ -1238,8 +1260,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="drawing-a-choropleth-map-using-tm_fill-and-tm_border" class="level4">
-<h4 class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_fill-and-tm_border">2.4.2.3 Drawing a choropleth map using <em>tm_fill()</em> and <em>tm_border</em>()</h4>
+<section id="drawing-a-choropleth-map-using-tm_fill-and-tm_border" class="level4" data-number="2.5.2.3">
+<h4 data-number="2.5.2.3" class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_fill-and-tm_border"><span class="header-section-number">2.5.2.3</span> Drawing a choropleth map using <em>tm_fill()</em> and <em>tm_border</em>()</h4>
 <ul>
 <li><p>tm_fill(): shades the polygons using the default colour scheme</p></li>
 <li><p><em>tm_border():</em> Add borders to the polygons. The arguments are as follows:</p>
@@ -1260,13 +1282,13 @@ dbl (2): Pop, Time
 </div>
 </section>
 </section>
-<section id="data-classification-methods-of-tmap" class="level3">
-<h3 class="anchored" data-anchor-id="data-classification-methods-of-tmap">2.4.3 Data classification methods of <strong>tmap</strong></h3>
+<section id="data-classification-methods-of-tmap" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="data-classification-methods-of-tmap"><span class="header-section-number">2.5.3</span> Data classification methods of <strong>tmap</strong></h3>
 <p>Choropleth maps employ some methods of data classification so to take a large number of observations and group them into data ranges or classes.</p>
 <p><strong>tmap</strong> provides a total ten data classification methods, namely: <em>fixed</em>, <em>sd</em>, <em>equal</em>, <em>pretty</em> (default), <em>quantile</em>, <em>kmeans</em>, <em>hclust</em>, <em>bclust</em>, <em>fisher</em>, and <em>jenks</em>.</p>
 <p>To define a data classification method, the <em>style</em> argument of <em>tm_fill()</em> or <em>tm_polygons()</em> will be used.</p>
-<section id="plotting-choropleth-maps-with-built-in-classification-methods" class="level4">
-<h4 class="anchored" data-anchor-id="plotting-choropleth-maps-with-built-in-classification-methods">2.4.3.1 Plotting choropleth maps with built-in classification methods</h4>
+<section id="plotting-choropleth-maps-with-built-in-classification-methods" class="level4" data-number="2.5.3.1">
+<h4 data-number="2.5.3.1" class="anchored" data-anchor-id="plotting-choropleth-maps-with-built-in-classification-methods"><span class="header-section-number">2.5.3.1</span> Plotting choropleth maps with built-in classification methods</h4>
 <p>The code chunk below shows a quantile data classification that used 5 classes (<em>n</em> = 5). This method classifies data into a certain number of categories with an equal number of units in each category.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
@@ -1324,8 +1346,8 @@ dbl (2): Pop, Time
 </div>
 <p>Unsurprisingly, we can see that as the number of classes increases, the more distributed the data is. Although the differences between the chart diminishes as the number of classes increase–for e.g., classes 10 and 20 are quite similar.</p>
 </section>
-<section id="section" class="level4">
-<h4 class="anchored" data-anchor-id="section"></h4>
+<section id="section" class="level4" data-number="2.5.3.2">
+<h4 data-number="2.5.3.2" class="anchored" data-anchor-id="section"><span class="header-section-number">2.5.3.2</span> </h4>
 <p>2.4.3.2 Plotting choropleth map with custom break</p>
 <p>We can set breakpoints using the <em>breaks</em> argument in <em>tm_fill().</em> For <strong>tmap</strong>, breaks include a minimum and maximum. Therefore, to have n categories, n+1 elements must be specified in <strong>ascending order</strong>.</p>
 <p>First, some descriptive stats</p>
@@ -1351,11 +1373,11 @@ dbl (2): Pop, Time
 </div>
 </section>
 </section>
-<section id="colour-scheme" class="level3">
-<h3 class="anchored" data-anchor-id="colour-scheme">2.4.4 Colour Scheme</h3>
+<section id="colour-scheme" class="level3" data-number="2.5.4">
+<h3 data-number="2.5.4" class="anchored" data-anchor-id="colour-scheme"><span class="header-section-number">2.5.4</span> Colour Scheme</h3>
 <p><strong>tmap</strong> supports colour ramps either defined by the user or a set of predefined colour ramps from the <strong>RColorBrewer</strong> package</p>
-<section id="using-colorbrewer-palette" class="level4">
-<h4 class="anchored" data-anchor-id="using-colorbrewer-palette">2.4.4.1 Using <strong>ColorBrewer</strong> Palette</h4>
+<section id="using-colorbrewer-palette" class="level4" data-number="2.5.4.1">
+<h4 data-number="2.5.4.1" class="anchored" data-anchor-id="using-colorbrewer-palette"><span class="header-section-number">2.5.4.1</span> Using <strong>ColorBrewer</strong> Palette</h4>
 <p>To change the colour palette, we assign the preferred colour to <em>palette</em> argument of <em>tm_fill()</em> as shown below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span></span>
@@ -1381,11 +1403,11 @@ dbl (2): Pop, Time
 </div>
 </section>
 </section>
-<section id="map-layouts" class="level3">
-<h3 class="anchored" data-anchor-id="map-layouts">2.4.5 Map Layouts</h3>
+<section id="map-layouts" class="level3" data-number="2.5.5">
+<h3 data-number="2.5.5" class="anchored" data-anchor-id="map-layouts"><span class="header-section-number">2.5.5</span> Map Layouts</h3>
 <p>Map layout refers to the combination of all map elements into a cohesive map. Map elements includes: objects to be mapped,title, scale bar, compass, margins and aspects ratios.</p>
-<section id="map-legend" class="level4">
-<h4 class="anchored" data-anchor-id="map-legend">2.4.5.1 Map Legend</h4>
+<section id="map-legend" class="level4" data-number="2.5.5.1">
+<h4 data-number="2.5.5.1" class="anchored" data-anchor-id="map-legend"><span class="header-section-number">2.5.5.1</span> Map Legend</h4>
 <p>In <strong>tmap,</strong> <em>legend</em> options allow us to change appearance, position and format of the legend.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
@@ -1409,8 +1431,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="map-style" class="level4">
-<h4 class="anchored" data-anchor-id="map-style">2.5.4.2 Map Style</h4>
+<section id="map-style" class="level4" data-number="2.5.5.2">
+<h4 data-number="2.5.5.2" class="anchored" data-anchor-id="map-style"><span class="header-section-number">2.5.5.2</span> Map Style</h4>
 <p>In <strong>tmap,</strong> we can change a wide variety of layout settings using <em>tmap_style().</em> The <em>classic</em> style is used here. Other available styles are: “white”, “gray”, “natural”, “cobalt”, “col_blind”, “albatross”, “beaver”, “bw”, “watercolor”</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span> </span>
@@ -1430,8 +1452,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="cartographic-furniture" class="level4">
-<h4 class="anchored" data-anchor-id="cartographic-furniture">2.4.5.3 Cartographic Furniture</h4>
+<section id="cartographic-furniture" class="level4" data-number="2.5.5.3">
+<h4 data-number="2.5.5.3" class="anchored" data-anchor-id="cartographic-furniture"><span class="header-section-number">2.5.5.3</span> Cartographic Furniture</h4>
 <p><strong>tmap</strong> also provides arguments to draw other map furniture like compass, scale bar and grid lines.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span> </span>
@@ -1467,8 +1489,8 @@ dbl (2): Pop, Time
 </div>
 </section>
 </section>
-<section id="drawing-small-multiple-choropleth-maps-of-facet-maps" class="level3">
-<h3 class="anchored" data-anchor-id="drawing-small-multiple-choropleth-maps-of-facet-maps">2.4.6 Drawing Small Multiple Choropleth Maps of Facet Maps</h3>
+<section id="drawing-small-multiple-choropleth-maps-of-facet-maps" class="level3" data-number="2.5.6">
+<h3 data-number="2.5.6" class="anchored" data-anchor-id="drawing-small-multiple-choropleth-maps-of-facet-maps"><span class="header-section-number">2.5.6</span> Drawing Small Multiple Choropleth Maps of Facet Maps</h3>
 <p><strong>Small multiple maps</strong> or <strong>facet maps</strong> are composed of many maps arranged side-by-side or stacked vertically. Using facet maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.</p>
 <p>In <strong>tmap,</strong> small multiple maps can be plotted in three ways:</p>
 <ul>
@@ -1476,8 +1498,8 @@ dbl (2): Pop, Time
 <li><p>by defining a group-by variable in <em>tm_facets()</em>, and</p></li>
 <li><p>by creating multiple stand-alone maps with <em>tmap_arrange()</em>.</p></li>
 </ul>
-<section id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments" class="level4">
-<h4 class="anchored" data-anchor-id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments">2.4.6.1 By assigning multiple values to at least one of the aesthetic arguments</h4>
+<section id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments" class="level4" data-number="2.5.6.1">
+<h4 data-number="2.5.6.1" class="anchored" data-anchor-id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments"><span class="header-section-number">2.5.6.1</span> By assigning multiple values to at least one of the aesthetic arguments</h4>
 <p>I created facet maps by defining <em>col</em> in <em>tm_fill().</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span> </span>
@@ -1509,8 +1531,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="by-defining-a-group-by-variable-in-tm_facets" class="level4">
-<h4 class="anchored" data-anchor-id="by-defining-a-group-by-variable-in-tm_facets">2.4.6.2 By defining a group-by variable in <em>tm_facets()</em></h4>
+<section id="by-defining-a-group-by-variable-in-tm_facets" class="level4" data-number="2.5.6.2">
+<h4 data-number="2.5.6.2" class="anchored" data-anchor-id="by-defining-a-group-by-variable-in-tm_facets"><span class="header-section-number">2.5.6.2</span> By defining a group-by variable in <em>tm_facets()</em></h4>
 <p>We can create facet maps using <em>tm_facets()</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span> </span>
@@ -1530,8 +1552,8 @@ dbl (2): Pop, Time
 </div>
 </div>
 </section>
-<section id="by-creating-multiple-stand-alone-maps-with-tmap_arrange" class="level4">
-<h4 class="anchored" data-anchor-id="by-creating-multiple-stand-alone-maps-with-tmap_arrange">2.4.6.3 By creating multiple stand-alone maps with <em>tmap_arrange()</em></h4>
+<section id="by-creating-multiple-stand-alone-maps-with-tmap_arrange" class="level4" data-number="2.5.6.3">
+<h4 data-number="2.5.6.3" class="anchored" data-anchor-id="by-creating-multiple-stand-alone-maps-with-tmap_arrange"><span class="header-section-number">2.5.6.3</span> By creating multiple stand-alone maps with <em>tmap_arrange()</em></h4>
 <p>We can create facet maps by creating multiple stand-alone maps and arranging them. In <em>tmap_arrange(),</em> arguments <em>ncol</em> specifies the number of columns to have and <em>asp</em> refers to the aspect ratio of each map.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create stand-alone maps</span></span>
@@ -1560,8 +1582,8 @@ dbl (2): Pop, Time
 </div>
 </section>
 </section>
-<section id="mappping-spatial-object-meeting-a-selection-criterion" class="level3">
-<h3 class="anchored" data-anchor-id="mappping-spatial-object-meeting-a-selection-criterion">2.4.7 Mappping Spatial Object Meeting a Selection Criterion</h3>
+<section id="mappping-spatial-object-meeting-a-selection-criterion" class="level3" data-number="2.5.7">
+<h3 data-number="2.5.7" class="anchored" data-anchor-id="mappping-spatial-object-meeting-a-selection-criterion"><span class="header-section-number">2.5.7</span> Mappping Spatial Object Meeting a Selection Criterion</h3>
 <p>Instead of creating small multiple choropleth map, you can also use selection funtion to map spatial objects meeting the selection criterion.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020[mpsz_pop2020<span class="sc">$</span>REGION_N<span class="sc">==</span><span class="st">"CENTRAL REGION"</span>, ])<span class="sc">+</span></span>
@@ -1588,8 +1610,9 @@ Please use legend.outside.size to control the width of the outside legend</code>
 </div>
 </section>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">3 References</h2>
+</section>
+<section id="references" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> References</h1>
 <ul>
 <li><p>R for Geospatial Data Science and Analytics - <a href="https://r4gdsa.netlify.app/chap01.html">Chapter 1: Geospatial Data Wrangling with R</a></p></li>
 <li><p>R for Geospatial Data Science and Analytics - <a href="https://r4gdsa.netlify.app/chap02.html">Chapter 2: Choropleth Mapping with R</a></p></li>

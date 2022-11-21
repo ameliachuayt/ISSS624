@@ -1,13 +1,22 @@
 ---
 title: "Hands-on Exercise 1: Geospatial Data Wrangling and Choropleth Mapping with R"
 editor: visual
+number-sections: true
 ---
 
-## 1.1 Overview of Part I
+There are two parts in this hands-on exercise:
+
+-   Geospatial Data Wrangling
+
+-   Choropleth Mapping with R
+
+# Geospatial Data Wrangling
+
+## Overview of Geospatial Data Wrangling
 
 In the first of this two-part hands-on exercise, I learned how to import, and wrangle geospatial data using appropriate R packages.
 
-## 1.2 Data Acquisition
+## Data Acquisition
 
 Data are key to data analytics including geospatial analytics. Hence, before analysing, we need to assemble the necessary data. For this hands-on exercise, data sets were extracted from the following sources:
 
@@ -19,13 +28,12 @@ Data are key to data analytics including geospatial analytics. Hence, before ana
 
 -   Latest version of Singapore Airbnb listing data from [Inside Airbnb](http://insideairbnb.com/get-the-data.html)
 
-## 1.3 Getting Started
+## Getting Started
 
 The code chunk below installs and loads sf and tidyverse packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool. It provides intuitively named functions for the base functions.
 
 ```{r}
 pacman::p_load(sf, tidyverse)
-
 ```
 
 An alternate way to install and import the libraries is as follows:
@@ -40,7 +48,7 @@ for (p in packages){
 }
 ```
 
-## 1.4 Import Geospatial Data
+## Import Geospatial Data
 
 In this section, I learned how to import the following geospatial data into R by using [*st_read()*](https://r-spatial.github.io/sf/reference/st_read.html) of **sf** package:
 
@@ -50,7 +58,7 @@ In this section, I learned how to import the following geospatial data into R by
 
 -   `PreSchool`, a **point feature layer** in kml file format.
 
-### 1.4.1 Import polygon feature date in shapefile format
+### Import polygon feature date in shapefile format
 
 The code chunk below uses *st_read()* function of **sf** package to import `MP14_SUBZONE_WEB_PL` shapefile into R as a polygon feature data frame.
 
@@ -64,7 +72,7 @@ mpsz = st_read(dsn="data\\geospatial",
 
 The output shows that there are 323 multipolygon features and 15 fields. The Bounding box provides the x extend and y extend of the data.
 
-### 1.4.2 Import polyline feature data in shapefile form
+### Import polyline feature data in shapefile form
 
 The code chunk below uses *st_read()* function of **sf** package to import `CyclingPath` shapefile into R as a **line feature** data frame.
 
@@ -75,7 +83,7 @@ cyclingpath = st_read(dsn = "data\\geospatial",
 
 The output shows that there are 1625 features and 2 fields in `CyclingPath` linestring feature data frame and it is in **svy21** projected coordinates system.
 
-### 1.4.3 Import GIS data in kml format
+### Import GIS data in kml format
 
 The code chunk below uses *st_read()* function of **sf** package to import `pre-schools-location-kml` kml file into R as a **point feature** layer. Since we are dealing with a kml file, instead of specifying `dsn` and `layer`, we specify the complete path and file extension.
 
@@ -87,11 +95,11 @@ preschool = st_read("data\\geospatial\\pre-schools-location-kml.kml")
 
 The output reveals that `preschool` is a point feature data frame (see "Geometry type: POINT'"). There are a total of 1359 features and 2 fields. Different from the previous two simple feature data frame, preschool is in wgs84 coordinates system (see "Geodetic CRS: WGS 84").
 
-## 1.5 Checking the Content of A Simple Feature Data Frame
+## Checking the Content of A Simple Feature Data Frame
 
 In the section, I learned different ways to retrieve information related to the contents of a simple feature data frame.
 
-### 1.5.1 Working with *st_geometry()*
+### Working with *st_geometry()*
 
 The column in the sf data.frame that contains the geometries is a list, of class `sfc`. We can retrieve the geometry list-column in this case by mpsz\$geom or mpsz\[\[1\]\], but the more general way uses *st_geometry()* as shown in the code chunk below.
 
@@ -102,7 +110,7 @@ st_geometry(mpsz)
 
 The output displays basic information of the feature class such as type of geometry, the geographic extent of the features and the coordinate system of the data.
 
-### 1.5.2 Working with *glimpse().*
+### Working with *glimpse().*
 
 To learn more about the associated attribute information in the data frame, we can use ***glimpse()*** of dplyr.
 
@@ -114,7 +122,7 @@ As we can see in the output, ***glimpse()*** reveals the data type of each field
 
 For example, `FMEL-UPD_D` is in date data '\<date\>', and `X_ADDR`, `Y_ADDR` are in double precision values '\<dbl\>'
 
-### 1.5.3 Working with *head()*
+### Working with *head()*
 
 Sometimes, we would like to examine complete information of a feature object. We can use [*head()*](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/head) of Base R to achieve this. The argument `n` allows us to indicate the number of records to display.
 
@@ -122,7 +130,7 @@ Sometimes, we would like to examine complete information of a feature object. We
 head(mpsz, n=5)
 ```
 
-## 1.6 Plotting the Geospatial Data
+## Plotting the Geospatial Data
 
 In geospatial analytics, we are definitely interested to visualise geospatial features. *plot()* provides a quick and simply way to visualise the data at hand.
 
@@ -146,11 +154,11 @@ plot(mpsz["PLN_AREA_N"])
 
 As mentioned earlier, *plot()* is meant for plotting the geospatial object for quick look. For high cartographic quality plot with more customisation options, tmap or other packages should be used.
 
-## 1.7 Working with Projection
+## Working with Projection
 
 In order to perform geoprocessing using two geospatial data, we need to ensure that both geospatial data are projected using similar coordinate system. **Projection Transformation** is the process of projecting a simple feature data frame from one coordinate system to another coordinate system.
 
-### 1.7.1 Assigning EPSG code to a simple feature data frame
+### Assigning EPSG code to a simple feature data frame
 
 [EPSG](https://support.virtual-surveyor.com/en/support/solutions/articles/1000261353-what-is-an-epsg-code-#:~:text=EPSG%20stands%20for%20European%20Petroleum,spheroids%2C%20units%20and%20such%20alike.) stands for European Petroleum Survey Group and is an organisation that maintains a public registry of geodetic parameter database with standard codes--the EPSG codes.
 
@@ -178,7 +186,7 @@ st_crs(mpsz3414)
 
 Note that the EPSG code is 3414. See last line where "ID\["EPSG",3414\]".
 
-### 1.7.2 Transforming the projection of preschool from wgs84 to svy21
+### Transforming the projection of preschool from wgs84 to svy21
 
 In this sub-section, we will learn how to transform original data from **geographic coordinate system** to **projected coordinate system**. We need to do this transformation because the geographic coordinate system is inappropriate if the analysis require the use of distance and/or area measurements.
 
@@ -214,13 +222,13 @@ preschool = st_read("data\\geospatial\\pre-schools-location-kml.kml") %>%
 
 While the results states that Geodetic CRS is WGS84, we can examine the dataframe and see that under `geometry` , the coordinates are no longer in wgs84 (the values are larger than 360).
 
-## 1.8 Importing and Converting Aspatial Data
+## Importing and Converting Aspatial Data
 
 It is common to have data such as `listing` of inside Airbnb. Such data are called aspatial data. They are not geospatial data, however, among the data fields, there are two fields that capture the x- and y- coordinates of the data points.
 
 In this section, I learned to import aspatial data in R environment and save it as a [tibble](https://r4ds.had.co.nz/tibbles.html)data frame. Then, I will convert it into a simple feature data frame.
 
-### 1.8.1 Importing aspatial data
+### Importing aspatial data
 
 `listings.csv` data set is in csv format and we will use *read_csv()* of **readr** package to import the file. The output R object is called `listings` and is a tibble data frame.
 
@@ -242,7 +250,7 @@ Note that *list()* instead of [glimpse()](https://dplyr.tidyverse.org/reference/
 glimpse(listings)
 ```
 
-### 1.8.2 Create simple feature dataframe from aspatial dataframe
+### Create simple feature dataframe from aspatial dataframe
 
 The code chunk below converts `listing` data frame into a simple feature data frame by using [*st_as_sf()*](https://r-spatial.github.io/sf/reference/st_as_sf.html) of **sf** packages
 
@@ -269,7 +277,7 @@ Let's examine the content of the newly created simple feature data frame. Note t
 glimpse(listings_sf)
 ```
 
-## 1.9 Geo-processing with sf package
+## Geo-processing with sf package
 
 Besides providing functions to handling (i.e. importing, exporting, assigning projection, transforming projection etc) geospatial data, **sf** package also offers a wide range of geoprocessing (also known as GIS analysis) functions.
 
@@ -279,7 +287,7 @@ In this section, I learned how to perform two commonly used geoprocessing functi
 
 -   point in polygon count
 
-### 1.9.1 Buffering
+### Buffering
 
 Buffering involves measuring the distance outward in all directions from an object. The output is a polygon.
 
@@ -317,7 +325,7 @@ To do this, we can easily use *sum()* of Base R
 sum(buffer_cycling$AREA)
 ```
 
-### 1.9.2 Point-in-polygon Count
+### Point-in-polygon Count
 
 We can also count the frequency of observations within a polygon. To illustrate this, we have another hypothetical situation
 
@@ -365,11 +373,11 @@ mpsz3414 <- mpsz3414 %>%
   mutate(`PreSch Density` = `PreSch Count`/Area * 1000000)
 ```
 
-## 1.10 Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
 In this section, I learned appropriate [ggplot2](https://ggplot2.tidyverse.org/) functions to create function yet truthful statistical graphs for EDA purposes.
 
-#### 1.10.1 Distribution of Pre-school Density in Subzones of Singapore using Histograms
+#### Distribution of Pre-school Density in Subzones of Singapore using Histograms
 
 Conventionally, *hist()* of R Graphics can be used to plot a histogram of the distribution of pre-school density. While *hist()*'s syntax is easy to use, the output does not meet publication quality and it has limited room for customisation.
 
@@ -391,7 +399,7 @@ ggplot(data=mpsz3414,
        y = "Frequency")
 ```
 
-#### 1.10.2 Relationship between Pre-school Density and Pre-school Count using Scatterplot
+#### Relationship between Pre-school Density and Pre-school Count using Scatterplot
 
 DIY: Conventionally, *plot()* of R Graphics can be used to plot a scatterplot to reveal the relationship between pre-school density and pre-school count.
 
@@ -410,13 +418,15 @@ ggplot(data=mpsz3414, aes(x=`PreSch Density`, y=`PreSch Count`))+
        y = "Pre-school count")
 ```
 
-## 2.1 Overview Of Part II
+# Choropleth Mapping with R
+
+## Overview of Choropleth Mapping with R
 
 In the second of this two-part hands-on exercise, I learned how to plot functional and truthful choropleth maps by using an R package called **tmap** package.
 
 Choropleth mapping involves the symbolisation of enumeration units, such as countries, provinces, states, counties or census units, using area patterns or graduated colors. For example, a social scientist may need to use a choropleth map to portray the spatial distribution of aged population of Singapore by Master Plan 2014 Subzone Boundary.
 
-## 2.2 Data Acquisition
+## Data Acquisition
 
 Two data set will be used to create the choropleth map. They are:
 
@@ -424,9 +434,9 @@ Two data set will be used to create the choropleth map. They are:
 
 -   Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling, June 2011-2020 in csv format (i.e. `respopagesextod2011to2020.csv`). This is an aspatial data fie. It can be downloaded at [Department of Statistics, Singapore](https://www.singstat.gov.sg/) Although it does not contain any coordinates values, but it's PA and SZ fields can be used as unique identifiers to geocode to `MP14_SUBZONE_WEB_PL` shapefile.
 
-## 2.3 Getting Started & Importing Data
+## Getting Started & Importing Data
 
-## 2.3.1 Getting Started
+### Getting Started
 
 The key R package for this hands-on exercise is [**tmap**](https://cran.r-project.org/web/packages/tmap/) package in R. We will also be using four other R packages:
 
@@ -447,7 +457,7 @@ pacman::p_load(sf, tmap, tidyverse)
 
 ```
 
-## 2.3.2 Importing Geospatial Data into R
+### Importing Geospatial Data into R
 
 We can use *st_read()* of **sf** package to import MP14_SUBZONE_WEB_PL shapefile in R as a simple feature data frame called `mpsz`.
 
@@ -470,7 +480,7 @@ On the other hand, we can also use *head()* to specify the number of rows to ret
 head(mpsz, 3)
 ```
 
-### 2.3.3 Import Attribute Data
+### Import Attribute Data
 
 Next, I imported *respopagsex2000to2018.csv* file into RStudio and saved the file into an R dataframe called *popagsex* using *read_csv()* function of **readr** package as shown in the code chunk below.
 
@@ -478,7 +488,7 @@ Next, I imported *respopagsex2000to2018.csv* file into RStudio and saved the fil
 popdata <- read_csv('data\\aspatial\\respopagesextod2011to2020.csv')
 ```
 
-### 2.3.4 Data Preparation
+### Data Preparation
 
 I am interested to visualise population demographics in the Year 2020. Before a thematic map can be prepared, I need to prepare a data table with Year 2020 values. The following variables will be required for this tasks: `PA`, `SZ`, `YOUNG`, `ECONOMY ACTIVE,` `AGED`, `TOTAL`, `DEPENDENCY`.
 
@@ -498,7 +508,7 @@ I am interested to visualise population demographics in the Year 2020. Before a 
 
 As we can see, we will need to wrangle the data set and derive new columns like `YOUNG` and `AGED`.
 
-#### 2.3.4.1 Data Wrangling
+#### Data Wrangling
 
 The following data wrangling and transformation functions were used:
 
@@ -529,7 +539,7 @@ mutate(`DEPENDENCY` = (`YOUNG` + `AGED`)
        `TOTAL`, `DEPENDENCY`)
 ```
 
-#### 2.3.4.2 Joining attribute data and geospatial data
+#### Joining attribute data and geospatial data
 
 We need to convert the `PA` and `SZ` values to uppercase.
 
@@ -553,7 +563,7 @@ Write the resulting file into a .rds file.
 write_rds(mpsz_pop2020, "data\\rds\\mpszpop2020_amelia.rds")
 ```
 
-## 2.4 Choropleth Mapping Geospatial Data Using tmap package
+## Choropleth Mapping Geospatial Data Using tmap package
 
 There are two approaches to prepare thematic map using *tmap*, they are:
 
@@ -561,7 +571,7 @@ There are two approaches to prepare thematic map using *tmap*, they are:
 
 -   Plotting highly customisable thematic map by using tmap elements.
 
-### 2.4.1 Plotting choropleth quickly using *qtm()*
+### Plotting choropleth quickly using *qtm()*
 
 *qtm()* of **tmap** package provides a quick and concise visualisation.
 
@@ -571,7 +581,7 @@ qtm(mpsz_pop2020,
     fill = "DEPENDENCY")
 ```
 
-### 2.4.2 Creating choropleth map using tmap's elements
+### Creating choropleth map using tmap's elements
 
 While *qtm()* can be used to get quick visualisation, the downside is that aesthetics of individual layers are harder to control. To get a high quality cartographic choropleth map, I will use **tmap**'s drawing elements.
 
@@ -598,7 +608,7 @@ tm_shape(mpsz_pop2020)+
 
 The steps to creating the above map will be detailed in this sub-section.
 
-#### 2.4.2.1 Drawing a base map
+#### Drawing a base map
 
 The basic building block of **tmap** is *tm_shape()* followed by one or more layer elemments such as *tm_fill()* and *tm_polygons()*:
 
@@ -611,7 +621,7 @@ tm_shape(mpsz_pop2020) +
   tm_polygons()
 ```
 
-#### 2.4.2.2 Drawing a choropleth map using *tm_polygons()*
+#### Drawing a choropleth map using *tm_polygons()*
 
 To draw a choropleth map showing the geographical distribution of a selected variable by planning subzone, we assign the target variable such as *Dependency* to *tm_polygons()*.
 
@@ -622,7 +632,7 @@ tm_shape(mpsz_pop2020)+
   tm_polygons("DEPENDENCY")
 ```
 
-#### 2.4.2.3 Drawing a choropleth map using *tm_fill()* and *tm_border*()
+#### Drawing a choropleth map using *tm_fill()* and *tm_border*()
 
 -   tm_fill(): shades the polygons using the default colour scheme
 
@@ -642,7 +652,7 @@ tm_shape(mpsz_pop2020)+
   tm_borders(lwd = 0.1,  alpha = 1)
 ```
 
-### 2.4.3 Data classification methods of **tmap**
+### Data classification methods of **tmap**
 
 Choropleth maps employ some methods of data classification so to take a large number of observations and group them into data ranges or classes.
 
@@ -650,7 +660,7 @@ Choropleth maps employ some methods of data classification so to take a large nu
 
 To define a data classification method, the *style* argument of *tm_fill()* or *tm_polygons()* will be used.
 
-#### 2.4.3.1 Plotting choropleth maps with built-in classification methods
+#### Plotting choropleth maps with built-in classification methods
 
 The code chunk below shows a quantile data classification that used 5 classes (*n* = 5). This method classifies data into a certain number of categories with an equal number of units in each category.
 
@@ -730,11 +740,11 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-### 2.4.4 Colour Scheme
+### Colour Scheme
 
 **tmap** supports colour ramps either defined by the user or a set of predefined colour ramps from the **RColorBrewer** package
 
-#### 2.4.4.1 Using **ColorBrewer** Palette
+#### Using **ColorBrewer** Palette
 
 To change the colour palette, we assign the preferred colour to *palette* argument of *tm_fill()* as shown below.
 
@@ -757,11 +767,11 @@ tm_shape(mpsz_pop2020) +
   tm_borders(alpha = 0.5)
 ```
 
-### 2.4.5 Map Layouts
+### Map Layouts
 
 Map layout refers to the combination of all map elements into a cohesive map. Map elements includes: objects to be mapped,title, scale bar, compass, margins and aspects ratios.
 
-#### 2.4.5.1 Map Legend
+#### Map Legend
 
 In **tmap,** *legend* options allow us to change appearance, position and format of the legend.
 
@@ -784,7 +794,7 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-#### 2.5.4.2 Map Style
+#### Map Style
 
 In **tmap,** we can change a wide variety of layout settings using *tmap_style().* The *classic* style is used here. Other available styles are: "white", "gray", "natural", "cobalt", "col_blind", "albatross", "beaver", "bw", "watercolor"
 
@@ -797,7 +807,7 @@ tm_shape(mpsz_pop2020) +
   tmap_style("classic")
 ```
 
-#### 2.4.5.3 Cartographic Furniture
+#### Cartographic Furniture
 
 **tmap** also provides arguments to draw other map furniture like compass, scale bar and grid lines.
 
@@ -827,7 +837,7 @@ To reset to the default style, use the below code chunk.
 tmap_style("white")
 ```
 
-### 2.4.6 Drawing Small Multiple Choropleth Maps of Facet Maps
+### Drawing Small Multiple Choropleth Maps of Facet Maps
 
 **Small multiple maps** or **facet maps** are composed of many maps arranged side-by-side or stacked vertically. Using facet maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.
 
@@ -839,7 +849,7 @@ In **tmap,** small multiple maps can be plotted in three ways:
 
 -   by creating multiple stand-alone maps with *tmap_arrange()*.
 
-#### 2.4.6.1 By assigning multiple values to at least one of the aesthetic arguments
+#### By assigning multiple values to at least one of the aesthetic arguments
 
 I created facet maps by defining *col* in *tm_fill().*
 
@@ -864,7 +874,7 @@ tm_shape(mpsz_pop2020)+
   tm_layout(legend.position = c("right", "bottom"))
 ```
 
-#### 2.4.6.2 By defining a group-by variable in *tm_facets()*
+#### By defining a group-by variable in *tm_facets()*
 
 We can create facet maps using *tm_facets()*.
 
@@ -883,7 +893,7 @@ tm_shape(mpsz_pop2020) +
   tm_borders(alpha = 0.5)
 ```
 
-#### 2.4.6.3 By creating multiple stand-alone maps with *tmap_arrange()*
+#### By creating multiple stand-alone maps with *tmap_arrange()*
 
 We can create facet maps by creating multiple stand-alone maps and arranging them. In *tmap_arrange(),* arguments *ncol* specifies the number of columns to have and *asp* refers to the aspect ratio of each map.
 
@@ -909,7 +919,7 @@ If there are more than 2 maps, I can just add on for instance:
 tmap_arrange(youngmap, agedmap, youngmap, agedmap, asp=1.7, ncol=2)
 ```
 
-### 2.4.7 Mappping Spatial Object Meeting a Selection Criterion
+### Mappping Spatial Object Meeting a Selection Criterion
 
 Instead of creating small multiple choropleth map, you can also use selection funtion to map spatial objects meeting the selection criterion.
 
@@ -929,7 +939,7 @@ tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
   tm_borders(alpha = 0.5)
 ```
 
-## 3 References
+# References
 
 -   R for Geospatial Data Science and Analytics - [Chapter 1: Geospatial Data Wrangling with R](https://r4gdsa.netlify.app/chap01.html)
 

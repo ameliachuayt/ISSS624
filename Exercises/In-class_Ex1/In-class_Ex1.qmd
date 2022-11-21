@@ -360,11 +360,11 @@ head(ids,10)
 
 ### Row-standardised weights matrix
 
-Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned **equal weight** (style=\"W\"). This is accomplished by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
+Next, we need to assign weights to each neighboring polygon. In our case, each neighboring polygon will be assigned **equal weight** (style="W"). This is accomplished by assigning the fraction 1/(#ofneighbors) to each neighboring county then summing the weighted income values.
 
-While this is the most intuitive way to summarise the neighbors\' values, it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data.
+While this is the most intuitive way to summarise the neighbors' values, it has one drawback in that polygons along the edges of the study area will base their lagged values on fewer polygons thus potentially over- or under-estimating the true nature of the spatial autocorrelation in the data.
 
-For this example, we\'ll stick with the style=\"W\" option for simplicity\'s sake but note that other more robust options are available, notably style=\"B\".
+For this example, we'll stick with the style="W" option for simplicity's sake but note that other more robust options are available, notably style="B".
 
 The zero.policy=TRUE option allows for lists of non-neighbors. This should be used with caution since the user may not be aware of missing neighbors in their dataset however, a zero.policy of FALSE would return an error.
 
@@ -373,13 +373,13 @@ rswm_q <- nb2listw(wm_q, style = "W", zero.policy = TRUE)
 rswm_q
 ```
 
-To see the weight of the first polygon\'s four neighbors type:
+To see the weight of the first polygon's four neighbors type:
 
 ```{r}
 rswm_q$weights[1]
 ```
 
-Each neighbor is assigned a 0.2 of the total weight. This means that when R computes the average neighboring income values, each neighbor\'s income will be multiplied by 0.2 before being tallied.
+Each neighbor is assigned a 0.2 of the total weight. This means that when R computes the average neighboring income values, each neighbor's income will be multiplied by 0.2 before being tallied.
 
 Using the same method, we can also derive a **row standardised distance weight matrix** by using the code chunk below.
 
@@ -410,7 +410,7 @@ In this section, I learned how to create four different spatial lagged variables
 
 ### Spatial lag with row-standardised weights
 
-Finally, we\'ll compute the **average neighbor GDPPC** value for each polygon. These values are often referred to as **spatially lagged values**.
+Finally, we'll compute the **average neighbor GDPPC** value for each polygon. These values are often referred to as **spatially lagged values**.
 
 ```{r}
 GDPPC.lag <- lag.listw(rswm_q, hunan$GDPPC)
