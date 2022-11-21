@@ -1,0 +1,6 @@
+---
+title: "Global and Local Measures of Spatial Autocorrelation"
+author: "Amelia Chua"
+editor: visual
+number-sections: true
+---
