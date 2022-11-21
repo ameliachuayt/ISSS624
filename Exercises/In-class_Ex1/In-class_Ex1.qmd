@@ -66,7 +66,13 @@ hunan <- left_join(hunan, hunan2012)
 
 ### Visualising Regional Development Indicator
 
-I am going to prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using *gtm()* of **tmap** package. GDPPC refers to Gross Domestic Product per capita. *qtm()* allows us to plot thematic maps quickly.
+The code chunk below is used to prepare two stand-alone maps: a basemap and a choropleth map showing the distribution of GDPPC 2012 by using *gtm()* of **tmap** package. Then by using *tmap_arrange()* of **tmap** package, we will create a facet map.
+
+Note that:
+
+-   GDPPC refers to Gross Domestic Product per capita.
+
+-   *qtm()* allows us to plot thematic maps quickly.
 
 ```{r}
 basemap <- tm_shape(hunan) + 
@@ -76,3 +82,152 @@ basemap <- tm_shape(hunan) +
 gdppc <- qtm(hunan, "GDPPC")
 tmap_arrange(basemap,gdppc, asp = 1, ncol = 2)
 ```
+
+## Computing Contiguity Spatial Weight
+
+In this section, I learned how to use [*poly2nb()*](https://r-spatial.github.io/spdep/reference/poly2nb.html) of **spdep** package to compute contiguity weight matrices for the study area. This function builds a neighbours list based on regions with contiguous boundaries. This function allows us to pass a \"queen\" argument that takes TRUE or FALSE as options. The default is set to TRUE, which means that the function will return a list of first order neighbours using the Queen criteria by default.
+
+### Computing (Queen) contiguity based neighbours
+
+The code chunk below is used to compute Queen contiguity weight matrix.
+
+```{r}
+wm_q <- poly2nb(hunan, queen=TRUE)
+summary(wm_q)
+```
+
+The summary report above shows that there are 88 area units in Hunan. The most connected area unit has 11 neighbours. There are two least connected region with only one neighbour.
+
+For each polygon in our polygon object, *wm_q* lists all neighboring polygons. For example, to see the neighbors for the first polygon in the object, type:
+
+```{r}
+wm_q[[1]]
+```
+
+Polygon 1 has 5 neighbors. The numbers represent the polygon IDs as stored in hunan SpatialPolygonsDataFrame class.
+
+We can use the code chunk below to retrieve county name of Polygon ID = 1. The output reveals that Polygon ID=1 is Anxiang county.
+
+```{r}
+hunan$County[1]
+```
+
+To reveal the county names of Anxiang county's five neighboring polygons, the code chunk will be used:
+
+```{r}
+hunan$County[c(2, 3,4, 57, 85)]
+```
+
+Alternatively, we can combine the earlier steps to identify the five neighbours and get their names into one code chunk.
+
+```{r}
+hunan$County[wm_q[[1]]]
+```
+
+Next, let's retrieve the GDPPC of these five counties.
+
+```{r}
+nb1 <- wm_q[[1]]
+gdp1 <- hunan$GDPPC[nb1]
+gdp1
+```
+
+The printed output above shows that the GDPPC of the five nearest neighbours based on Queen\'s method are 20981, 34592, 24473, 21311 and 22879 respectively.
+
+::: callout-tip
+We can combine them the names and GDPPC into a matrix by using *cbind()*.
+
+```{r}
+cbind(hunan$County[wm_q[[1]]], gdp1)
+```
+:::
+
+You can display the complete weight matrix by using *str()*.
+
+```{r}
+str(wm_q)
+```
+
+### Creating (ROOK) contiguity based on neighbours
+
+The code chunk below is used to compute Rook contiguity weight matrix.
+
+```{r}
+wm_r <- poly2nb(hunan, queen = FALSE)
+summary(wm_r)
+```
+
+The summary report above shows that there are 88 area units in Hunan. The most connect area unit has 10 neighbours. There are two least connected regions with only one neighbours.
+
+### Visualising contiguity weights
+
+A connectivity graph takes a point and displays a line to each neighboring point. Since we are working with polygons, we will need to get points in order to make our connectivity graphs. The most commonly used method to get points is to take the centroids of the polygons. We will calculate these in the **sf** package before moving onto the graphs.
+
+#### Getting Latitude and Longitude of Polygon Centroids
+
+We need to associate each polygon with a point before we can make our connectivity graph. It will be a little more complicated than just running *st_centroid()* on the **sf** object: `hunan`. I need the coordinates in a separate data frame for this to work. To do this I will use a mapping function.
+
+The mapping function applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of `hunan`. Our function will be *st_centroid()*. We will be using *map_dbl()* variation of [map](https://www.rdocumentation.org/packages/purrr/versions/0.2.5/topics/map) from the **purrr** package. **purrr** is loaded when we load **tidyverse**.
+
+To get our longitude values we map the *st_centroid()* function over the geometry column of `hunan` and access the longitude value through double bracket notation \[\[\]\] and 1. This allows us to get only the longitude, which is the first value in each centroid.
+
+```{r}
+longitude <- map_dbl(hunan$geometry, ~st_centroid(.x)[[1]])
+```
+
+We do the same for latitude with one key difference. We access the second value per each centroid with \[\[2\]\].
+
+```{r}
+latitude <- map_dbl(hunan$geometry, ~st_centroid(.x)[[2]])
+```
+
+Now that we have latitude and longitude, I used cbind to put longitude and latitude into the same object. We should check the first few observations to see if things are formatted correctly.
+
+```{r}
+coords <- cbind(longitude, latitude)
+head(coords, 5)
+```
+
+#### Plotting Queen contiguity based neighbours map
+
+With the coordinates for each county, we can plot the neighbors through a connectivity graph.
+
+Notes on the arguments used in *plot()*:
+
+-   *pch*: plotting symbols available. '19' refers to solid circles. Detailed list can be found [here](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r).
+
+-   *add:* adds the current plot onto the previous plot
+
+-   *cex*: a numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_q, coords, pch = 19, cex = 0.6, add = TRUE, col= "red")
+```
+
+#### Plotting Rook contiguity based neighbours map
+
+```{r}
+plot(hunan$geometry, border="lightgrey")
+plot(wm_r, coords, pch = 19, cex = 0.6, add = TRUE, col = "red")
+```
+
+#### Plotting both Queen and Rook contiguity based neighbours maps
+
+```{r}
+par(mfrow=c(1,2))
+plot(hunan$geometry, border="lightgrey")
+plot(wm_q, coords, pch = 19, cex = 0.6, add = TRUE, col= "red", main="Queen Contiguity")
+plot(hunan$geometry, border="lightgrey")
+plot(wm_r, coords, pch = 19, cex = 0.6, add = TRUE, col = "red", main="Rook Contiguity")
+```
+
+Since the [queen criterion is somewhat more encompassing than rook criterion](https://geodacenter.github.io/workbook/4a_contig_weights/lab4a.html#rook-contiguity), the number of neighbors according to the queen criterion will always be at least as large as for the rook criterion. We can observe this in the above maps as well.
+
+-   Rook criterion: defines neighbors by the existence of a common edge between two spatial units.
+
+-   Queen criterion: defines neighbors as spatial units sharing a common edge or a common vertex.
+
+## References
+
+https://spatialanalysis.github.io/handsonspatialdata/contiguity-based-spatial-weights.html
