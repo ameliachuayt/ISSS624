@@ -5,4 +5,116 @@ editor: visual
 number-sections: true
 ---
 
-Hello
+## Overview
+
+In this hands-on exercise, I learned how to compute Global and Local Measure of Spatial Autocorrelation (GLSA) by using **spdep** package. By the end to this hands-on exercise, I was able to:
+
+-   import geospatial data using appropriate function(s) of **sf** package,
+
+-   import csv file using appropriate function of **readr** package,
+
+-   perform relational join using appropriate join function of **dplyr** package,
+
+-   compute Global Spatial Autocorrelation (GSA) statistics by using appropriate functions of **spdep** package,
+
+    -   plot Moran scatterplot,
+
+    -   compute and plot spatial correlogram using appropriate function of **spdep** package.
+
+-   compute Local Indicator of Spatial Association (LISA) statistics for detecting clusters and outliers by using appropriate functions **spdep** package;
+
+-   compute Getis-Ord\'s Gi-statistics for detecting hot spot or/and cold spot area by using appropriate functions of **spdep** package; and
+
+-   to visualise the analysis output by using **tmap** package.
+
+## Getting Started
+
+### The analytical question
+
+In spatial policy, one of the main development objectives of the local govenment and planners is to **ensure equal distribution of development** in the province. Our task in this study, hence, is to **apply appropriate spatial statistical methods to discover if development are even distributed geographically**.
+
+If the answer is **No**. Then, our next question would be \"is there sign of spatial clustering?\". And, if the answer for this question is **Yes**, then our next question will be \"where are these clusters?\"
+
+In this case study, we are interested to examine the spatial pattern of a selected development indicator (i.e. GDP per capita or GDPPC) of [Hunan Province](https://en.wikipedia.org/wiki/Hunan), People Republic of China.
+
+### The Study Area and Data
+
+Two data sets will be used in this hands-on exercise, they are:
+
+-   Hunan province administrative boundary layer at county level. This is a geospatial data set in ESRI shapefile format.
+
+-   Hunan_2012.csv: This csv file contains selected Hunan\'s local development indicators in 2012.
+
+### Setting the Analytical Tools
+
+The code chunk below installs and loads **sf**, **spdep**, **tmap** and **tidyverse** packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool. It provides intuitively named functions for the base functions.
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse)
+```
+
+## Importing Data into R Environment
+
+The geospatial data is in ESRI shapefile format and the attribute table is in csv fomat.
+
+### Import shapefile into R
+
+The code chunk below uses [*st_read()*](https://r-spatial.github.io/sf/reference/st_read.html) of **sf** package to import Hunan shapefile into R. The imported shapefile will be **simple features** object of **sf**.
+
+```{r}
+hunan <- st_read(dsn = 'data\\geospatial',
+                 layer = 'Hunan')
+```
+
+From the output, we can see that there are 88 multipolygons and 7 fields.
+
+### Import csv file into R
+
+```{r}
+hunan2012 <- read_csv("data\\aspatial\\Hunan_2012.csv", show_col_types = FALSE)
+```
+
+### Performing relational join
+
+The code chunk below will be used to update the attribute table of *hunan*\'s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe. This is performed by using *left_join()* of **dplyr** package.
+
+```{r}
+hunan <- left_join(hunan, hunan2012)
+```
+
+### Visualising Regional Development Indicator
+
+The code chunk below is used to prepare two stand-alone choropleth maps to visualise the distribution of GDPPC 2012 by using *gtm()* of **tmap** package. The map on the left will be classified using equal intervals and the one on the right will be classified using quantiles.
+
+Then by using *tmap_arrange()* of **tmap** package, we will create a facet map.
+
+Note that:
+
+-   GDPPC refers to Gross Domestic Product per capita.
+
+-   *qtm()* allows us to plot thematic maps quickly.
+
+```{r}
+
+equal <- tm_shape(hunan) +
+  tm_fill("GDPPC", 
+          n = 5, 
+          style = 'equal') + 
+  tm_borders(alpha = 0.5) + 
+  tm_layout(main.title = 'Equal Interval Classification')
+
+quantile <- tm_shape(hunan) + 
+  tm_fill("GDPPC", 
+          n = 5, 
+          style = 'quantile') + 
+  tm_borders(alpha = 0.5) + 
+  tm_layout(main.title = "Equal Quantile Classification")
+
+tmap_arrange(equal, quantile, asp = 1, ncol = 2)
+```
+
+## Global Spatial Autocorrelation
+
+In this section, I learned how to compute global spatial autocorrelation statistics and how to perform spatial complete randomness test for global spatial autocorrelation.
+
+### Computing Contiguity Spatial Weights

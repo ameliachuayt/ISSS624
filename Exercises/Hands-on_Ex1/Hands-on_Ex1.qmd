@@ -30,7 +30,7 @@ Data are key to data analytics including geospatial analytics. Hence, before ana
 
 ## Getting Started
 
-The code chunk below installs and loads sf and tidyverse packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool. It provides intuitively named functions for the base functions.
+The code chunk below installs and loads **sf** and **tidyverse** packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool. It provides intuitively named functions for the base functions.
 
 ```{r}
 pacman::p_load(sf, tidyverse)
