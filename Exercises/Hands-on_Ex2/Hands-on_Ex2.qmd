@@ -799,7 +799,7 @@ Gimap <- tm_shape(hunan.gi) +
 tmap_arrange(gdppc, Gimap, asp = 1, ncol = 2)
 ```
 
-Since the definition of neighbours changed, we observe difference between the above chart and the one from the previous section.
+Since the definition of neighbours changed, we can observe differences in identified cold/hot spots between the above chart and the one from the previous section.
 
 ## References
 
