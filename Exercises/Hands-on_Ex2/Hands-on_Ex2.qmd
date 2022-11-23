@@ -805,7 +805,7 @@ Since the definition of neighbours changed, we observe difference between the ab
 
 Stephanie Glen. "Moran\'s I: Definition, Examples" From [**StatisticsHowTo.com**](https://www.statisticshowto.com/): Elementary Statistics for the rest of us! <https://www.statisticshowto.com/morans-i/>
 
-Tin Seong Kam. "4 Global and Local Measures of Spatial Autocorrelation" From [**R for Geospatial Data Science and Analytics**](https://r4gdsa.netlify.app/)https://r4gdsa.netlify.app/chap04.html#mapping-gi-values-with-adaptive-distance-weights
+Tin Seong Kam. "4 Global and Local Measures of Spatial Autocorrelation" From [**R for Geospatial Data Science and Analytics**](https://r4gdsa.netlify.app/)<https://r4gdsa.netlify.app/chap04.html>
 
 
 
