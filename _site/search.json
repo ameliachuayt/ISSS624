@@ -256,7 +256,7 @@
     "href": "Exercises/Hands-on_Ex2/Hands-on_Ex2.html#references",
     "title": "Global and Local Measures of Spatial Autocorrelation",
     "section": "10 References",
-    "text": "10 References\nStephanie Glen. “Moran's I: Definition, Examples” From StatisticsHowTo.com: Elementary Statistics for the rest of us! https://www.statisticshowto.com/morans-i/\nTin Seong Kam. “4 Global and Local Measures of Spatial Autocorrelation” From R for Geospatial Data Science and Analyticshttps://r4gdsa.netlify.app/chap04.html#mapping-gi-values-with-adaptive-distance-weights"
+    "text": "10 References\nStephanie Glen. “Moran's I: Definition, Examples” From StatisticsHowTo.com: Elementary Statistics for the rest of us! https://www.statisticshowto.com/morans-i/\nTin Seong Kam. “4 Global and Local Measures of Spatial Autocorrelation” From R for Geospatial Data Science and Analyticshttps://r4gdsa.netlify.app/chap04.html"
   },
   {
     "objectID": "Exercises/Hands-on_Ex2/Hands-on_Ex2.html#spatial-correlogram",
