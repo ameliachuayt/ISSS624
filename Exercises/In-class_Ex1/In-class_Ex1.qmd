@@ -311,11 +311,11 @@ plot(k1, coords, add = TRUE, col = 'red', length = 0.8) #1st nearest neigbours
 
 ```{r}
 par(mfrow = c(1,2))
-plot(hunan$geometry, border = "lightgrey")
-plot(k1, coords, add = TRUE, col = "red", length = 0.88, main="1st nearest neighbours")
+plot(hunan$geometry, border = "lightgrey",main="1st nearest neighbours" )
+plot(k1, coords, add = TRUE, col = "red", length = 0.88, )
 
-plot(hunan$geometry, border = "lightgrey")
-plot(wm_d62, coords, add = TRUE, pch = 19, cex = 0.6, main = "Distance Link")
+plot(hunan$geometry, border = "lightgrey", main = "Distance Link")
+plot(wm_d62, coords, add = TRUE, pch = 19, cex = 0.6)
 ```
 
 ### Computing adaptive distance weight matrix
