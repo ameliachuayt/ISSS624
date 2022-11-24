@@ -917,6 +917,8 @@ Zixing        -7.6849e-01 -8.8210e-02  9.4057e-01 -7.0144e-01         0.4830</co
 <p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>A positive Local Moran I Statistic corresponds to that area being part of a cluster–that means that its neighbours have similary high or low attribute values. A negative value for Local Moran I Statistic indicates that the area has neighboring features with dissimilar values, which means that this area is an outlier.</p>
+<p>We should only look at counties where the p-value is significant at the 95% confidence level. And when we do, we can see that the Local Moran I Statistic of the darker green areas (on the left) are significant at the 95% confidence level. This means that it is part of a cluster. Its surrounding areas’ I statistic values are positive and statistically significant which indicates that they are also a cluster.</p>
 </section>
 </section>
 </section>
@@ -1062,7 +1064,7 @@ Geodetic CRS:  WGS 84
 <p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>We can plot both the local Moran’s I map and LISA Map together</p>
+<p>We can plot both the local Moran’s I map and LISA Map together.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(localMI.map, LISAmap, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">2</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -1072,7 +1074,7 @@ Geodetic CRS:  WGS 84
 <p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>We can also visualise the GDPPC and LISAmap together</p>
+<p>We can also visualise the GDPPC and LISAmap together.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>gdppc <span class="ot">&lt;-</span> <span class="fu">qtm</span>(hunan, <span class="at">fill =</span> <span class="st">"GDPPC"</span>)</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(gdppc, LISAmap, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1080,7 +1082,8 @@ Geodetic CRS:  WGS 84
 <p><img src="Hands-on_Ex2_files/figure-html/unnamed-chunk-44-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>From the outputs above, we can see that there are three areas of outliers—counties shaded in light blue and light orange. The light blue regions are outliers, where they have lower GDPPC as compared to their neighbours, and vice versa for the region in orange. On the other hand, the regions that are dark blue and red are considered clusters.</p>
+<p>From the outputs above, counties shaded in light blue and light orange are outliers. The light blue regions are outliers, where they have lower GDPPC as compared to their neighbours, and vice versa for the region in orange. On the other hand, the regions that are dark blue and red are considered clusters.</p>
+<p>Interestingly, the dark blue area on the top right (LISA Chart) indicates that the area has lower GDPPC and is surrounded by areas with relatively low GDPPC as well. Examining the GDPPC chart on the left, we can see that indeed, the area has a relatively lower GDPPC, however, most of its neighbours seem to have relatively higher GDPPC.</p>
 </section>
 </section>
 <section id="hot-spot-and-cold-spot-area-analysis" class="level2" data-number="8">
