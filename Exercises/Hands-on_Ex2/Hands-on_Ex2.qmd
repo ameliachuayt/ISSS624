@@ -331,7 +331,9 @@ From the output above, we can see that the distribution of the simulated values 
 
 ## Spatial Correlogram
 
-Spatial correlograms are great to examine patterns of spatial autocorrelation in your data or model residuals. They show how correlated are pairs of spatial observations when you increase the distance (lag) between them - they are plots of some index of autocorrelation (Moran's I or Geary's c) against distance.Although correlograms are not as fundamental as variograms (a keystone concept of geostatistics), they are very useful as an exploratory and descriptive tool. For this purpose they actually provide richer information than variograms.
+Spatial correlograms are great to examine patterns of spatial autocorrelation in your data or model residuals. They show **how correlated are pairs of spatial observations when you increase the distance (lag) between them** - they are plots of some index of autocorrelation (Moran's I or Geary's c) against distance.Although correlograms are not as fundamental as variograms (a keystone concept of geostatistics), they are very useful as an exploratory and descriptive tool. For this purpose they actually provide richer information than variograms.
+
+In spatial correlograms, the number of bins determines the distance range of each bin. The range is the maximum distance divided by the number of bins.
 
 ### Compute Moran's I correlogram
 
@@ -361,6 +363,8 @@ print(MI_corr)
 
 From the output, we see that with the exception of Lag 4, the rest of the results are statistically significant at the 95% level of confidence.
 
+The correlogram depicts how the spatial autocorrelation changes with distance. From the chart, we can see that Moran's I decreases when spatial lag increases. The first three lags ranges are statistically significant with a positive Moran's I score while the last two (5 & 6) are statistically significant with a negative Moran's I score. This tells us that there is quite a strong spatial autocorrelation for the first three distance classes. As distance increases beyond lag-4, there is negative autocorrelation.
+
 ### Compute Geary's C correlogram and plot
 
 In the code chunk below, *sp.correlogram()* of **spdep** package is used to compute a 6-lag spatial correlogram of GDPPC. The global spatial autocorrelation used in Geary's C. The **plot()** of base Graph is then used to plot the output.
@@ -381,6 +385,10 @@ print(GC_corr)
 ```
 
 From the output, we see that with the exception of Lag 3, 4 and 6, the rest of the results are statistically significant at the 95% level of confidence.
+
+The correlogram depicts how the spatial autocorrelation changes with distance. From the chart, we can see that Geary's C increases when spatial lag increases. This is unsurprising, given that Moran's I and Geary's C are inversely related.
+
+The first two lags are statistically significant and below 1 while the last lag is statistically significant and above 1. This tells us that there is quite a strong spatial autocorrelation for the first two distance classes.
 
 ## Cluster and Outlier Analysis
 
