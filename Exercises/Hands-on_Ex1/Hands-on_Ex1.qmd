@@ -190,7 +190,7 @@ Note that the EPSG code is 3414. See last line where "ID\["EPSG",3414\]".
 
 In this sub-section, we will learn how to transform original data from **geographic coordinate system** to **projected coordinate system**. We need to do this transformation because the geographic coordinate system is inappropriate if the analysis require the use of distance and/or area measurements.
 
-For the `preschool` simple feature data frame, the output of the code chunk below tells us that it is in the wgs84 coordinate system (see "Geodetic CRS: WGS 85").
+For the `preschool` simple feature data frame, the output of the code chunk below tells us that it is in the wgs84 coordinate system (see "Geodetic CRS: WGS 84").
 
 ```{r}
 st_geometry(preschool)
