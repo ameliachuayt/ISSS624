@@ -2,7 +2,7 @@
 title: "In-class Exercise 2"
 author: "Amelia Chua"
 execute: 
-  warning: false
+  warning: false 
   message: false
 number-sections: true
 format: html
