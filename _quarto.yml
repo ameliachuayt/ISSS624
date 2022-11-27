@@ -29,6 +29,7 @@ website:
       - text: "About" 
         file: about.qmd
         
+        
     # sidebar:
     #   - title: "About"
     #     style: "docked"
