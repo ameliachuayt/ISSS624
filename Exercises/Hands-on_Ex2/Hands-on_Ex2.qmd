@@ -470,7 +470,7 @@ pvalue.map
 
 We can see that only the darker blue areas are within the 0.05 significance level. This means that not all the local Moran's I values are statistically significant at the 95% confidence level.
 
-#### Mapping both local Moran's I values and
+#### Mapping both local Moran's I values and p-values
 
 We can plot both the local Moran's I values map and its corresponding p-values map next to each other using *tmap_arrange()* from **tmap** package.
 
@@ -540,46 +540,46 @@ In the output above, we notice that the x-axis ranged has been scaled down as co
 
 We can prepare a LISA cluster map by following the steps:
 
+1.  Create a vector that is as long as the number of counties in Hunan.
+
 ```{r}
 #create a vector 
 quadrant <- vector(mode = "numeric", length = nrow(localMI))
 ```
 
-Center attribute (GDPPC) around its mean.
+2.  Next we will derive a variable DV, by using the spatially lagged version (`lag_GDPPC`) of the variable of interested (`GDPPC`) and center it around its means.
 
 ```{r}
-DV <- hunan$GDPPC - mean(hunan$GDPPC)
+hunan$lag_GDPPC <- lag.listw(rswm_q, hunan$GDPPC)
+DV <- hunan$lag_GDPPC - mean(hunan$lag_GDPPC)
 ```
 
-If DV \> 0, it means that the GDPPC of the target county is higher than the mean.
+If DV \> 0, it means that the spatially lagged GDPPC of the target county is higher than the mean.
 
-Next, centering the local Moran's I around its mean.
+3.  Centre local Moran's around the mean
 
 ```{r}
-C_MI <- localMI[,1] - mean(localMI[,1])
+LM_I <- localMI[,1] - mean(localMI[,1])
 ```
 
-If C_MI \> 0, suggests clustering. If C_MI \< 0 suggests an outlier or regular patterns.
+If L_MI \> 0, suggests clustering. If L_MI \< 0 suggests an outlier or regular patterns.
 
-Set statistical significance level for the local Moran.
+4.  Set statistical significance level for the local Moran.
 
 ```{r}
 signif <- 0.05
 ```
 
-Define the command lines for: high-high, low-low, low-high, high-low categories.
+5.  Define the command lines for: high-high, low-low, low-high, high-low categories.
 
 ```{r}
-quadrant[DV > 0 & localMI[,1] > 0] <- 4 #high-high 
-quadrant[DV < 0 & localMI[,1] < 0] <- 2 #low-high
-quadrant[DV < 0 & localMI[,1] > 0] <- 1 #low-low
-quadrant[DV > 0 & localMI[,1] < 0] <- 3 #high-low
-
-#DV > 0 -> GDPPC of target higher than mean  
-#C_MI > 0 --> cluster | #C_MI < 0 --> outliers / regular pattern
+quadrant[DV <0 & LM_I>0] <- 1 #low-low
+quadrant[DV >0 & LM_I<0] <- 2 #high-low
+quadrant[DV <0 & LM_I<0] <- 3 #low-high
+quadrant[DV >0 & LM_I>0] <- 4 #high-high     
 ```
 
-Lastly, place non-significant Moran in the category 0.
+6.  Lastly, place non-significant Moran in the category 0.
 
 ```{r}
 quadrant[localMI[,5]>signif] <- 0
@@ -589,13 +589,14 @@ Alternatively, we can combine all the above steps into a single code chunk.
 
 ```{r}
 quadrant <- vector(mode="numeric",length=nrow(localMI))
-DV <- hunan$GDPPC - mean(hunan$GDPPC)     
-C_mI <- localMI[,1] - mean(localMI[,1])    
+hunan$lag_GDPPC <- lag.listw(rswm_q, hunan$GDPPC)
+DV <- hunan$lag_GDPPC - mean(hunan$lag_GDPPC)     
+LM_I <- localMI[,1]   
 signif <- 0.05       
-quadrant[DV > 0 & localMI[,1] > 0] <- 4 #high-high
-quadrant[DV < 0 & localMI[,1] < 0] <- 2 #low-high
-quadrant[DV < 0 & localMI[,1] > 0] <- 1 #low-low
-quadrant[DV > 0 & localMI[,1] < 0] <- 3 #high-low
+quadrant[DV <0 & LM_I>0] <- 1 #low-low
+quadrant[DV >0 & LM_I<0] <- 2 #high-low
+quadrant[DV <0 & LM_I<0] <- 3 #low-high
+quadrant[DV >0 & LM_I>0] <- 4 #high-high       
 quadrant[localMI[,5]>signif] <- 0
 ```
 
@@ -636,9 +637,13 @@ gdppc <- qtm(hunan, fill = "GDPPC")
 tmap_arrange(gdppc, LISAmap, asp = 1, ncol = 2)
 ```
 
-From the outputs above, counties shaded in light blue and light orange are outliers. The light blue regions are outliers, where they have lower GDPPC as compared to their neighbours, and vice versa for the region in orange. On the other hand, the regions that are dark blue and red are considered clusters.
+The light blue regions are outliers, where they have lower GDPPC as compared to their neighbours. On the other hand, the regions that are dark blue and red are considered clusters. This mean that the target region and its neighbours have similar GDPPC.
 
-Interestingly, the dark blue area on the top right (LISA Chart) indicates that the area has lower GDPPC and is surrounded by areas with relatively low GDPPC as well. Examining the GDPPC chart on the left, we can see that indeed, the area has a relatively lower GDPPC, however, most of its neighbours seem to have relatively higher GDPPC.
+We can also plot the local Moran's I map and p-values map for the ease of comparison. The analysis for these two maps has been covered in the earlier section.
+
+```{r}
+(tmap_arrange(localMI.map, pvalue.map, asp = 1, ncol = 2))
+```
 
 ## Hot Spot and Cold Spot Area Analysis
 
@@ -823,6 +828,10 @@ tmap_arrange(gdppc, Gimap, asp = 1, ncol = 2)
 ```
 
 Since the definition of neighbours changed, we can observe differences in identified cold/hot spots between the above chart and the one from the previous section.
+
+## Conclusion
+
+Our analysis has shown that there is definitely some form of spatial autocorrelation in the GDPPC in Hunan, PRC. The analysis we have just completed is crucial for business owners and regulatory bodies who wish to further develop in Hunan,
 
 ## References
 
