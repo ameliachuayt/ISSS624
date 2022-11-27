@@ -1,0 +1,211 @@
+---
+title: "In-class Exercise 2"
+author: "Amelia Chua"
+execute: 
+  warning: false
+  message: false
+number-sections: true
+format: html
+editor: visual
+---
+
+## Getting Started
+
+In this exercise, we will be using the following packages:
+
+-   sf: for importing, managing, and processing geospatial data
+
+-   tmap: for performing data science tasks such as importing, wrangling and visualising data
+
+-   tidyverse: for performing data science tasks such as importing, wrangling and visualising data
+
+-   spdep: used to create spatial weights matrix objects from polygon 'contiguities'
+
+-   funModeling: used for rapid Exploratory Data Analysis
+
+We will use *pacman,* a R package management tool to install and load the packages.
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse, spdep, funModeling)
+```
+
+## Importing Geospatial Data
+
+In this in-class exercise, two geospatial data sets will be used:
+
+-   Nigeria Level-2 Administrative Boundary (also known as Local Government Area or LGA) polygon feature GIS data. The data was obtained from geoBoundaries.
+
+-   WPdx+ data set that was obtained from Water Point Data Exchange (WPdx). It consists of water point related data from rural areas at the water point or small water scheme level. The entire set of data includes countries other than Nigeria. Hence, we will be performing data pre-processing to extract the relevant data. This is also in the shape file format.
+
+### Import Nigeria LGA boundary data
+
+```{r}
+nga <- st_read(dsn = "data\\geospatial\\",
+                   layer = "geodata_NGA_ADM2",
+                   crs = 4326)
+```
+
+### Import Nigeria Water Points data
+
+The code chunk below will import our geospatial data. We indicated crs = 4326 as we know that this data is in the wgs84 format. We know this by looking at the projection file (.prj contains projection information).
+
+While there are various file formats available for download e.g. .csv, .shp. The benefit of using the .shp file is that we can save one step of converting the .csv file into geospatial file using the latitude and longitude data.
+
+```{r}
+#| eval: false
+wp <- st_read(dsn = "data\\geospatial\\",
+                   layer = "wp_geodata",
+                   crs = 4326) %>% 
+  filter(clean_coun == "Nigeria")
+```
+
+Next, we will use `write_rds()` of **readr** package to save the extracted sf data table (i.e. wp) into an output file in .rds data format. The output file is called *wp_nga.rds* and it is saved in *geospatial* sub-folder.
+
+```{r}
+#| eval: false
+wp_nga <- write_rds(wp, 
+                   "data\\geospatial\\wp_nga.rds") 
+```
+
+## Data Wrangling
+
+### Recoding NGA values into string
+
+We will read the saved .rsd file. It will look at the `status_cle` column and replace NA values with 'unknown' using *replace_na().*
+
+```{r}
+#| eval: false
+wp_nga <- read_rds('data\\geospatial\\wp_nga.rds') %>%
+  mutate(status_cle = replace_na(status_cle, "Unknown"))
+```
+
+### Exploratory Data Analysis
+
+In the code chunk below, *freq()* of **funModelling** package is used to display the distribution of `status_cle` field in `wp_nga`.
+
+```{r}
+#| eval: false
+freq(data = wp_nga,
+      input = 'status_cle')
+```
+
+From the output above, we can see that there are 9 categories. Almost half of all water pipes are functional and approximately 11% with status unknown.
+
+### Extract functional water points
+
+In the code chunk below, *filter()* of **dplyr** package is used to select functional water points.
+
+```{r}
+#| eval: false
+wpt_functional <- wp_nga %>%
+  filter(status_cle %in%
+           c("Functional",
+             "Functional but not in use",
+             "Functional but needs repair"))
+```
+
+Using the below code chunk, we can see the breakdown of functional statuses.
+
+```{r}
+#| eval: false
+freq(data = wpt_functional, input = 'status_cle')
+```
+
+Close to 80% of the water points are fully functional. The rest requires repair or are not in use.
+
+### Extract non-functional water points
+
+We can do the same for non-functional water points.
+
+```{r}
+#| eval: false
+wpt_nonfunctional <- wp_nga %>%
+  filter(status_cle %in%
+           c("Non-Functional",
+             "Non-Functional due to dry season",
+             "Non Functional due to dry season",
+             "Abandoned/Decommissioned",
+             "Abandoned"))
+```
+
+Using the below code chunk, we can see the breakdown of non-functional statuses.
+
+```{r}
+#| eval: false
+freq(data = wpt_nonfunctional, input = 'status_cle')
+```
+
+There is 90% of water points that are non-functional, another 7% are non-functional due to the weather. The remaining are abandoned or decommissioned.
+
+### Extract water point with unknown class
+
+```{r}
+#| eval: false
+wpt_unknown <- wp_nga %>%
+  filter(status_cle == "Unknown")
+```
+
+### Performing Point-in-Polygon count
+
+In the code chunk below, we will use *st_intersect()* yo identify which LGA respectively types of water points are located in and *lengths()* to count the number of water points that fall inside each LGA area.
+
+```{r}
+#| eval: false
+nga_wp <- nga %>%
+  mutate(`total_wpt` = lengths(
+    st_intersects(nga, wp_nga))) %>%
+  mutate(`wpt_functional` = lengths(
+    st_intersects(nga, wpt_functional))) %>%
+  mutate(`wpt_nonfunctional` = lengths(
+    st_intersects(nga, wpt_nonfunctional))) %>%
+  mutate(`wpt_unknown` = lengths(
+    st_intersects(nga, wpt_unknown)))
+```
+
+## Saving the Analytical Data Table
+
+```{r}
+#| eval: false
+nga_wp <- nga_wp %>%
+  mutate(pct_functional = `wpt_functional`/ `total_wpt`) %>%
+  mutate(pct_nonfunctional = `wpt_nonfunctional`/ `total_wpt`) %>%
+  select(1, 6:10)
+```
+
+Things to learn from the code chunk above:
+
+-   `mutate()` of **dplyr** package is used to derive two fields namely *pct_functional* and *pct_non-functional*.
+
+-   to keep the file size small, `select()` of **dplyr** is used to retain selected fields
+
+Let's save the new sf data table into .rds format.
+
+```{r}
+#| eval: false
+write_rds(nga_wp,
+          "data\\geospatial\\wp_nga.rds")
+```
+
+## Visualising the Spatial Distribution of Water Points
+
+In the code chuck below, we will use *qtm()* to quickly plot the spatial distribution of water points of different categories. We will use *tmap_arrange()* to show the plots together.
+
+```{r}
+#| echo: false
+nga_wp <- read_rds('data\\geospatial\\wp_nga.rds')
+```
+
+```{r}
+total <- qtm(nga_wp, fill = 'total_wpt')
+func <- qtm(nga_wp, fill = 'wpt_functional')
+nonfunc <- qtm(nga_wp, fill = 'wpt_nonfunctional')
+unknown <- qtm(nga_wp, fill = 'wpt_unknown')
+
+tmap_arrange(total, unknown, func, nonfunc, asp = 1, ncol = 2)
+```
+
+From the maps above, we can see that there are some areas with little (\<200) water points and areas with \>800 water points. Also, towards the southern area of the map, we can see that there are areas where water pumps statuses are unknown, probably due to lack of updating. It appears that the top center of Nigeria have higher amount of functional water points.
+
+## Conclusion
+
+From what we have achieved in this exercise, we have grounds to believe that there might exist some relationship in how water points co-occur in Nigeria. We will explore more in Take-Home Exercise 1.

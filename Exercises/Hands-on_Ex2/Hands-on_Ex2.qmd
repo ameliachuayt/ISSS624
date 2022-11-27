@@ -113,6 +113,8 @@ quantile <- tm_shape(hunan) +
 tmap_arrange(equal, quantile, asp = 1, ncol = 2)
 ```
 
+Based on the equal interval map, we can see that there is uneven distribution of GDPPC. However, the distribution is not that obvious when we use the quantile map. This example aims to alert us that depending on the method of representation e.g. equal or quantile, we may get different interpretations of the situation.
+
 ## Global Spatial Autocorrelation
 
 In this section, I learned how to compute global spatial autocorrelation statistics and how to perform spatial complete randomness test for global spatial autocorrelation.
@@ -549,11 +551,15 @@ Center attribute (GDPPC) around its mean.
 DV <- hunan$GDPPC - mean(hunan$GDPPC)
 ```
 
+If DV \> 0, it means that the GDPPC of the target county is higher than the mean.
+
 Next, centering the local Moran's I around its mean.
 
 ```{r}
 C_MI <- localMI[,1] - mean(localMI[,1])
 ```
+
+If C_MI \> 0, suggests clustering. If C_MI \< 0 suggests an outlier or regular patterns.
 
 Set statistical significance level for the local Moran.
 
@@ -564,10 +570,13 @@ signif <- 0.05
 Define the command lines for: high-high, low-low, low-high, high-low categories.
 
 ```{r}
-quadrant[DV > 0 & C_MI > 0] <- 4 #high-high
-quadrant[DV < 0 & C_MI < 0] <- 1 #low-low
-quadrant[DV < 0 & C_MI > 0] <- 2 #low-high
-quadrant[DV > 0 & C_MI < 0] <- 3 #high-low
+quadrant[DV > 0 & localMI[,1] > 0] <- 4 #high-high 
+quadrant[DV < 0 & localMI[,1] < 0] <- 2 #low-high
+quadrant[DV < 0 & localMI[,1] > 0] <- 1 #low-low
+quadrant[DV > 0 & localMI[,1] < 0] <- 3 #high-low
+
+#DV > 0 -> GDPPC of target higher than mean  
+#C_MI > 0 --> cluster | #C_MI < 0 --> outliers / regular pattern
 ```
 
 Lastly, place non-significant Moran in the category 0.
@@ -583,10 +592,10 @@ quadrant <- vector(mode="numeric",length=nrow(localMI))
 DV <- hunan$GDPPC - mean(hunan$GDPPC)     
 C_mI <- localMI[,1] - mean(localMI[,1])    
 signif <- 0.05       
-quadrant[DV > 0 & C_MI > 0] <- 4 #high-high
-quadrant[DV < 0 & C_MI < 0] <- 1 #low-low
-quadrant[DV < 0 & C_MI > 0] <- 2 #low-high
-quadrant[DV > 0 & C_MI < 0] <- 3 #high-low
+quadrant[DV > 0 & localMI[,1] > 0] <- 4 #high-high
+quadrant[DV < 0 & localMI[,1] < 0] <- 2 #low-high
+quadrant[DV < 0 & localMI[,1] > 0] <- 1 #low-low
+quadrant[DV > 0 & localMI[,1] < 0] <- 3 #high-low
 quadrant[localMI[,5]>signif] <- 0
 ```
 

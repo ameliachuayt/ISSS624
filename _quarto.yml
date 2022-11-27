@@ -17,6 +17,8 @@ website:
         menu: 
           - text: In-class Exercise 1
             href: Exercises\\In-class_Ex1\\In-class_Ex1.qmd
+          - text: In-class Exercise 2
+            href: Exercises\\In-class_Ex2\\In-class_Ex2.qmd
       - text: "Take-Home Exercises"
         menu: 
           - text: Take-home Exercise 1
@@ -37,7 +39,7 @@ website:
     #       - Exercises\\Hands-on_Ex1\\Hands-on_Ex1.qmd
 format:
   html:
-    theme: cosmo
+    theme: lux #alternative: flatly
     css: styles.css
     toc: true
 
