@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-About this site
+Hello, I'm Amelia.
 
-```{r}
-1 + 1
-```
+I'm a Masters student at the Singapore Management University. This website documents my learning journey in geospatial analytics.
