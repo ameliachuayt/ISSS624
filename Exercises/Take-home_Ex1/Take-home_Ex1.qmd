@@ -173,7 +173,7 @@ Besides the above, we will also be performing data preparation and wrangling tec
 To learn which column(s) to use to filter for Nigeria's data, we can inspect the metadata. We will not display the entire metadata here as it is lengthy. However, here is an excerpt of some columns:
 
 | Column Name         | Description                                                                                                                                                                                                                                                                                                                                     |
-|------------|------------------------------------------------------------|
+|----------------|--------------------------------------------------------|
 | #clean_country_name | Cleaned version of the country name based on provided GPS coordinates.                                                                                                                                                                                                                                                                          |
 | #clean_adm1         | Cleaned version of the Primary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                              |
 | #clean_adm2         | Cleaned version of the Secondary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                            |
@@ -1576,18 +1576,18 @@ tmap_arrange(choropleth_plot(nigeria, "pct_nonfunctional", "pretty", "Proportion
 
 #### Interpretation of Results
 
-Before we interpret the charts, we should only consider the statistically significant spots. We can refer to the [*localg()*](https://r-spatial.github.io/spdep/reference/localG.html)documentation for the critical values of the statistic for the 95th percentile. Since our data has more than 100 rows of data, the critical value is +/-3.289. This means that the Gi Statistic is statistically significant if it is more than or less than 3.289.
+Before we interpret the charts, we should only consider the statistically significant spots. We can refer to the [*localg()*](https://r-spatial.github.io/spdep/reference/localG.html)documentation for the critical values of the statistic for the 95th percentile. Since our data has close to 1,000 records, the critical value is +/-3.886. This means that the Gi Statistic is statistically significant if it is more than or less than 3.886.
 
 We can use the code chunk below to filter out only the statistically significant spots.
 
 ```{r}
 nigeria.gi_sig_f <- cbind(nigeria, as.matrix(gi.adaptive_func)) %>%
   rename(gstat_adaptive = as.matrix.gi.adaptive_func.) %>%
-  filter(gstat_adaptive > 3.289 | gstat_adaptive < -3.289 )
+  filter(gstat_adaptive > 3.886 | gstat_adaptive < -3.886 )
 
 nigeria.gi_sig_nf <- cbind(nigeria, as.matrix(gi.adaptive_nonfunc)) %>%
   rename(gstat_adaptive = as.matrix.gi.adaptive_nonfunc.) %>%
-  filter(gstat_adaptive > 3.289 | gstat_adaptive < -3.289 )
+  filter(gstat_adaptive > 3.886 | gstat_adaptive < -3.886 )
 ```
 
 To visualise the map with statistically significant Gi statistics, we can refer to the code chunk below. I have set the mode to allow for interactive viewing - this means that we can zoom in / out of the map and click on the LGAs too.
@@ -1618,9 +1618,7 @@ tmap_arrange(choropleth_plot(nigeria, "pct_functional", "quantile", "Proportion 
              Gimap_sig_f) 
 ```
 
-The Gi statistics have revealed significant pockets of hot (red shades) and cold (blue shades) spot areas. Right away, we observe that these areas are situation on the northern regions. There is larger areas of hot spots and smaller areas of cold spots. The identification of hot and cold spots are less sparse than what we saw in the LISA map.
-
-The cold spots in the top right area includes Bama, Dikwa, Mafa and Ngala. This means that these areas have lower percentage of functional water points. Towards the bottom of the map, we can see more cold spots which includes Orsu, Oji River and Nnewi North.
+The Gi statistics have revealed significant pockets of hot (red shades) spot areas and no cold spots. Right away, we observe that these areas are situated mostly in the northern regions. The identified of hot spots are less sparse than what we saw in the LISA map.
 
 Looking at the hot spots, we see a relatively large hot spot areas at the top of the map. There are areas with higher intensity of functional water points, identified by the darker red shades and areas with less intensity in lighter red shades. This area borders the neighbouring country of Niger. It does seem that the intensity is higher in the outer areas before becoming less intense.
 
@@ -1652,15 +1650,9 @@ tmap_arrange(choropleth_plot(nigeria, "pct_nonfunctional", "quantile", "Proporti
 
 The Gi statistics have revealed significant pockets of hot (red shades) and cold (blue shades) spot areas. At first glance, we can see that there are mostly cold spots on the top half of the map and mostly hot spots on the bottom of the map. This pattern is consistent with the LISA map, although the extent of hot/cold areas are different.
 
-On the top right area, we can see a cold spot. It includes Bama, Dikwa, Mafa and Monguno with more intense clustering (darker shade of blue) and Konduga and Damboa with less intense clustering (lighter shade of blue). The darker blue areas are further towards the outer areas. The area beyond the dark blue shaded region are LGAs without water points at all (no data recorded). This may signify the importance of these water points and probably and importance to ensure they are all functional. The lower percentage of non-functional water points could also be because of the lower number of water points in the area, which increase the importance of existing water points. Towards the left, we have Gumel and Maigatari, Miga and Jahun that are also cold spots.
+On the top right area, we can see a cold spot. It includes Bama, Dikwa, Mafa and Monguno with more intense clustering (darker shade of blue). They are situated towards the outer areas / near borders. The area beyond the dark blue shaded region are LGAs without water points at all (no data recorded). This may signify the importance of these water points and probably and importance to ensure they are all functional. The lower percentage of non-functional water points could also be because of the lower number of water points in the area, which increase the importance of existing water points. Towards the left, we have Gumel and Maigatari, Miga and Jahun that are also cold spots.
 
-Looking at the hot spots, we see a relatively large hot spot areas at the bottom right of the map. At the coastal border, we have more intense clustering (dark red), suggesting higher number of non-functional water points in that area. Towards the mainland, the clustering is less intense but with pockets of dark reds.
-
-Moving along the border, towards the left, we can see more hot spots, starting with Southern Ijaw and moving in a C shape pattern upwards towards the central area of Nigeria to Bassa (Kogi State) and Aguatu. Bassa (Kogi State) has the Niger River to its western border and Benue River to its northern border[^18]. Given its location, it may be prone to floods. In fact, the Kogi state is quite flood-prone--see reports of floods in recent years over [here](https://www.thisdaylive.com/index.php/2022/10/11/anambra-kogi-residents-farmers-count-losses-to-massive-floods/) and [here](https://www.pulse.ng/news/local/150-kogi-communities-submerged-in-flood-water/e6fq1wm). It's geographical location may make Bassa an interesting location for future investigative works to enhance water stability through infrastructural changes.
-
-[^18]: https://mapcarta.com/27805612
-
-We also notice some isolated hot and cold spots like Bagudo (top left of map) Igbo-Etiti (below the Bassa LGA).
+Looking at the hot spots, we see some at the bottom right of the map. At the coastal border, we have more intense clustering (dark red), suggesting higher number of non-functional water points in that area. Towards the mainland, the clustering is less intense but with pockets of dark reds.
 
 # Conclusion
 
@@ -1668,7 +1660,7 @@ In our study of the functional and non-functional water points in Nigeria using 
 
 Our cluster and outlier analysis on functional water points found clusters in the northern part of the map to have higher proportion of functional water points and in the southern part of the map to have less proportion of the same. The same analysis on non-functional water point found clusters on the northern part of Nigeria to have less proportion of non-functional water points and the clusters in the southern part to have higher proportion of the same.
 
-Our hot and cold spot analysis of functional water points generated one large hot spot at the northern region of the map. Cold spots were very much less extensive. The same analysis on non-function water points found areas of hot spot (higher proportion of non-functional water points) towards the southern portion of the map and some cold spots towards the northern parts.
+Our hot and cold spot analysis of functional water points generated one large hot spot at the northern region of the map. The same analysis on non-functional water points found areas of hot spot (higher proportion of non-functional water points) towards the southern portion of the map and some cold spots towards the northern parts.
 
 The two analyses conducted using different statistical methods yield different results. Visually we can observe that the hot/cold spots identified in Gi Map were less sparse as compared to the LISA clusters map. A common observation is that in both, the middle / central parts of Nigeria were not identified as clusters, the northern part is identified as a cold spot and cluster and the southern part, a hot spot and cluster for non-functional water points.
 
