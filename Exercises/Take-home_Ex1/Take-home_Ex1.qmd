@@ -1,49 +1,63 @@
 ---
 title: "Take-home Exercise 1: Geospatial Analytics for Social Good"
 author: "Amelia Chua"
-editor: visual
 number-sections: true
+execute: 
+  warning: false 
+  message: false
+format: html
+editor: visual
 ---
 
-## Overview
+# Overview
 
-Water is an essential resource that not only supports life but also drives economic development. According to the World Bank, approximately 2 billion people in the world do not have safely managed drinking water services and 3.6 billion people lack safely managed sanitation services. Developing countries are most affected by the shortage of water. The lack of ground water threatens their fight against poverty, food and water security and socio-economic development.
+Water is an essential resource that not only supports life but also drives economic development. According to the World Bank, approximately 2 billion people in the world do not have safely managed drinking water services and 3.6 billion people lack safely managed sanitation services[^1]. Developing countries are most affected by the shortage of water. The lack of ground water threatens their fight against poverty, food and water security and socio-economic development[^2].
 
-### About Water Point Data Exchange
+[^1]: https://www.worldbank.org/en/topic/water/overview
 
-Organisations like the World Bank, UNICEF and Water Point Data Exchange (WPdx) have various plans and schemes in place to combat this issue. In particular, WPdx has it in their mission to unlock potential of water point data to improve rural water services through evidence-based decision-making. It maintains a global data repository for data collected from rural areas at the water point or small water scheme level. A notable point is that data is formatted according to the WPdx Data Standard before being uploaded and published onto the repository. Using these information, decision support tools linked to the repository will be able to perform advanced analyses seamlessly.
+[^2]: https://www.unwater.org/publications/un-world-water-development-report-2022
 
-References:
+## About Water Point Data Exchange
 
-https://www.waterpointdata.org/about/
+Organisations like the World Bank, UNICEF and Water Point Data Exchange (WPdx) have various plans and schemes in place to combat this issue. In particular, WPdx has it in their mission to unlock potential of water point data to improve rural water services through evidence-based decision-making. It maintains a global data repository for data collected from rural areas at the water point or small water scheme level. A notable point is that data is formatted according to the WPdx Data Standard before being uploaded and published onto the repository. Using these information, decision support tools linked to the repository will be able to perform advanced analyses seamlessly[^3].
 
-https://www.worldbank.org/en/topic/water/overview
+[^3]: https://www.waterpointdata.org/about/
 
-https://www.unwater.org/publications/un-world-water-development-report-2022
+## Objectives
 
-### Objectives
+Geospatial analytics hold tremendous potential to address complex societal problems like water shortage. In this study, I will apply appropriate global and local measures of spatial association techniques to **reveal the spatial patterns of functional and non-functional water points**. This will include will not limited to the following tasks:
 
-Geospatial analytics hold tremendous potential to address complex societal problems like water shortage. In this study, I will apply appropriate global and local measures of spatial association techniques to **reveal the spatial patterns of non-functional water points**.
+-   Using appropriate sf method, import the shape file into R and save it in a simple feature data frame format. Note that there are three Projected Coordinate Systems of Nigeria, they are: EPSG: 26391, 26392, and 26303. You can use any one of them.
 
-### The Study Area
+-   Using appropriate tidyr and dplyr methods, derive the proportion of functional and non-functional water point at LGA level.
 
-The focus of this study would be Nigeria. Nigeria is located in West Africa and is the most populous country in Africa. UNICEF estimates that one third of Nigeria children do not have sufficient water to meet daily needs.
+-   Combining the geospatial and aspatial data frame into simple feature data frame.
 
-https://www.unicef.org/nigeria/press-releases/nearly-one-third-nigerian-children-do-not-have-enough-water-meet-their-daily-needs
+-   Performing outliers/clusters analysis by using appropriate local measures of spatial association methods.
 
-## Getting Started
+-   Performing hot spot area analysis by using appropriate local measures of spatial association methods.
 
-### Setting the Analytical Tools
+## The Study Area
 
-The code chunk below installs and loads **sf**, **spdep**, **tmap** and **tidyverse** packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool. It provides intuitively named functions for the base functions.
+The focus of this study would be Nigeria. Nigeria is located in West Africa and is the most populous country in Africa. The states are grouped into six geopolitical zones, the North Central, North East, North West, South West, South East and South[^4]. UNICEF estimates that one third of Nigeria children do not have sufficient water to meet daily needs[^5].
+
+[^4]: Okorie PN, Ademowo GO, Saka Y, Davies E, Okoronkwo C, Bockarie MJ, Molyneux DH, Kelly-Hope LA. Lymphatic filariasis in Nigeria; micro-stratification overlap mapping (MOM) as a prerequisite for cost-effective resource utilization in control and surveillance. PLoS Negl Trop Dis. 2013 Sep 5;7(9):e2416. doi: 10.1371/journal.pntd.0002416. PMID: 24040432; PMCID: PMC3764235.
+
+[^5]: https://www.unicef.org/nigeria/press-releases/nearly-one-third-nigerian-children-do-not-have-enough-water-meet-their-daily-needs
+
+# Getting Started
+
+## Setting the Analytical Tools
+
+The code chunk below installs and loads **sf**, **spdep**, **tmap**, **tidyverse, patchwork** packages into R environment. [*pacman()*](https://cran.r-project.org/web/packages/pacman/readme/README.html) is a R package management tool.
 
 ```{r}
-pacman::p_load(sf, spdep, tmap, tidyverse)
+pacman::p_load(sf, spdep, tmap, tidyverse, patchwork)
 ```
 
-## Data Preparation
+# Data Preparation
 
-### Data
+## Data
 
 As mentioned in the earlier section, the focus of this study is Nigeria. Two data sets will be used in this study. They are:
 
@@ -55,15 +69,15 @@ As mentioned in the earlier section, the focus of this study is Nigeria. Two dat
     The raw WPdx+ data file is 427mb and exceeds the upload limit of Github. In the next section, we will extract the relevant and necessary information, extract it into a .rds file and use the file for subsequent analysis. The raw file will not be pushed to Github to avoid crashing the Github repository.
     :::
 
-### Importing the data into R Environment
+## Importing the data into R Environment
 
-The geospatial data is in ESRI shapefile format and the attribute table is in csv format.
+The geospatial data is in ESRI shape file format and the attribute table is in csv format.
 
-#### Importing Geospatial data into R
+### Importing Geospatial data into R
 
-The code chunk below uses *st_read()* function of **sf** package to import `geoBoundaries-NGA-ADM2` shapefile into R as a polygon feature data frame. The imported shapefile will be a **simple features** object of **sf**.
+The code chunk below uses *st_read()* function of **sf** package to import `geoBoundaries-NGA-ADM2` shape file into R as a polygon feature data frame. The imported shape file will be a **simple features** object of **sf**.
 
-```{r, eval = FALSE}
+```{r}
 nigeria <- st_read(dsn = "data\\geospatial",
                    layer = "geoBoundaries-NGA-ADM2")
 ```
@@ -72,50 +86,94 @@ From the output, we can see that there are 774 multipolygons features with 5 fie
 
 To learn more about the attribute information, we can apply *glimpse()* of **dplyr** package.
 
-```{r, eval = FALSE}
+```{r}
 glimpse(nigeria)
 ```
 
 The printout above details the data type of each field. For instance, `$ shapeName` is in character data type.
 
-#### Importing attribute data into R
+### Importing attribute data into R
 
-The WPdx+ dataset has 70 columns and 406,566 rows.
+The WPdx+ data set has 70 columns and 406,566 rows.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 wpdx <- read_csv("data\\aspatial\\Water_Point_Data_Exchange.csv", show_col_types = FALSE)
 
 ```
 
-Following the warning prompt, we can examine the imported data using the code chunk below.
+At any point in time when we wish to see the columns of a dataframe, we can use *glimpse(). glimpse()* allows us to see all columns and their data type in the data frame which is very helpful since we have 70 columns.
 
-```{r, eval = FALSE}
-problems(wpdx)
-```
-
-The output reveals that there is a mismatched in the expected imported values and the actual imported values. It seems that R expected boolean data types but got character data types instead. Let's find out which columns 19 and 20 are, and the data type by using *glimpse()* of **dplyr** package to view the attribute information.
-
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 glimpse(wpdx)
 ```
 
-*glimpse()* allows us to see all columns in the data frame which is very helpful since we have 70 columns. Columns 19 and 20 correspond to `#rehab_year` and `#rehabilitator`. We can see that they are in the **lgl** data type, which means that they expect logical values. We now understand that R prompted the message to warn us that the data is in the incorrect data type. We will not need to act on this warning for now as we have no use for these columns and will remove them later.
+## Data Wrangling - Geospatial Data
 
-### Data Wrangling
+### Rename Columns
 
-The entire dataset is large, and we need only to extract the relevant information required for the analysis. The focus of the study is Nigeria and the analysis will be done at the Level-2 Administrative Boundary (or LGA) level. Therefore, we will be performing steps to:
+For ease of referencing, let's rename `shapeName` to `LGA`.
+
+```{r}
+#| eval: false
+nigeria <- nigeria %>% 
+    rename(`LGA` = `shapeName`)
+```
+
+### Check for Duplicates
+
+Using duplicated() from R base functions, we can seek out LGA names that might be duplicated. This step is important for later part of the analysis.
+
+```{r}
+#| eval: false
+nigeria$LGA[duplicated(nigeria$LGA)==TRUE]
+```
+
+Based on the above, we have 6 LGAs that have the same name. A desk-based research using the coordinates showed that there are two scenarios that led to this duplication:
+
+1.  Identically named LGAs are located in different states. For instances, there is a Bassa in Kogi State and Plateau State.
+2.  There is a misspelling. In the case of Nasawara, one of it should be spelled as Nassarawa.
+
+Let's correct these errors:
+
+```{r}
+#| eval: false
+nigeria$LGA[94] <- "Bassa_Kogi"
+nigeria$LGA[95] <- "Bassa_Plateau"
+nigeria$LGA[304] <- "Ifelodun, Kwara"
+nigeria$LGA[305] <- "Ifelodun, Osun"
+nigeria$LGA[355] <- "Irepodun, Kwara"
+nigeria$LGA[356] <- "Irepodun, Osun"
+nigeria$LGA[519] <- "Nassarawa, Kano"
+nigeria$LGA[546] <- "Obi, Benue"
+nigeria$LGA[547] <- "Obi, Nasarawa"
+nigeria$LGA[693] <- "Surulere, Lagos"
+nigeria$LGA[694] <- "Surulere, Oyo"
+```
+
+Next, let's double check that the corrections are made.
+
+```{r}
+#| eval: false
+nigeria$LGA[duplicated(nigeria$LGA)==TRUE]
+```
+
+## Data Wrangling - Aspatial Data
+
+The entire data set is large, and we need only to extract the relevant information required for the analysis. The focus of the study is Nigeria and the analysis will be done at the Level-2 Administrative Boundary (or LGA) level. Therefore, we will be performing steps to:
 
 1.  Extract data belonging to Nigeria and
 2.  Group water points according to their functional status at the LGA level.
 
 Besides the above, we will also be performing data preparation and wrangling techniques to surface data issues and resolve them prior to the analysis. Before we start our data wrangling, it would be useful to inspect the [metadata](https://data.waterpointdata.org/dataset/Water-Point-Data-Exchange-Plus-WPdx-/eqje-vguj) to understand what each column represents.
 
-#### **Extract data belonging to Nigeria**
+### **Extract data belonging to Nigeria**
 
 To learn which column(s) to use to filter for Nigeria's data, we can inspect the metadata. We will not display the entire metadata here as it is lengthy. However, here is an excerpt of some columns:
 
 | Column Name         | Description                                                                                                                                                                                                                                                                                                                                     |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------|------------------------------------------------------------|
 | #clean_country_name | Cleaned version of the country name based on provided GPS coordinates.                                                                                                                                                                                                                                                                          |
 | #clean_adm1         | Cleaned version of the Primary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                              |
 | #clean_adm2         | Cleaned version of the Secondary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                            |
@@ -125,7 +183,8 @@ To learn which column(s) to use to filter for Nigeria's data, we can inspect the
 
 Based on the above, we can use `#clean_country_name` to filter out rows belonging to Nigeria. This can be done using the code chunk below. The filtered data set will be saved as `wpdx_nigeria`. We can also inspect the first few rows of the data by using *head().*
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 wpdx_nigeria <- wpdx %>%
   filter(`#clean_country_name` == "Nigeria")
 
@@ -134,246 +193,1489 @@ head(wpdx_nigeria)
 
 Let's use *dim()* to reveal the dimensions of the `wpdx_nigeria`.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 dim(wpdx_nigeria)
 ```
 
-The print out reveals that `wpdx_nigeria` has 95,008 rows and 70 columns.
+The output of the above code would reveal that `wpdx_nigeria` has 95,008 rows and 70 columns.
 
-#### Resolving Misspellings
+### Resolving Misspellings
 
-`#clean_adm2` gives us the location of the water point at the LGA level and `#status_clean` provides us the status of the water point. Therefore, we will use these two variables to group our data.
+`#status_clean` provides us the status of the water points. Using the code chunk below, we use *count()* **dplyr** package to count the frequency of the each location and/or category.
 
-Before we do that, let's inspect the variables. Using the code chunk below, we use *count()* **dplyr** package to count the frequency of the each location and/or category.
-
-```{r, eval = FALSE}
-count(wpdx_nigeria, `#clean_adm2`)
-```
-
-From the above output for `#clean_adm2`, we can see that there are 753 LGA. There seems to be no duplicates or misspellings which is good.
-
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 count(wpdx_nigeria, `#status_clean`)
 ```
 
-From the output above, we observe three issues for the `#status_clean` column: misspellings, missing data and incorrect number of categories. Let's tackle misspellings first.
+| #status_clean                    | n      |
+|----------------------------------|--------|
+| Abandoned                        | 175    |
+| Abandoned/Decommissioned         | 234    |
+| Functional                       | 45,883 |
+| Functional but needs repair      | 4,579  |
+| Functional but not in use        | 1,686  |
+| Non-Functional                   | 29,385 |
+| Non-Functional due to dry season | 2,403  |
+| Non Functional due to dry season | 7      |
+| *NA*                             | 10,656 |
+
+: Output of count(wpdx_nigeria, \`#status_clean\`)
+
+From the output above, we observe two issues for the `#status_clean` column: misspellings, missing data and too many categories. Let's tackle misspellings first.
 
 We can easily see that there two similar categories "Non functional due to dry season" = "Non-Functional due to dry season". One is spelled with a dash and one without. Let's correct this by using the *recode()* from **dplyr** package.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 #recode 
 wpdx_nigeria_clean <- wpdx_nigeria %>%
   mutate(`#status_clean` = recode(`#status_clean`, "Non functional due to dry season" = "Non-Functional due to dry season"))
 
+```
+
+We can confirm that the categories has been recoded correctly by running count() again.
+
+```{r}
+#| eval: false
 #re-run the frequency count
 count(wpdx_nigeria_clean, `#status_clean`)
 ```
 
-From the above, we can confirm that the categories has been recoded.
+### Missing values
 
-**Incorrect number of categories**
+We also note that there are 10,656 missing values in the `#status_clean` column. Let's rename all the NA as 'Unknown'.
 
-Recall that the metadata specifies that there would be 5 categories in the `#status_clean`: (1) Fully functional, (2) Functional but needs repair, (3) Non functional and needs repair, (4) Non functional due to dry season, (5) Abandoned and Other. In reality, we can see that there are 7 categories.
-
-Let's aggregate some categories to align. We will merge:
-
--   'Functional but not in use' with 'Functional' under 'Functional'
-
--   'Abandoned/Decommissioned' and 'Abandoned' under 'Abandoned and Others'
-
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 #recode
 wpdx_nigeria_clean <- wpdx_nigeria_clean %>%
-  mutate(`#status_clean` = recode(`#status_clean`,
-                                  "Functional but not in use" = "Functional",
-                                  "Abandoned/Decommissioned" = "Abandoned and Others", 
-                                  "Abandoned" = "Abandoned and Others"
-                                  ))
-#re-run the frequency count
+    mutate(`#status_clean` = replace_na(`#status_clean`, "Unknown"))
+```
+
+```{r}
+#| eval: false
 count(wpdx_nigeria_clean, `#status_clean`)
 ```
 
-From the above, we can confirm that the values have been recoded correctly. We now have 5 categories in the `#status_clean` column: (1) Functional, (2) Functional but needs repair, (3) Non functional, (4) Non functional due to dry season, (5) Abandoned and Others. This is more or less aligned with the metadata description.
+### **Aggregate to reduce categories**
 
-#### Missing values
+In our study, we would like know the functional and non-functional water points. Therefore, we can actually aggregate our data into three categories: functional, non-functional and unknown as follows:
 
-We also note that there are 10,656 missing values in the `#status_clean` column. While the amount of missing values is more than 5% of the rows, we will drop them as they are not useful in helping us in our analysis of the functional and non-functional water points.
+| Old Category                     | New Category               |
+|----------------------------------|----------------------------|
+| Abandoned                        | Non-Functional             |
+| Abandoned/Decommissioned         | Non-Functional             |
+| Functional                       | Functional (no change)     |
+| Functional but needs repair      | Functional                 |
+| Functional but not in use        | Functional                 |
+| Non-Functional                   | Non-Functional (no change) |
+| Non-Functional due to dry season | Non-Functional             |
+| Unknown                          | Unknown (no change)        |
 
-```{r, eval = FALSE}
-#recode
-wpdx_nigeria_clean <- wpdx_nigeria_clean %>%
-  drop_na(`#status_clean`)
+We will create a new column that states whether the water point if functional or not using the code chunk below.
 
-#re-run the frequency count
-count(wpdx_nigeria_clean, `#status_clean`)
-```
-
-#### Derive new feature for analysis
-
-In our study, we would like know functional and non-functional water points. So we will create a new column that states whether the water point if functional or not. For our analysis, we will recode some values e.g., 'Functional but needs repair' to be under 'Functional' and 'Abandoned and Others' to 'Non-Functional' as well.
-
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 #recode
 wpdx_nigeria_clean <- wpdx_nigeria_clean %>%
   mutate(`Functional_Status` = `#status_clean`) %>%
   mutate(`Functional_Status` = recode(`Functional_Status`,
-         "Functional but needs repair" = "Functional",
-         "Non-Functional due to dry season" = "Non-Functional",
-         "Abandoned and Others" = "Non-Functional"))
+        "Abandoned" = "Non-Functional",
+        "Abandoned/Decommissioned" = "Non-Functional",
+        "Functional but needs repair" = "Functional",
+        "Functional but not in use" = "Functional",
+        "Non-Functional due to dry season" = "Non-Functional"))
   
+```
+
+Again, we can re-run the frequency count to confirm the recode has been performed.
+
+```{r}
+#| eval: false
 #re-run the frequency count
 count(wpdx_nigeria_clean, `Functional_Status`)
 ```
 
-#### Rename Columns
+### Rename Columns
 
 Let us rename `#clean_adm2` to `LGA`.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 wpdx_nigeria_clean <- wpdx_nigeria_clean %>% 
     rename(`LGA` = `#clean_adm2`)
 ```
 
-#### Drop Unwanted Columns
+### Drop Unwanted Columns
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 wpdx_nigeria_simple <- subset(wpdx_nigeria_clean , 
                               select = c("LGA", "#lat_deg", 
-           "#lon_deg","#water_source_clean",
-           "#water_source_category",
-           "#distance_to_primary_road",
-            "#distance_to_secondary_road", "#distance_to_tertiary_road",
-            "#distance_to_city", "#distance_to_town",
-            "water_point_population", "local_population_1km",
-            "crucialness_score", "pressure_score", "usage_capacity",
-            "is_urban", "cluster_size", "Functional_Status")
-)
+                                        "#lon_deg","Functional_Status"))
+
+#"#water_source_clean",
+# "#water_source_category", "#distance_to_primary_road",
+# "#distance_to_secondary_road", "#distance_to_tertiary_road",
+# "#distance_to_city", "#distance_to_town", "usage_capacity",
+# "is_urban", "cluster_size", 
 ```
 
-#### Creating a simple feature data frame
+### Creating a simple feature data frame
 
-Next, we will create a simple feature data frame from `wpdx_nigeria_clean`. This is done using the code chunk below.
+Next, we will create a simple feature data frame from `wpdx_nigeria_simple`. This is done using the code chunk below.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 wpdx_nigeria_sf <- st_as_sf(wpdx_nigeria_simple, 
                     coords = c("#lon_deg","#lat_deg"), 
-                    crs=4326) %>%
-  st_transform(crs = 26391)
+                    crs=4326) 
 ```
 
 We can examine the content of this newly created simple feature data frame using the following code chunk.
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 glimpse(wpdx_nigeria_sf)
 ```
 
-Notice that a new column called `geometry` has been added and the original `#lon_deg` and `#lat_deg` columns have been removed.
+From the output, we see that a new column called `geometry` has been added and the original `#lon_deg` and `#lat_deg` columns have been removed.
 
-#### Transforming the CRS
+We can also use st_geometry() to retrieve the geometry list-column as shown in the code chunk below.
 
-We will transform `nigeria` from **geographic coordinate system** to **projected coordinate system**. We need to do this transformation because the geographic coordinate system is inappropriate if the analysis require the use of distance and/or area measurements.
-
-For the `nigeria` simple feature data frame, the output of the code chunk below tells us that it is in the wgs84 coordinate system.
-
-```{r, eval = FALSE}
-st_geometry(nigeria)
+```{r}
+#| eval: false
+st_geometry(wpdx_nigeria_sf)
 ```
 
-There are three Projected Coordinate Systems of Nigeria: EPSG: 26391, 26392, and 26303. For this study, we will be EPSG 26391. We can use the *st_transform()* of the **sf** package to reproject `nigeria` from one coordinate system to another coordinate system mathematically.
-
-```{r, eval = FALSE}
-nigeria26391 <- st_transform(nigeria, 
-                             crs = 26391)
-```
-
-Next, let us display the content of `nigeria26391` sf data frame as shown below.
-
-```{r, eval = FALSE}
-st_geometry(nigeria26391)
-```
-
-Notice that it is in projected coordinate system now. Furthermore, if you refer to *Bounding box:*, the values are greater than 0-360 range of decimal degree commonly used by most of the geographic coordinate systems.
-
-Let us also rename `shapeName` to `LGA`.
-
-```{r, eval = FALSE}
-nigeria26391 <- nigeria26391 %>% 
-    rename(`LGA` = `shapeName`)
-```
-
-#### 
-
-### Export to .rds
-
-Next, let's save our clean files into .rds files. This would enable us to shorten the loading time and we can avoid uploading the large raw files onto GitHub.
-
-The code chunk below creates two new .rds file, one for the spatial and attribute file.
-
-```{r, eval = FALSE}
-write_rds(wpdx_nigeria_sf, "data\\rds\\wpdx_nigeria_sf_clean.rds")
-write_rds(nigeria26391, "data\\rds\\nigeria_26391_clean.rds")
-```
-
-```{r, echo = FALSE}
-wpdx_nigeria_sf <- readRDS('data\\rds\\wpdx_nigeria_sf_clean.rds')
-nigeria26391 <- readRDS("data\\rds\\nigeria_26391_clean.rds")
-```
+The output displays basic information of the feature class such as type of geometry, the geographic extent of the features and the coordinate system of the data. What we can see is that `wpdx_nigeria_sf` is in the WGS 84 coordinate system.
 
 ### Point in Polygon Count
 
 ```{r}
+#| eval: false
 functional <- wpdx_nigeria_sf %>%
   filter(`Functional_Status` == 'Functional')
 
 non_functional <- wpdx_nigeria_sf %>%
   filter(`Functional_Status` == 'Non-Functional')
+
+unknown <- wpdx_nigeria_sf %>%
+  filter(`Functional_Status` == 'Unknown')
 ```
 
-Next, we can count the number of water points in each LGA using the following code chunk. Two operations are happening at the same time. First, the code chunk identifies water points located inside each LGA by using [st_intersects()](https://r-spatial.github.io/sf/reference/geos_binary_pred.html). Next, [*length()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/length) of Base R is used to calculate the number of water points that fall inside each LGA.
+Next, we can count the number of water points in each LGA using the following code chunk. Two operations are happening at the same time. First, the code chunk identifies water points located inside each LGA by using [*st_intersects()*](https://r-spatial.github.io/sf/reference/geos_binary_pred.html). Next, [*lengths()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/lengths) of Base R is used to calculate the number of water points that fall inside each LGA.
 
 ```{r}
-nigeria26391$Functional_WP <- lengths(st_intersects(nigeria26391, functional))
-nigeria26391$Non_Functional_WP <- lengths(st_intersects(nigeria26391, non_functional))
+#| eval: false
+nigeria$wpt_functional <- lengths(st_intersects(nigeria, functional))
+nigeria$wpt_nonfunctional <- lengths(st_intersects(nigeria, non_functional))
+nigeria$wpt_unknown <-lengths(st_intersects(nigeria, unknown))
+nigeria$wpt_total <- lengths(st_intersects(nigeria, functional)) + 
+  lengths(st_intersects(nigeria, non_functional)) + 
+  lengths(st_intersects(nigeria, unknown))
+```
+
+```{r}
+#| eval: false
+sum(nigeria$wpt_total)
+```
+
+### Derive new features
+
+```{r}
+#| eval: false
+nigeria <- nigeria %>%
+  mutate(pct_functional = `wpt_functional`/ `wpt_total`) %>%
+  mutate(`pct_functional` = replace_na(`pct_functional`, 0)) %>%
+  mutate(pct_nonfunctional = `wpt_nonfunctional`/ `wpt_total`) %>%
+  mutate(`pct_nonfunctional` = replace_na(`pct_nonfunctional`, 0))
 
 ```
+
+### Transforming Coordinate System
+
+We will transform `nigeria` from geographic coordinate system to projected coordinate system. We need to do this transformation because the geographic coordinate system is inappropriate if the analysis require the use of distance and/or area measurements. This would be at the later stage where we compute distance-based contiguity weight matrices.
+
+There are three Projected Coordinate Systems of Nigeria: EPSG: 26391, 26392, and 26303. For this study, we will be EPSG 26391. We can use the *st_transform()* of the **sf** package to re-project `nigeria` from one coordinate system to another coordinate system mathematically.
+
+We will save a copy of the `nigeria` in the geographic coordinate system before the projection.
+
+```{r}
+#| eval: false
+nigeria_gcs <- nigeria 
+nigeria <- st_transform(nigeria, crs = 26391)
+```
+
+Next, let us display the content of `nigeria` sf data frame as shown below.
+
+```{r}
+#| eval: false
+st_geometry(nigeria)
+```
+
+Notice that it is in projected coordinate system now. Furthermore, if you refer to Bounding box:, the values are greater than 0-360 range of decimal degree commonly used by most of the geographic coordinate systems.
+
+### Saving the Analytical Data Table
+
+Next, let's save our cleaned data into .rds data format files using the `write_rds()` of **readr** package. The output file is called *wp_nga.rds* and it is saved in *rds* sub-folder. We do this to shorten the loading time and more importantly, we can avoid uploading the large raw files onto GitHub.
+
+```{r}
+#| eval: false
+write_rds(nigeria, "data\\rds\\wp_nga.rds")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Save as back-up
+wpdx_nigeria_simple <- write_rds(wpdx_nigeria_simple, 'data\\rds\\wpdx_nigeria_simple.rds')
+```
+
+Note: WPdx+ also offers the data in shape file format. We can also download that version for our analysis. This is covered [here](https://isss624-amelia.netlify.app/exercises/in-class_ex2/in-class_ex2), if you wish to learn more.
+
+# Exploratory Data Analysis
+
+Let's load the .rds file using the *readRDS()* function.
+
+```{r}
+nigeria <- readRDS("data\\rds\\wp_nga.rds")
+```
+
+To avoid skewing the subsequent analysis, we will exclude LDAs without any water points (functional, non-functional and unknown).
+
+```{r}
+nigeria <- nigeria %>%
+  filter(nigeria$wpt_total != 0)
+```
+
+There are 13 LGAs without any water points. The number of LGAs decreased from 774 to 761.
+
+## Water Point Density using Histograms
+
+While our interest is in geographical distribution of functional and non-functional water points, it would be interesting to see the water point density too. To do this, we must first compute the area of LGA and then the water point density.
+
+The code chunk below uses *st_area()* of **sf** package to derive the area of each LGA. We are creating a new column `Area` to store the area values.
+
+```{r}
+nigeria$Area <- nigeria %>%
+  st_area()
+```
+
+```{r}
+nigeria <- nigeria %>%
+  mutate(`wpt_func_density` = (`wpt_functional` / Area * 1000000))
+```
+
+```{r}
+ggplot(data=nigeria,
+       aes(x=as.numeric(`wpt_func_density`))) +
+  geom_histogram(bins=20,
+                 color="black",
+                 fill = "pink") + 
+  labs(title = "Are functional water points evenly distributed in Nigeria?",
+       subtitle = "While there are many LGAs less than one waterpoint per km sq, there is 1 LGA with 10 \nfunctional water points per km sq.",
+       x = "Functional Water Point density (per km sq)",
+       y = "Frequency")
+```
+
+We can repeat the same for non-functional water points.
+
+```{r}
+nigeria <- nigeria %>%
+  mutate(`wpt_nonfunc_density` = (`wpt_nonfunctional` / Area * 1000000))
+
+ggplot(data=nigeria,
+       aes(x=as.numeric(`wpt_nonfunc_density`))) +
+  geom_histogram(bins=20,
+                 color="black",
+                 fill = "orange") + 
+  labs(title = "Are non-functional water points evenly distributed in Nigeria?",
+       subtitle = "It would be good to know that most areas have less than one non-functional water point \nper km sq.",
+       x = "Non-Functional Water Point density (per km sq)",
+       y = "Frequency")
+```
+
+## Distribution of water points in Nigeria
+
+There are 94,979 water points in Nigeria. This can be calculated in the code chunk below.
+
+```{r}
+sum(nigeria$wpt_total)
+```
+
+Let's find out the distribution of the various functional status of water points in Nigeria and use **ggplot2** to visualise.
+
+```{r}
+nigeria %>%
+  pivot_longer(c(wpt_functional, wpt_nonfunctional,wpt_unknown),
+               names_to = "status", values_to = "count") %>%
+  count(status, wt = count) %>%
+  ggplot(aes(status)) + geom_bar(aes(weight = n))
+```
+
+As we can see in the figure above, more than half of the water points are functional, slightly more than a third are non-functional with the remaining unknown.
+
+In the code chuck below, we will use ***tmap*** to plot the spatial distribution of water points of different categories. We will use *tmap_arrange()* to show the plots together.
+
+Before this, we will create a helper function that will help us to plot the choropleths with ease.
+
+```{r}
+# input: the dataframe and the variable name, chart style, title 
+choropleth_plot <- function(df, varname, style, title) {
+  tm_shape(df) +
+    tm_fill(varname, 
+          n= 5,
+          style = style) +
+    tm_borders(alpha = 0.5) +
+    tm_layout(main.title = title,
+              main.title.size = 1,
+              main.title.position = "center",
+              legend.height = 0.45, 
+              legend.width = 0.35,
+              frame = TRUE)+ 
+    tm_compass(position = c('left','bottom'))
+}
+```
+
+Here, we will plot the distributions of all, unknown, functional and non-functional water points.
 
 ```{r}
 tmap_mode("plot")
-f <- qtm(nigeria26391,
-    fill = "Functional_WP")
-nf <- qtm(nigeria26391,
-    fill = "Non_Functional_WP")
-tmap_arrange(f, nf, asp = 1, ncol = 2)
+tmap_arrange(
+choropleth_plot(nigeria, "wpt_total", "pretty", "All water points in Nigeria: \npartitioned by 'pretty' intervals"),
+choropleth_plot(nigeria, "wpt_unknown", "pretty", "Status unknown water points in Nigeria: \n partitioned by 'pretty' intervals"),
+choropleth_plot(nigeria, "wpt_functional", "pretty", "Functional water points in Nigeria: \n partitioned by 'pretty' intervals"),
+choropleth_plot(nigeria, "wpt_nonfunctional", "pretty", "Non-functional water points in Nigeria: \n partitioned by 'pretty' intervals"))
+
 ```
 
-## 
+The choropleths above are partitioned using the default or 'pretty' intervals. We can observe that the number of water points (total) are not evenly spread across evenly--we see mostly lighter shades of orange and certain areas with darker orange. Water points with status unknown are more common in the southern part of the map as compared to the northern parts of Nigeria. In terms of functional water points, we can see areas in the top middle of the map are in darker shades of orange which indicates a higher number of functional water points compared to other areas. For non-functional water points, we see that the outer regions of the maps have lesser non-functional water points. Moving towards the center of the map, we see more non-functional water points. Note that this may be because of the total of water points in the area. For instance, if there is a small number (e.g., \<10) of water points in an area and the worse case scenario is that all are non-functional. Compared to an area with \>50 water points, having 10 non-functioning water points is only 20% of its supply source.
 
-\-\-\--
-
-#### **Group water points according to their functional status at the LGA level**
-
-Next, we will group the water points at the LGA level and according to their functional status.
+Let's try to plot the same charts, this time, using the **quantile** partitioning method.
 
 ```{r}
-# wpdx_nigeria_group <- wpdx_nigeria_clean %>%
-#   group_by(`#clean_adm2`, `#status_clean`) %>%
-#   summarise(water_points = n()) %>%
-#   ungroup() 
+tmap_mode("plot")
+tmap_arrange(
+choropleth_plot(nigeria, "wpt_total", "quantile", "All water points in Nigeria: \npartitioned by 'quantile' intervals"),
+choropleth_plot(nigeria, "wpt_unknown", "quantile", "Status unknown water points in Nigeria: \n partitioned by 'quantile' intervals"),
+choropleth_plot(nigeria, "wpt_functional", "quantile", "Functional water points in Nigeria: \n partitioned by 'quantile' intervals"),
+choropleth_plot(nigeria, "wpt_nonfunctional", "quantile", "Non-functional water points in Nigeria: \n partitioned by 'quantile' intervals"))
 ```
 
-We will use [pivot_wider()](https://tidyr.tidyverse.org/reference/pivot_wider.html) from **tidyr** package. This is used to pivot row values to columns. It "widens" data, increasing the number of columns and decreasing the number of rows
+The quantile partitioning method creates intervals with an equal number of features i.e., polygons. We can make different observations using this map. When looking at total water points, we can see that north eastern areas and south western areas have relatively less water points as compared to the other areas. This pattern is also seen in the functional water points and non-functional water points choropleth maps. We can see that the northern parts of Nigeria have relatively higher number of functional water points, and relatively lesser non-functional water points as compared to other areas. As we can see in the above, plotting the graphs in "quantiles" gives us a better sense of relative levels of water points as compared to the "pretty" method.
+
+We can also plot our choropleths using its proportions.
 
 ```{r}
-# wpdx_nigeria_group <- wpdx_nigeria_group %>%
-#   pivot_wider(names_from = `#status_clean`, values_from = `water_points`)
+#Repeat plot with the prportions
+tmap_mode("plot")
+tmap_arrange(
+choropleth_plot(nigeria, "pct_functional", "pretty", "Proportion of Functional water points \nin Nigeria: partitioned by 'pretty' intervals"),
+choropleth_plot(nigeria, "pct_nonfunctional", "pretty", "Proportion of Non-functional water points \nin Nigeria: partitioned by 'pretty' intervals"))
 ```
 
-Finally, we can do a check using *glimpse().*
+The above two maps are plotted in the same scale (refer to the legend) which makes it easy for comparison between the two. The top 1/3 of the maps seem to have a higher proportion of functional water points than non-functional. The bottom 1/3 of the maps seem to have a slightly higher proportional of non-functional water points than functional ones.
+
+We can also see that there is somewhat an inverse relationship when the proportion is \>0.60. This means that the darker areas in one map would *likely* show up as light areas in the other. For instance, the top of the functional water points maps is in darker shades of orange while the same areas are in lighter shades in the non-functional water points map. We say that it is 'likely' the case because there are areas with status unknown water points as well.
+
+# Exploratory Spatial Data Analysis
+
+Exploratory Spatial Data Analysis or ESDA is an extension of Exploratory Data Analysis. It consists of descriptive techniques to discover spatial distribution of data and identify outliers[^6].
+
+[^6]: Mack, Vincent & Kam, Tin Seong. (2018). Is There Space for Violence?: A Data-driven Approach to the Exploration of Spatial-Temporal Dimensions of Conflict. 1-10. 10.1145/3282933.3282935.
+
+In this section, we will cover global and local spatial autocorrelation. The former focuses on the overall trend while the latter enables us to identify hot and cold spots in the data.
+
+## Global Spatial Autocorrelation
+
+According to Tobler's First Law of Geography, "*everything is related to everything else, but near things are more related than distant things*."
+
+This sub-section will cover the computation of global spatial autocorrelation statistics and spatial complete randomness test for global spatial autocorrelation. The goal of these analyses is to understand whether water points are evenly distributed across Nigeria.
+
+### Spatial Weights Matrix
+
+To compute global spatial autocorrelation, we first need to construct spatial weights of the Nigeria. Spatial relationships are multi-directional and multi-lateral (Ref: Compulsory Reading). We can use Spatial Weights to define spatial neighbourhood for subsequent spatial analysis. There are two commonly used methods of spatial weights: contiguity-based and distanced-based.
+
+In **contiguity-based**, neighbours share a common boundary which is considered differently in different methods. In **Rook** contiguity, neighbours have a common edge. In **Queen** contiguity, neighbours need to only share a common vertex or edge. So in comparison, Queen contiguity is more encompassing as compared to **Rook** contiguity[^7].
+
+[^7]: https://geodacenter.github.io/workbook/4a_contig_weights/lab4a.html#rook-contiguity)
+
+The differences between the two is illustrated in the picture below.
+
+[![Contiguity Matrix](images/paste-BAF03FFF.png){width="600"}](https://www.researchgate.net/figure/Rooks-vs-Queens-Contiguity_fig8_304782766)
+
+In **distance-based** contiguity, we have fixed weighting and adaptive weighting schemes. The former considers two regions are neighbours if they are within a specified distance from one another. In the latter scheme, each region will have the same number of neighbours. The number of neighbour is specified beforehand. If k = 8 neighbours, it classifies the nearest 8 regions as neighbours.
+
+Which method of spatial weights method to use depends on the geographical location we are working with. If the geographical location consists of many isolated islands, then contiguity-based matrix may yield many regions with no neighbours. If the sizes of the features (polygons) are wide ranging where you have very large features and relatively smaller features, then contiguity-based matrix may also result in larger features having many more neighbours which may skew the results--there would be a smoothing effect to the larger number of neighbours.
+
+### Contiguity-based Spatial Weights
+
+In the code chunk below, [*poly2nb()*](https://r-spatial.github.io/spdep/reference/poly2nb.html) of **spdep** package is used to compute contiguity weight matrices for the study area. This function builds a neighbours list based on regions with contiguous boundaries. By default, Queen contiguity is applied.
+
+#### **Contiguity-based (Queen) Spatial Weight Contiguity**
 
 ```{r}
-# glimpse(wpdx_nigeria_clean)
+wm_q <- poly2nb(nigeria, 
+                queen = TRUE)
+summary(wm_q)
 ```
 
-Our dataset has one column that specifies the LGA and the remaining six columns specifies the number of water points by its functional statuses.
+The summary report above shows that there are 761 area units in Nigeria. The most connected region has 14 links. There are four least connected regions with only one neighbour.
 
-## Exploratory Data Analysis
+#### **Contiguity-based (Rook) Spatial Weight Contiguity**
+
+In the code chunk below, [*poly2nb()*](https://r-spatial.github.io/spdep/reference/poly2nb.html) of **spdep** package is used to compute contiguity weight matrices for the study area. We specify `queen = FALSE` to compute Rook contiguity.
+
+```{r}
+wm_r <- poly2nb(nigeria, 
+                queen = FALSE)
+summary(wm_r)
+```
+
+The summary report above shows that there are 751 area units in Nigeria. The most connected region has 14 links. There are four least connected regions with only one neighbour.
+
+A summary of the results are below. In our case, both methods yield similar results.
+
+|                              | Queen Contiguity | Rook Contiguity |
+|------------------------------|------------------|-----------------|
+| No. of regions with no links | 0                | 0               |
+| Average number of links      | 5.71             | 5.69            |
+
+### Distance-based Contiguity Weight Matrix
+
+We will derive the distance-based weight matrices by using [*dnearneigh()*](https://r-spatial.github.io/spdep/reference/dnearneigh.html) of **spdep** package. The function identifies neighbours of region points by Euclidean distance with a distance band with lower and upper bounds controlled by the *bounds* argument or by Great Circle distance in kilometres if *longlat* argument is set to TRUE
+
+#### **Fixed Distance Weight Matrix**
+
+**Determining the cut-off distance**
+
+To ensure that each region has at least one neighbour, we need to find out the minimum distance within which all regions have at least one neighbour. We can do this by following these steps:
+
+-   Getting the coordinates of polygon centroids. This is required as an input in the next step.
+
+    We need to associate each polygon with a point and its coordinates need to be in a separate data frame. We will use a mapping function that applies a given function to each element of a vector and returns a vector of the same length. Our input vector will be the geometry column of `nigeria`. Our function will be *st_centroid()*. We will be using *map_dbl()* variation of [map](https://www.rdocumentation.org/packages/purrr/versions/0.2.5/topics/map) from the **purrr** package. **purrr** is loaded when we load **tidyverse** package.
+
+    To get our longitude values we map the *st_centroid()* function over the geometry column of `nigeria` and access the longitude value through double bracket notation \[\[\]\] and 1. This allows us to get only the longitude, which is the first value in each centroid.
+
+    ```{r}
+    longitude <- map_dbl(nigeria$geometry, ~st_centroid(.x)[[1]])
+    ```
+
+    We do the same for latitude with one key difference. We access the second value per each centroid with \[\[2\]\]
+
+    ```{r}
+    latitude <- map_dbl(nigeria$geometry, ~st_centroid(.x)[[2]])
+    ```
+
+    Now that we have latitude and longitude, I used cbind to put longitude and latitude into the same object. We should check the first few observations to see if things are formatted correctly.
+
+    ```{r}
+    coords <- cbind(longitude, latitude)
+    head(coords, 5)
+    ```
+
+-   Return a matrix with the indices of points belonging to the set of the k nearest neighbours of each other by using [*knearneigh()*](https://r-spatial.github.io/spdep/reference/knearneigh.html) of **spdep.**
+
+-   Convert the knn object returned by *knearneigh()* into a neighbours list of class nb with a list of integer vectors containing neighbour region number ids by using [*knn2nb()*](https://r-spatial.github.io/spdep/reference/knn2nb.html).
+
+-   Return the length of neighbour relationship edges by using [*nbdists()*](https://r-spatial.github.io/spdep/reference/nbdists.html) of **spdep**. The function returns in the units of the coordinates if the coordinates are projected, in km otherwise.
+
+-   Remove the list structure of the returned object by using [unlist()](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/unlist).
+
+```{r}
+k1 <- knn2nb(knearneigh(coords, k = 1))
+k1dists <- unlist(nbdists(k1, coords))
+summary(k1dists)
+```
+
+The summary report shows that the largest first nearest neighbour distance is 72,139 metres, so using a number slightly larger than this (i.e. 72,200) as the upper threshold gives certainty that all regions will have at least one neighbour.
+
+Using the code chunk below, we discover that the region with the maximum distance to its nearest neighbour is Sardauna.
+
+```{r}
+nigeria$LGA[match(max(k1dists), k1dists)]
+```
+
+**Computing the fixed distance weight matrix**
+
+Now, we will compute the distance weight matrix by using [*dnearneigh()*](https://r-spatial.github.io/spdep/reference/dnearneigh.html) as shown below.
+
+```{r}
+wm_d72 <- dnearneigh(coords,0,72200)
+wm_d72
+```
+
+From the output, we see that the average number of links is 23.7. The number is quite high and may skew the analysis.
+
+Next, we will use *str()* to display the content of `wm_d72` weight matrix.
+
+```{r}
+str(wm_d72)
+```
+
+We can observe that each region has varying number of neighbours.
+
+```{r}
+par(mfrow = c(1,2))
+plot(nigeria$geometry, border = "lightgrey",main="1st nearest neighbours" )
+plot(k1, coords, add = TRUE, col = "red", length = 0.88, )
+
+plot(nigeria$geometry, border = "lightgrey", main = "Distance Link")
+plot(wm_d72, coords, add = TRUE, pch = 19, cex = 0.6)
+```
+
+Due to a high number of links, we have very dense graphs which make it difficult to interpret. However, we can still make some observations:
+
+-   The above charts actually illustrates a characteristic of fixed distance weight matrix--more densely settled areas (usually the urban areas) tend to have more neighbours and the less densely settled areas (usually the rural counties) tend to have lesser neighbours.
+
+-   Based on the above charts, we can tell that the geographical areas of the regions in Nigeria are largely varying. In the top and bottom of the charts, we see the neighbour links are very dense and less dense in the western and eastern regions (where you can see pockets of white space).
+
+#### **Adaptive Distance-based Weight Matrix**
+
+To overcome the issue of fixed distance weight matrix where there is uneven distribution of neighbours, we can use directly control the numbers of neighbours using k-nearest neighbours, as shown in the code chunk below.
+
+As a rule-of-thumb, we will set k = 8 i.e., all regions will have 8 neighbours.
+
+```{r}
+knn8 <- knn2nb(knearneigh(coords, k=8))
+knn8
+```
+
+**Plotting Adaptive Distance-based Neighbours**
+
+```{r}
+par(mfrow = c(1,2))
+plot(nigeria$geometry, border = "lightgrey",main="8 nearest neighbours" )
+plot(knn8, coords, add = TRUE, col = "red", length = 0.88, )
+
+plot(nigeria$geometry, border = "lightgrey", main = "Distance Link w KNN")
+plot(knn8, coords, add = TRUE, pch = 19, cex = 0.6)
+```
+
+### Which spatial weight matrix to use?
+
+Selecting a spatial weight matrix is use is dependent on the geographical area of interest and the focus of the study[^8]. In our case, between contiguity-based and distance-based spatial weight matrices, we lean towards distance-based matrices. Within distance-based matrices, we will select the adaptive distance-based spatial weight matrix for our subsequent analysis.
+
+[^8]: Chapter 2. Codifying the neighbourhood structure of Handbook of Spatial Analysis: Theory and Application with R.
+
+The reasons are summarised here:
+
+-   Nigeria has 761 LGAs with varying sizes. Hence, a contiguity-based matrix will have the issue where larger LGAs have more neighbours and smaller LGAs have lesser neighbours. This would likely skew our analysis. Therefore, distance-based methods are preferred.
+
+-   As mentioned earlier, the fixed distance-based method has the disadvantage that some regions would only have 1 neighbour, while on average regions have 23 neighbours. Statistical test for regions with only 1 neighbour may not be valid.
+
+Based on the above, we will select adaptive distance-based spatial weight matrix.
+
+### Row-Standardised Weights Matrix
+
+After selecting the weight matrix to use, we will now assign weights to each neighboring polygon. Each neighboring polygon will be assigned equal weight (style="W") by assigning the fraction 1/(#of neighbors) to each neighbouring area. This is also known as a row-standardised matrix where each row in the matrix sums to 1.
+
+```{r}
+rswm_knn8 <- nb2listw(knn8,
+                   style = "W",
+                   zero.policy = TRUE)
+rswm_knn8
+```
+
+We will be using the row-standardised weight matrix for the next part of the analysis.
+
+### Computing Global Spatial Autocorrelation Statistics
+
+This in sub-section, we will use two methods: Moran's I and Geary's C to test the hypothesis the following hypothesis:
+
+-   H0: Observed spatial patterns of values is equally likely as any other spatial pattern i.e. data is randomly disbursed, no spatial pattern
+
+-   H1: Data is more spatially clustered than expected by chance alone.
+
+#### Moran's I
+
+We will perform Moran's I statistical testing by using [*moran.test()*](https://r-spatial.github.io/spdep/reference/moran.test.html) of **spdep**. Moran's I describe how features differ from the values in the study area as a whole. The Moran I statistic ranges from -1 to 1. If the Moran I is:
+
+-   positive (I\>0): Clustered, observations tend to be similar
+
+-   negative (I\<0): Disperse, observations tend to be dissimilar
+
+-   approximately zero: observations arranged randomly over space
+
+The below code chunk will perform the Moran's I test on both functional and non-functional water points.
+
+```{r}
+moran.test(nigeria$pct_functional,
+           listw = rswm_knn8,
+           zero.policy = TRUE,
+           na.action = na.omit)
+```
+
+```{r}
+moran.test(nigeria$pct_nonfunctional,
+           listw = rswm_knn8,
+           zero.policy = TRUE,
+           na.action = na.omit)
+```
+
+In both cases, since the p-value \< 0.05, we have sufficient statistical evidence to reject the null hypothesis at the 95% level of confidence. This means that data is more spatially clustered than expected by chance alone. Since Moran I statistics are larger than 0, the observation are clustered, observations tend to be similar.
+
+**Computing Monte Carlo Moran's I**
+
+If we have doubts that the assumptions of Moran's I are true (normality and randomisation), we can use a Monte Carlo simulation to perform a permutation test for Moran's I.
+
+The permutation tests consists of randomly reassigning the attribute values to a cell under the assumption of no spatial pattern. This random assignment is conducted n times. Each time, we will compute the Moran's I to creating an empirical distribution of Moran's I under H0.
+
+The code chunk below performs permutation test for Moran's I statistic by using [*moran.mc()*](https://r-spatial.github.io/spdep/reference/moran.mc.html) of **spdep**. A total of 1000 simulation will be performed.
+
+```{r}
+set.seed(1234)
+bperm_func = moran.mc(nigeria$pct_functional, 
+         listw = rswm_knn8,
+         nsim = 999,
+         zero.policy = TRUE,
+         na.action = na.omit)
+bperm_func
+```
+
+```{r}
+set.seed(1234)
+bperm_nonfunc = moran.mc(nigeria$pct_nonfunctional, 
+         listw = rswm_knn8,
+         nsim = 999,
+         zero.policy = TRUE,
+         na.action = na.omit)
+bperm_nonfunc
+```
+
+In both cases, since the **pseudo** p-value is \< 0.05, we have sufficient statistical evidence to reject the null hypothesis at the 95% level of confidence. This means that data is more spatially clustered than expected by chance alone for both functional and non-functional water points.
+
+**Visualising Monte Carlo Moran's I**
+
+We can examine the simulated Moran's I test statistics in greater detail through plotting the distribution of the statistical values as a histogram by using the code chunks below.
+
+Let's visualise Monte Carlo Moran's I using a histogram. This can be created by using **ggplot2** package**.**
+
+```{r}
+df <- as.data.frame(bperm_func$res)
+colnames(df) <- c("Simulated Moran's I")
+
+moran_mc_func <- ggplot(df, aes(x=`Simulated Moran's I`)) + 
+  geom_histogram(color = "black", fill = "grey", bins = 25) +
+  xlim(-0.1,0.6) + 
+  ylab('Frequency') + 
+  geom_vline(xintercept = 0, color = 'red') +
+  geom_vline(xintercept = 0.523 , color = 'blue') + 
+  ggtitle("Histogram of Monte Carlo Simulated \nMoran's I (Functional WP)") +
+  theme(plot.title = element_text(size = 10, hjust = 0.5)) +
+  annotate("text", x = 0.35, y = 410, label = "Actual Moran's I", color = 'blue') 
+
+df <- as.data.frame(bperm_nonfunc$res)
+colnames(df) <- c("Simulated Moran's I")
+
+moran_mc_nonfunc <- ggplot(df, aes(x=`Simulated Moran's I`)) + 
+  geom_histogram(color = "black", fill = "grey", bins = 25) +
+  xlim(-0.1,0.6) + 
+  ylab('Frequency') + 
+  geom_vline(xintercept = 0, color = 'red') +
+  geom_vline(xintercept = 0.450 , color = 'blue') + 
+  ggtitle("Histogram of Monte Carlo Simulated \nMoran's I (Non-Functional WP)") +
+  theme(plot.title = element_text(size = 10, hjust = 0.5)) +
+  annotate("text", x = 0.28, y = 410, label = "Actual Moran's I", color = 'blue') 
+
+moran_mc_func + moran_mc_nonfunc
+```
+
+In both cases, the actual Moran's I value (blue line) is near the extremes of the distribution of the simulated data. This suggests a statistically significant relationship and evidence of positive autocorrelation i.e. cluster[^9].
+
+[^9]: https://swampthingecology.org/blog/geospatial-data-analysis-in-rstats.-part-2/
+
+#### Geary's C
+
+Geary's C considers the difference between respective observations[^10]\--this means that it describe how features differ from their immediate neighbours. Geary's C range from -1 to an undefined number above 1. If the Geary's C is:
+
+[^10]: Chapter 2. Codifying the neighbourhood structure of Handbook of Spatial Analysis: Theory and Application with R.
+
+-   Large (c\>1): Dispersed, observations tend to be dissimilar
+-   Small (c\<1): Clustered, observations tend to be similar
+-   c = 1: observations arranged randomly over space
+
+The code chunk below performs Geary's C test for spatial autocorrelation for functional and non-functional water points using [*geary.test()*](https://r-spatial.github.io/spdep/reference/geary.test.html) of **spdep**.
+
+```{r}
+geary.test(nigeria$pct_functional, listw = rswm_knn8)
+```
+
+```{r}
+geary.test(nigeria$pct_nonfunctional, listw = rswm_knn8)
+```
+
+In both cases, since the p-value \< 0.05, we have sufficient statistical evidence to reject the null hypothesis at the 95% level of confidence. This means that data is more spatially clustered than expected by chance alone. The Geary C statistics are less than 1 suggesting that clusters are present in both cases. This finding is consistent with the results of the Global Moran's I test in the previous section.
+
+**Computing Monte Carlo Geary's C**
+
+Similar to Moran's I, we can also use Monte Carlo simulation to perform a permutation test for Geary's C. The code chunk below performs permutation test for Geary's C statistic by using geary.mc() of **spdep**. A total of 1000 simulation will be performed.
+
+```{r}
+set.seed(1234)
+bperm_func = geary.mc(nigeria$pct_functional,
+                 listw = rswm_knn8,
+                 nsim = 999)
+bperm_func
+```
+
+```{r}
+set.seed(1234)
+bperm_nonfunc = geary.mc(nigeria$pct_nonfunctional,
+                 listw = rswm_knn8,
+                 nsim = 999)
+bperm_nonfunc
+```
+
+Since the **pseudo** p-value = 0.001 \< 0.05, we have sufficient statistical evidence to reject the null hypothesis at the 95% level of confidence. This means that data is more spatially clustered than expected by chance alone.
+
+**Visualising the Monte Carlo Geary's C**
+
+We can examine the simulated Geary's C test statistics in greater detail through plotting the distribution of the statistical values as a histogram by using the code chunks below. This can be created by using **ggplot2** package**.**
+
+```{r}
+df <- as.data.frame(bperm_func$res)
+colnames(df) <- c("Simulated Geary's C")
+
+geary_mc_func <- ggplot(df, aes(x=`Simulated Geary's C`)) + 
+  geom_histogram(color = "black", fill = "grey", bins = 25) +
+  xlim(0.4,1.2) + 
+  ylab('Frequency') + 
+  geom_vline(xintercept = 0, color = 'red') +
+  geom_vline(xintercept = 0.470 , color = 'blue') + 
+  ggtitle("Histogram of Monte Carlo Simulated \nGeary's C (Non-Functional WP)") +
+  theme(plot.title = element_text(size = 10, hjust = 0.5)) +
+  annotate("text", x = 0.30, y = 410, label = "Actual Geary's C", color = 'blue') 
+
+
+df <- as.data.frame(bperm_nonfunc$res)
+colnames(df) <- c("Simulated Geary's C")
+
+geary_mc_nonfunc <- ggplot(df, aes(x=`Simulated Geary's C`)) + 
+  geom_histogram(color = "black", fill = "grey", bins = 25) +
+  xlim(0.4,1.2) + 
+  ylab('Frequency') + 
+  geom_vline(xintercept = 0, color = 'red') +
+  geom_vline(xintercept = 0.540 , color = 'blue') + 
+  ggtitle("Histogram of Monte Carlo Simulated \nGeary's C (Non-Functional WP)") +
+  theme(plot.title = element_text(size = 10, hjust = 0.5)) +
+  annotate("text", x = 0.37, y = 410, label = "Actual Geary's C", color = 'blue') 
+
+geary_mc_func + geary_mc_nonfunc
+```
+
+In both cases, the actual Geary's C value (blue line) is near the extremes of the distribution of the simulated data. This suggests a statistically significant relationship and evidence of positive autocorrelation i.e. cluster.
+
+### Spatial Correlogram
+
+Spatial correlograms are great to examine patterns of spatial autocorrelation in your data or model residuals. They show **how correlated are pairs of spatial observations when you increase the distance (lag) between them** - they are plots of some index of autocorrelation (Moran's I or Geary's c) against distance.
+
+In spatial correlograms, the number of bins determines the distance range of each bin. The range is the maximum distance divided by the number of bins[^11].
+
+[^11]: https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#spatial-correlogram
+
+#### Moran's I Correlogram
+
+In the code chunk below, [*sp.correlogram()*](https://r-spatial.github.io/spdep/reference/sp.correlogram.html) of **spdep** package is used to compute a 8-lag spatial correlogram for Moran's I and the autocorrelation coefficient. The plot() of base Graph is then used to plot the output.
+
+```{r}
+moran_corr_func <- sp.correlogram(knn8, #non-weighted spatial weights
+                          nigeria$pct_functional,
+                          order = 8,
+                          method = 'I', #Moran's I
+                          style = 'W') #weighed
+plot(moran_corr_func)
+```
+
+```{r}
+moran_corr_nonfunc <- sp.correlogram(knn8, #non-weighted spatial weights
+                          nigeria$pct_nonfunctional,
+                          order = 8,
+                          method = 'I', #Moran's I
+                          style = 'W') #weighed
+plot(moran_corr_nonfunc)
+```
+
+We can use the following code chunk if we are interested to find out the distance range of each bin / lag.
+
+```{r}
+nb8 <- nblag(knn8, 8)
+correlogram_bins <- sapply(nb8, 
+                           function(x) mean(unlist(nbdists(x, coords))))
+correlogram_bins
+```
+
+Next, let's examine the full analysis report and view which values are statistically significant.
+
+```{r}
+print(moran_corr_func)
+```
+
+```{r}
+print(moran_corr_nonfunc)
+```
+
+From the output, we see that all results in both cases are statistically significant at the 95% level of confidence. The correlogram depicts how the spatial autocorrelation changes with distance. From the chart, we can see that Moran's I decreases when spatial lag increases. This means that there is a quite strong spatial autocorrelation that decreases as spatial lag increases.
+
+Comparing functional and non-functional water points, we can see that in the latter, from lag-5 onwards, the spatial autocorrelation \< 0.1 and nears 0. In the case of functional water points, the Moran's I value at lag 5 is around 0.3.
+
+#### Geary's C Correlogram
+
+Similarly, we can do the same for Geary's C.
+
+```{r}
+geary_corr_func <- sp.correlogram(knn8, #non-weighted spatial weights
+                          nigeria$pct_functional,
+                          order = 8,
+                          method = 'C', #Geary's C
+                          style = 'W') #weighed
+plot(geary_corr_func)
+```
+
+```{r}
+geary_corr_nonfunc <- sp.correlogram(knn8, #non-weighted spatial weights
+                          nigeria$pct_nonfunctional,
+                          order = 8,
+                          method = 'C', #Geary's C
+                          style = 'W') #weighed
+plot(geary_corr_nonfunc)
+```
+
+Let's use the code chunk below to print the full analysis report.
+
+```{r}
+print(geary_corr_func)
+```
+
+```{r}
+print(geary_corr_nonfunc)
+```
+
+From the output, we see that all results are statistically significant at the 95% level of confidence for both cases.
+
+The correlogram depicts how the spatial autocorrelation changes with distance. From the chart, we can see that Geary's C increases when spatial lag increases. This is unsurprising, given that Moran's I and Geary's C are inversely related. Also, all Geary C's values are \< 1 which suggests clustering.
+
+In the case of non-functional water points, from Lag 5, the values are \>= 0.9, nearing 1 which suggests little to no cluster or dissimilar observations. On the other hand, the values for functional water points are \<= 0.8 for all lags.
+
+## Local Spatial Autocorrelation Statistics
+
+In the previous section, we have established through statistical testing that spatial clustering of non-functional water points occur in Nigeria. Now, we seek to detect clusters or outliers and discover if there are any hot or cold spots of non-functional water points using Local Spatial Autocorrelation Statistics. They include: Anselin's Moran Scatterplot and Local Indicators of Spatial Autocorrelation (LISA) and Getis-Ord Gi Statistics.
+
+### Cluster and Outlier Analysis
+
+#### Local Moran's I
+
+The Local Moran's I is a local spatial autocorrelation statistic based on the Moran's I statistic. It was developed by Anselin (1995) as a LISA statistic. Anselin defines LISA to have two properties:
+
+1.  "The LISA for each observation gives an indication of the extent of significant spatial clustering of similar values around that observation"; and
+
+2.  "the sum of LISAs for all observations is proportional to a global indicator of spatial association."
+
+The first point means that given an attribute of interest, for each region in Nigeria, the LISA indicates existence and extent of spatial clustering of regions with similar attribute values[^12].
+
+[^12]: http://ceadserv1.nku.edu/longa/geomed/ppa/doc/LocalI/LocalI.htm#:\~:text=Local%20Moran's%20I%20is%20a,spatial%20association%20or%20LISA%20statisti
+
+Positive Local Moran's I value indicates that a feature has neighboring features with similarly high or low attribute values; this feature is part of a cluster. Negative Local Moran's I value indicates that a feature has neighboring features with dissimilar values; this feature is an outlier[^13].
+
+[^13]: https://pro.arcgis.com/en/pro-app/latest/tool-reference/spatial-statistics/h-how-cluster-and-outlier-analysis-anselin-local-m.htm
+
+**Computing Local Moran's I**
+
+Before we can map the values, we first need to compute them using the [*localmoran()*](https://r-spatial.github.io/spdep/reference/localmoran.html) function of **spdep** package. It computes *Ii* values, given a set of *zi* values and a listw object providing neighbour weighting information for the polygon associated with the zi values.
+
+The code chunk below is used to compute the Local Moran's I of percentage of functional and non-functional water points at the LGA level.
+
+```{r}
+fips <- order(nigeria$LGA)
+localMI_func <- localmoran(nigeria$pct_functional, rswm_knn8)
+head(localMI_func)
+```
+
+```{r}
+fips <- order(nigeria$LGA)
+localMI_nonfunc <- localmoran(nigeria$pct_nonfunctional, rswm_knn8)
+head(localMI_nonfunc)
+```
+
+*localmoran()* function returns a matrix of values whose columns are:
+
+-   Ii: the local Moran's I statistics
+
+-   E.Ii: the expectation of local moran statistic under the randomisation hypothesis
+
+-   Var.Ii: the variance of local moran statistic under the randomisation hypothesis
+
+-   Z.Ii:the standard deviate of local moran statistic
+
+-   Pr(): the p-value of local moran statistic
+
+The code chunk below list the content of the local Moran matrix derived by using [*printCoefmat()*](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/printCoefmat).
+
+```{r}
+#| eval: false
+printCoefmat(data.frame(
+  localMI_func[fips,], 
+  row.names=nigeria$LGA[fips]),
+  check.names=FALSE)
+```
+
+```{r}
+#| eval: false
+printCoefmat(data.frame(
+  localMI_nonfunc[fips,], 
+  row.names=nigeria$LGA[fips]),
+  check.names=FALSE)
+```
+
+**Mapping Local Moran's I values and p-values**
+
+Next, we will append the local Moran's I dataframe (i.e. `localMI_func` and `localMI_nonfunc`) onto `nigeria` SpatialPolygonDataFrame in preparation for the next part. This can be done using the code chunks below.
+
+```{r}
+nigeria.localMI_func <- cbind(nigeria,localMI_func) %>%
+  rename(Pr.Ii = Pr.z....E.Ii..)
+```
+
+```{r}
+nigeria.localMI_nonfunc <- cbind(nigeria,localMI_nonfunc) %>%
+  rename(Pr.Ii = Pr.z....E.Ii..)
+```
+
+We must also consider the p-values for each of the Local Moran's I values before interpreting them. Let's visualise both the Local Moran's I values and its p-values using the choropleth mapping functions of **tmap** package
+
+```{r}
+localMI_func.map <- tm_shape(nigeria.localMI_func) +
+  tm_fill(col = "Ii", 
+          style = "pretty",
+          title = "Local Moran I Statistics") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Moran's I Map \n(Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+pvalue_func.map <- tm_shape(nigeria.localMI_func) + 
+                tm_fill(col = "Pr.Ii",
+                       breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+                       palette = "-Blues",
+                       title = "Local Moran's I p-values") + 
+                tm_borders(alpha = 0.3)+ 
+  tm_layout(main.title = "Local Moran's I p-values Map \n(Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(localMI_func.map, pvalue_func.map, asp = 1, ncol = 2)
+```
+
+```{r}
+localMI_nonfunc.map <- tm_shape(nigeria.localMI_nonfunc) +
+  tm_fill(col = "Ii", 
+          style = "pretty",
+          title = "Local Moran I Statistics") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Moran's I Map \n(Non-Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+pvalue_nonfunc.map <- tm_shape(nigeria.localMI_nonfunc) + 
+                tm_fill(col = "Pr.Ii",
+                       breaks = c(-Inf, 0.001, 0.01, 0.05, 0.1, Inf),
+                       palette = "-Blues",
+                       title = "Local Moran's I p-values") + 
+                tm_borders(alpha = 0.3)+ 
+  tm_layout(main.title = "Local Moran's I p-values Map \n(Non-Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(localMI_nonfunc.map, pvalue_nonfunc.map, asp = 1, ncol = 2)
+```
+
+Something extra that we can also do is to build a choropleth and shade only regions that are statistically significant. This can be done using the code chunk below. We first create a new object `nigeria.localMI_sig_f` that consists of statistically significant values for functional water points. Then we plot a base map that consists of just the polygons features. Lastly, we overlay the base map with a new map that consists of the statistically significant local Moran's I value. We repeat this for non-functional water points.
+
+```{r}
+#Functional
+nigeria.localMI_sig_f <- cbind(nigeria,localMI_func) %>%
+  rename(Pr.Ii = Pr.z....E.Ii..) %>%
+  filter(Pr.Ii < 0.05)
+
+base <- tm_shape(nigeria) + 
+  tm_fill(col = 'gray98') + 
+  tm_borders(alpha = 0.3)
+
+localMI_sig_f.map <- base + 
+  tm_shape(nigeria.localMI_sig_f) +
+  tm_fill(col = "Ii", 
+          style = "pretty",
+          title = "Local Moran I Statistics") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Moran's I (Sig.) Map \n(Functional WP) ",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+#Non-Functional
+nigeria.localMI_sig_nf <- cbind(nigeria,localMI_nonfunc) %>%
+  rename(Pr.Ii = Pr.z....E.Ii..) %>%
+  filter(Pr.Ii < 0.05)
+
+base <- tm_shape(nigeria) + 
+  tm_fill(col = 'gray98') + 
+  tm_borders(alpha = 0.3)
+
+localMI_sig_nf.map <- base + 
+  tm_shape(nigeria.localMI_sig_nf) +
+  tm_fill(col = "Ii", 
+          style = "pretty",
+          title = "Local Moran I Statistics") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Moran's I (Sig.) Map \n(Non-Functional WP) ",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(localMI_sig_f.map,localMI_sig_nf.map)
+```
+
+Recall that a positive Local Moran's I value indicates that a feature is part of a cluster and a negative Local Moran's I value indicates that a feature is an outlier.
+
+For the functional water points map, we see most regions are in shades of green which corresponds to them being in cluster(s). This is similar for the non-functional water points map. There are areas of overlap on both maps (top) and also areas where both maps differ (bottom of the map). Later on, we will combine this analysis with LISA cluster map to derive more information.
+
+#### Anselin's Moran Scatterplot
+
+The Anselin's Moran Scatterplot allows us to assess how similar or dissimilar an observed value is to it's neighbouring observations. It is a visualisation tool that gives us a visual representation of spatial associations in the neighbourhood around each observation[^14].
+
+[^14]: https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.4/statug/statug_variogram_details31.htm
+
+**Standardising Variable**
+
+Before we plot the scatterplot, we can also standardise the variable first. This will result in the scatterplot to be centered on the coordinates (0,0) which may be easier to interpret.
+
+We can use [*scale()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) to center and scale the variable. Centering is done by subtracting the mean from the corresponding columns, and scaling is done by dividing the (centered) variable by their standard deviations.
+
+After running the code chunk below, a new column `Z.pct_nonfunctional` will be created to store the standardised values. The [*as.vector()*](https://www.rdocumentation.org/packages/pbdDMAT/versions/0.5-1/topics/as.vector) added to the end is to make sure that the data type we get out of this is a vector, that map neatly into out dataframe.
+
+```{r}
+nigeria$Z.pct_functional <- scale(nigeria$pct_functional) %>%
+  as.vector
+nigeria$Z.pct_nonfunctional <- scale(nigeria$pct_nonfunctional) %>%
+  as.vector
+
+head(nigeria,3) 
+```
+
+In the output above, we can see the two new columns added.
+
+Now, we can plot the Moran scatterplot using the standardised values and [*moran.plot()*](https://r-spatial.github.io/spdep/reference/moran.plot.html) of **spdep**.
+
+```{r}
+nci_func <- moran.plot(nigeria$Z.pct_functional, rswm_knn8,
+                  labels = as.character(nigeria$LGA),
+                  xlab = "Pct Non-Functional Water Points",
+                  ylab = "Spatially Lag Pct Non-Functional Water Points")
+```
+
+```{r}
+nci_nonfunc <- moran.plot(nigeria$Z.pct_nonfunctional, rswm_knn8,
+                  labels = as.character(nigeria$LGA),
+                  xlab = "Pct Non-Functional Water Points",
+                  ylab = "Spatially Lag Pct Non-Functional Water Points")
+```
+
+In both cases, we will find that the output of the Moran Scatterplots to be consistent with the Moran's I scores tabulated in the previous sub-section. The Moran scatterplot has 4 quadrants:
+
+-   "**High-High**" - **Top right corner** : Positive Autocorrelation Cluster. Regions here have high percentage of non-functional water points and are surrounded by other areas that have the higher than average level of non-functional water points.
+
+-   **"Low-High"** - **Top left corner**: Negative Autocorrelation Cluster. Regions here have low percentage of non-functional water points and are surrounded by other areas that have the higher than average level of non-functional water points.
+
+-   **"High-Low" - Bottom right corner**: Negative Autocorrelation Cluster. Regions here have high percentage of non-functional water points and are surrounded by other areas that have the lower than average level of non-functional water points.
+
+-   "**Low-Low**" - **Bottom left corner** : Positive Autocorrelation Cluster. Regions here have low percentage of non-functional water points and are surrounded by other areas that have the lower than average level of non-functional water points.
+
+Unfortunately, the Moran scatterplot does not tells us which points/regions are significant. To overcome this, we can use the LISA Cluster Maps.
+
+#### LISA Cluster Maps
+
+LISA Cluster Maps also categorises each region into one of five groups: (1) High-High, (2) High-Low, (3) Low-High, (4) Low-Low and (5) Insignificant.
+
+We can prepare a LISA cluster map by following these steps:
+
+1.  Create a vector of the same length as the number of LGA in Nigeria
+2.  Derive a variable, `DV` by using a by using the spatially lagged version (`lag_GDPPC`) of the variable of interested (`GDPPC`) and center it around its means. When DV \> 0, the spatially lagged variable of the region is higher than the mean.
+3.  Derive a variable, `L_MI` using the Local Moran's I.
+4.  Set the significance level for the local Moran.
+5.  Define the command lines for: high-high, low-low, low-high, high-low
+6.  Place statistically insignificant Moran I in the category 0.
+
+```{r}
+#Step 1
+quadrant <- vector(mode = 'numeric', length = nrow(localMI_func))
+#Step 2
+nigeria$lag_pct_func <- lag.listw(rswm_knn8, nigeria$pct_functional)
+DV_func <- nigeria$lag_pct_func - mean(nigeria$lag_pct_func)     
+#Step 3
+LM_I_func <- localMI_func[,1] 
+#Step 4
+signif <- 0.05
+#Step 5
+quadrant[DV_func <0 & LM_I_func>0] <- 1 #low-low
+quadrant[DV_func >0 & LM_I_func<0] <- 2 #high-low
+quadrant[DV_func <0 & LM_I_func<0] <- 3 #low-high
+quadrant[DV_func >0 & LM_I_func>0] <- 4 #high-high
+#Step 6
+quadrant[localMI_func[,5]>signif] <- 0
+```
+
+This is the code chunk to prepare the LISA cluster map.
+
+```{r}
+#Assign each region  to its respective quardrant
+nigeria.localMI_func$quadrant <- quadrant
+#Set the colours--one for each quadrant
+colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c") 
+
+clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
+
+LISAmap_func <- tm_shape(nigeria.localMI_func) + 
+  tm_fill(col = "quadrant",
+          style = "cat", 
+          palette = colors[c(sort(unique(quadrant)))+1],
+          labels = clusters[c(sort(unique(quadrant)))+1])  + 
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "LISA Cluster Map \n (Functional WP) ",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+```
+
+We will repeat the same steps for non-functional water points.
+
+```{r}
+#Step 1
+quadrant <- vector(mode = 'numeric', length = nrow(localMI_nonfunc))
+#Step 2
+nigeria$lag_pct_nonfunc <- lag.listw(rswm_knn8, nigeria$pct_nonfunctional)
+DV_nonfunc <- nigeria$lag_pct_nonfunc - mean(nigeria$lag_pct_nonfunc)     
+#Step 3
+LM_I_nonfunc <- localMI_nonfunc[,1] 
+#Step 4
+signif <- 0.05
+#Step 5
+quadrant[DV_nonfunc <0 & LM_I_nonfunc>0] <- 1 #low-low
+quadrant[DV_nonfunc >0 & LM_I_nonfunc<0] <- 2 #high-low
+quadrant[DV_nonfunc <0 & LM_I_nonfunc<0] <- 3 #low-high
+quadrant[DV_nonfunc >0 & LM_I_nonfunc>0] <- 4 #high-high
+#Step 6
+quadrant[localMI_nonfunc[,5]>signif] <- 0
+```
+
+This is the code chunk to prepare the LISA cluster map.
+
+```{r}
+#Assign each region  to its respective quardrant
+nigeria.localMI_nonfunc$quadrant <- quadrant
+#Set the colours--one for each quadrant
+colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c") 
+
+clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
+
+LISAmap_nonfunc <- tm_shape(nigeria.localMI_nonfunc) + 
+  tm_fill(col = "quadrant",
+          style = "cat", 
+          palette = colors[c(sort(unique(quadrant)))+1],
+          labels = clusters[c(sort(unique(quadrant)))+1])  + 
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "LISA Cluster Map \n (Non-Functional WP) ",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+```
+
+We can plot the local Moran's I map (statistically significant values only) and LISA map together. What we will observe is that the shaded regions are the same for each pair of maps.
+
+```{r}
+tmap_arrange(localMI_sig_f.map, LISAmap_func,
+  localMI_sig_nf.map, LISAmap_nonfunc, ncol =2)
+```
+
+The LISA maps provides another level of information--which is whether the region have relatively higher or lower percentage of non-functional water points.
+
+Functional: From the Local Moran's I map, we can make out that regions have positive Local Moran's I values, suggesting that they have neighbours with similarly high or low percentage of functional water points. This would be consistent with the dark blue (low-low) and red (high-high) regions in the LISA map. We can see that the top areas are in red while bottom are in blue.
+
+Non-functional: From the Local Moran's I map, we can make out that regions have positive Local Moran's I values, suggesting that they have neighbours with similarly high or low percentage of non-functional water points. This would be consistent with the dark blue (low-low) and red (high-high) regions in the LISA map. We can see that the top areas are in blue while bottom are in red.
+
+#### Interpretation of Results
+
+Overall, Local Moran's have revealed significant spatial cluster and outliers.
+
+**Functional Water points**
+
+For ease of comparison, here is the map of the percentage of functional water points and the LISA map. I have set the mode to allow for interactive viewing - this means that we can zoom in / out of the map and click on the LGAs too.
+
+```{r}
+tmap_mode("view")
+tmap_arrange(
+choropleth_plot(nigeria, "pct_functional", "pretty", "Proportion of Functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             LISAmap_func)
+```
+
+At a glance, in the LISA map, we can see two larger clusters--a high-high (red) cluster situation near the top and a low-low (blue) cluster situation near the bottom of the map. We also notice no significant spatial clusters or outliers in the middle/central area of the map. It may be geographically related. The top area borders nearby countries like Niger and Chad while the bottom are coastal areas bordering the Gulf of Guinea.
+
+There are four high-high clusters areas. The regions in this area and their neighbours have a high percentage of functional water points The largest one is at the northern portion of the map. In that area, there are pockets of low-high outliers (light blue)\--meaning that these areas have a lower percentage of functional water points as compared to their neighbours and may be worth investigating. There is another high-high cluster on the top right. The LGAs sandwiched between the two high-high clusters may also be worth a deeper look.
+
+There are around two larger low-low clusters (dark blue). The largest one is in the southern part of the country. There are also pockets of high-low outliers in the same parts. Interestingly, the cluster extends from the coastal areas and move towards the inner parts of the country in a C shape--the centre of the 'C' are not identified as cluster or outliers.
+
+**Non-Functional Water Points**
+
+Similarly, for ease of comparison, here is the map of the percentage of non-functional water points and the LISA map.
+
+```{r}
+tmap_mode("view")
+tmap_arrange(
+choropleth_plot(nigeria, "pct_nonfunctional", "pretty", "Proportion of Non-functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             LISAmap_nonfunc, asp = 1, ncol = 2 )
+```
+
+We can see all categories of cluster/outlier classification on the LISA map. The first two observations we can make are that there are two large clusters--one low-low cluster situation near the top and a high-high cluster situation near the bottom of the map. We also notice no significant spatial clusters or outliers in the middle/central area of the map. It may be geographically related. The top area borders nearby countries like Niger and Chad while the bottom are coastal areas bordering the Gulf of Guinea.
+
+There are around 6 low-low clusters (dark blue). The regions in this area and their neighbours have a low percentage of non-functional water points. The larger low-low cluster is relatively extensive. It extends from the top middle of the map to the top right corner and consists parts of states like Borno, Yobe, Dutse and Kano.
+
+There are four high-high clusters (red). The regions in this area and their neighbours have a high percentage of non-functional water points The largest one extends from bottom, slightly-off centre of the map upwards. This includes LGAs in the states of Edo, Delta and Baylesa. Towards the right, there is another high-high cluster in the state of Cross River. The first and second clusters are relatively close to each other as compared to the remaining two. An interesting area to further study is Kwame and Fumakaye LGAs. They are high-high clusters situated near a large low-low cluster.
+
+We see pockets of outliers throughout the country. There are two low-high outliers that are situated next to clusters. The regions have low percentage of non-functional water points while their neighbours have higher percentage of the same. We can see two outliers Bagudo and Fakai near the top left area of the map. The former is situated next to a high-high cluster. There is no low-high clusters towards the top and top right of the map, which is probably because the area has a large low-low spatial cluster. On the other hand, there are pockets of high-low outliers like Tudun Wada and Karaye LGAs.
+
+![States of Nigeria[^15]](https://media.springernature.com/lw685/springer-static/image/art%253A10.1186%252Fs12879-021-05894-2/MediaObjects/12879_2021_5894_Fig1_HTML.png){fig-align="center" width="416"}
+
+[^15]: Salubi, E.A., Elliott, S.J. Geospatial analysis of cholera patterns in Nigeria: findings from a cross-sectional study. *BMC Infect Dis* **21**, 202 (2021). https://doi.org/10.1186/s12879-021-05894-2
+
+[^16]: Salubi, E.A., Elliott, S.J. Geospatial analysis of cholera patterns in Nigeria: findings from a cross-sectional study. *BMC Infect Dis* **21**, 202 (2021). https://doi.org/10.1186/s12879-021-05894-2
+
+Comparing both maps, we can see a different in high-high and low-low clusters, it's almost always inverse. Also, both maps have the similarity where the centre part of the map has no clusters or outliers identified.
+
+### Hot Spot Area Analysis
+
+In the sub-section, we will use a local spatial autocorrelation statistic to detect hot or cold spots. Hot spot refers to areas that have higher values relative to its surroundings.
+
+#### Getis and Ord's G-Statistics
+
+The Getis and Ord's G-statistics (Getis and Ord, 1972; Ord and Getis, 1995) are alternative spatial statistics to detect spatial anomalies. It looks at each region within the context of its neighbouring features. A statistically significant hot spot will have high values and are surrounded by other areas with high values as well.
+
+The Gi statistic is a z-score. For statistically significant and positive z-score, the higher the value, the more intense the clustering of high values is i.e. hot spot. Inversely, for a statistically significant negative z-score, the lower the value, the more intense the clustering of lower values is i.e. cold spot.
+
+With reference to the context, we are hence looking for areas where the area itself and its neighbours have a high percentage of non-functional water points (hot spots) and areas where the areas itself and its neighbours have a lower percentage of non-functional water points.
+
+The analysis consists of three steps:
+
+-   Deriving spatial weight matrix
+
+-   Computing Gi statistics
+
+-   Mapping Gi statistic
+
+**Deriving** **spatial weights matrix**
+
+Getis-Ord defines neighbours based on distance. The Gi-statistics measures the degree of association that comes about from the concentration of weighted points and all other weighted points included within a radius of distance from the original point[^17]. It included a weight component, which is a binary spatial weight matrix--where 1 represents a link.
+
+[^17]: Getis, A., & Ord, K. (1992). "The Analysis of Spatial Association by Use of Distance Statistics". Geographical Analysis, 24, 189--206
+
+![Gi(d) Statistic, Getis, A., & Ord, K. (1992)](images/paste-2D642E8D.png){fig-align="center" width="372"}
+
+Therefore, we can use the previously derived `knn8`, and weight it with a binary weight matrix. This can be done using the code chunk here.
+
+```{r}
+bwm_knn8 <- nb2listw(knn8,
+                   style = "B",
+                   zero.policy = TRUE)
+bwm_knn8
+```
+
+**Computing Gi Statistics**
+
+To compute the Gi statistics, we can use [*localG()*](https://www.rdocumentation.org/packages/spdep/versions/1.1-3/topics/localG) from **spdep** package.
+
+```{r}
+fips <- order(nigeria$LGA)
+gi.adaptive_func <- localG(nigeria$pct_functional, bwm_knn8)
+nigeria.gi_func <- cbind(nigeria, as.matrix(gi.adaptive_func)) %>%
+  rename(gstat_adaptive = as.matrix.gi.adaptive_func.)
+```
+
+```{r}
+fips <- order(nigeria$LGA)
+gi.adaptive_nonfunc <- localG(nigeria$pct_nonfunctional, bwm_knn8)
+nigeria.gi_nonfunc <- cbind(nigeria, as.matrix(gi.adaptive_nonfunc)) %>%
+  rename(gstat_adaptive = as.matrix.gi.adaptive_nonfunc.)
+```
+
+**Mapping GI Values with Adaptive Distance Weights**
+
+To visualise the locations of hot spot and cold spot areas, we can use the choropleth mapping functions of **tmap** package.
+
+The below code chunk plots the map for functional water points.
+
+```{r}
+tmap_mode("plot")
+Gimap_func <- tm_shape(nigeria.gi_func) + 
+  tm_fill(col = "gstat_adaptive", 
+          style = "pretty",
+          palette = "-RdBu",
+          title = "local Gi") + 
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Gi Map \n (Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(choropleth_plot(nigeria, "pct_functional", "pretty", "Proportion of Functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             Gimap_func) 
+```
+
+The below code chunk plots the map for non-functional water points
+
+```{r}
+tmap_mode("plot")
+Gimap_nonfunc <- tm_shape(nigeria.gi_nonfunc) + 
+  tm_fill(col = "gstat_adaptive", 
+          style = "pretty",
+          palette = "-RdBu",
+          title = "local Gi") + 
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Gi Map \n (Non-Functional WP) ",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(choropleth_plot(nigeria, "pct_nonfunctional", "pretty", "Proportion of Non-functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             Gimap_nonfunc) 
+```
+
+#### Interpretation of Results
+
+Before we interpret the charts, we should only consider the statistically significant spots. We can refer to the [*localg()*](https://r-spatial.github.io/spdep/reference/localG.html)documentation for the critical values of the statistic for the 95th percentile. Since our data has more than 100 rows of data, the critical value is +/-3.289. This means that the Gi Statistic is statistically significant if it is more than or less than 3.289.
+
+We can use the code chunk below to filter out only the statistically significant spots.
+
+```{r}
+nigeria.gi_sig_f <- cbind(nigeria, as.matrix(gi.adaptive_func)) %>%
+  rename(gstat_adaptive = as.matrix.gi.adaptive_func.) %>%
+  filter(gstat_adaptive > 3.289 | gstat_adaptive < -3.289 )
+
+nigeria.gi_sig_nf <- cbind(nigeria, as.matrix(gi.adaptive_nonfunc)) %>%
+  rename(gstat_adaptive = as.matrix.gi.adaptive_nonfunc.) %>%
+  filter(gstat_adaptive > 3.289 | gstat_adaptive < -3.289 )
+```
+
+To visualise the map with statistically significant Gi statistics, we can refer to the code chunk below. I have set the mode to allow for interactive viewing - this means that we can zoom in / out of the map and click on the LGAs too.
+
+**Functional Water Points**
+
+```{r}
+tmap_mode("view")
+base <- tm_shape(nigeria) + 
+  tm_fill(col = 'gray98') + 
+  tm_borders(alpha = 0.3)
+
+Gimap_sig_f <- base + 
+  tm_shape(nigeria.gi_sig_f) +
+  tm_fill(col = "gstat_adaptive", 
+          style = "pretty",
+          palette = "-RdBu",
+          title = "Local Gi") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Gi Statistic (Sig.) Map \n (Functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(choropleth_plot(nigeria, "pct_functional", "quantile", "Proportion of Functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             Gimap_sig_f) 
+```
+
+The Gi statistics have revealed significant pockets of hot (red shades) and cold (blue shades) spot areas. Right away, we observe that these areas are situation on the northern regions. There is larger areas of hot spots and smaller areas of cold spots. The identification of hot and cold spots are less sparse than what we saw in the LISA map.
+
+The cold spots in the top right area includes Bama, Dikwa, Mafa and Ngala. This means that these areas have lower percentage of functional water points. Towards the bottom of the map, we can see more cold spots which includes Orsu, Oji River and Nnewi North.
+
+Looking at the hot spots, we see a relatively large hot spot areas at the top of the map. There are areas with higher intensity of functional water points, identified by the darker red shades and areas with less intensity in lighter red shades. This area borders the neighbouring country of Niger. It does seem that the intensity is higher in the outer areas before becoming less intense.
+
+**Non-functional Water Points**
+
+```{r}
+tmap_mode("view")
+base <- tm_shape(st_transform(nigeria)) + 
+  tm_fill(col = 'gray98') + 
+  tm_borders(alpha = 0.3)
+
+Gimap_sig_nf <- base + 
+  tm_shape(nigeria.gi_sig_nf) +
+  tm_fill(col = "gstat_adaptive", 
+          style = "pretty",
+          palette = "-RdBu",
+          title = "Local Gi") +
+  tm_borders(alpha = 0.3) + 
+  tm_layout(main.title = "Local Gi Statistic (Sig.) Map \n (Non-functional WP)",
+            main.title.size = 1,
+            main.title.position = "center",
+            legend.height = 0.45, 
+            legend.width = 0.35,
+            frame = TRUE)
+
+tmap_arrange(choropleth_plot(nigeria, "pct_nonfunctional", "quantile", "Proportion of Non-functional water points \nin Nigeria: partitioned by 'pretty' intervals"), 
+             Gimap_sig_nf) 
+```
+
+The Gi statistics have revealed significant pockets of hot (red shades) and cold (blue shades) spot areas. At first glance, we can see that there are mostly cold spots on the top half of the map and mostly hot spots on the bottom of the map. This pattern is consistent with the LISA map, although the extent of hot/cold areas are different.
+
+On the top right area, we can see a cold spot. It includes Bama, Dikwa, Mafa and Monguno with more intense clustering (darker shade of blue) and Konduga and Damboa with less intense clustering (lighter shade of blue). The darker blue areas are further towards the outer areas. The area beyond the dark blue shaded region are LGAs without water points at all (no data recorded). This may signify the importance of these water points and probably and importance to ensure they are all functional. The lower percentage of non-functional water points could also be because of the lower number of water points in the area, which increase the importance of existing water points. Towards the left, we have Gumel and Maigatari, Miga and Jahun that are also cold spots.
+
+Looking at the hot spots, we see a relatively large hot spot areas at the bottom right of the map. At the coastal border, we have more intense clustering (dark red), suggesting higher number of non-functional water points in that area. Towards the mainland, the clustering is less intense but with pockets of dark reds.
+
+Moving along the border, towards the left, we can see more hot spots, starting with Southern Ijaw and moving in a C shape pattern upwards towards the central area of Nigeria to Bassa (Kogi State) and Aguatu. Bassa (Kogi State) has the Niger River to its western border and Benue River to its northern border[^18]. Given its location, it may be prone to floods. In fact, the Kogi state is quite flood-prone--see reports of floods in recent years over [here](https://www.thisdaylive.com/index.php/2022/10/11/anambra-kogi-residents-farmers-count-losses-to-massive-floods/) and [here](https://www.pulse.ng/news/local/150-kogi-communities-submerged-in-flood-water/e6fq1wm). It's geographical location may make Bassa an interesting location for future investigative works to enhance water stability through infrastructural changes.
+
+[^18]: https://mapcarta.com/27805612
+
+We also notice some isolated hot and cold spots like Bagudo (top left of map) Igbo-Etiti (below the Bassa LGA).
+
+# Conclusion
+
+In our study of the functional and non-functional water points in Nigeria using ESDA, we utilised exploratory spatial data analysis methods and visualisation tools to generate insights about the situation--more that what we could have found out using only traditional choropleths. Using Global Spatial Autocorrelation Statistics, we found out that there is existence of spatial autocorrelation in both cases of functional and non-functional water points. This led to us using local spatial autocorrelation statistical methods like Local Moran's, Anselin Moran Scatterplot, LISA cluster maps and Getis and Ord's G-Statistics to under areas of clusters or outliers and hot or cold spots.
+
+Our cluster and outlier analysis on functional water points found clusters in the northern part of the map to have higher proportion of functional water points and in the southern part of the map to have less proportion of the same. The same analysis on non-functional water point found clusters on the northern part of Nigeria to have less proportion of non-functional water points and the clusters in the southern part to have higher proportion of the same.
+
+Our hot and cold spot analysis of functional water points generated one large hot spot at the northern region of the map. Cold spots were very much less extensive. The same analysis on non-function water points found areas of hot spot (higher proportion of non-functional water points) towards the southern portion of the map and some cold spots towards the northern parts.
+
+The two analyses conducted using different statistical methods yield different results. Visually we can observe that the hot/cold spots identified in Gi Map were less sparse as compared to the LISA clusters map. A common observation is that in both, the middle / central parts of Nigeria were not identified as clusters, the northern part is identified as a cold spot and cluster and the southern part, a hot spot and cluster for non-functional water points.
+
+Overall, we can see that the southern areas have higher proportion of non-functional water points and northern areas have higher proportion of functional water points. This may gives valuable insights to inform public policy and improve the water situation.
+
+## Future Works
+
+We can explore the impact of living near the borders--either to the neighbouring countries or coastal areas. It would also be interesting to deep dive into location that are near rivers like the Niger or Benou.
+
+It would also be interesting to bring in the water sources e.g., tap, well, etc., into the dataset and see if is any relationship between type of water source and its functional status. This applies for other demographic factors like population size, income level and education level.

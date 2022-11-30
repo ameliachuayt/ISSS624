@@ -308,7 +308,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <h2 data-number="3" class="anchored" data-anchor-id="data-wrangling"><span class="header-section-number">3</span> Data Wrangling</h2>
 <section id="recoding-nga-values-into-string" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="recoding-nga-values-into-string"><span class="header-section-number">3.1</span> Recoding NGA values into string</h3>
-<p>We will read the saved .rsd file. It will look at the <code>status_cle</code> column and replace NA values with ‘unknown’ using <em>replace_na().</em></p>
+<p>We will read the saved .rds file. It will look at the <code>status_cle</code> column and replace NA values with ‘unknown’ using <em>replace_na().</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>wp_nga <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">'data</span><span class="sc">\\</span><span class="st">geospatial</span><span class="sc">\\</span><span class="st">wp_nga.rds'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">status_cle =</span> <span class="fu">replace_na</span>(status_cle, <span class="st">"Unknown"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -386,7 +386,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nga_wp <span class="ot">&lt;-</span> nga_wp <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct_functional =</span> <span class="st">`</span><span class="at">wpt_functional</span><span class="st">`</span><span class="sc">/</span> <span class="st">`</span><span class="at">total_wpt</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct_nonfunctional =</span> <span class="st">`</span><span class="at">wpt_nonfunctional</span><span class="st">`</span><span class="sc">/</span> <span class="st">`</span><span class="at">total_wpt</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span>, <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Things to learn from the code chunk above:</p>
 <ul>
@@ -413,7 +413,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(total, unknown, func, nonfunc, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="In-class_Ex2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="In-class_Ex2_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="1344"></p>
 </div>
 </div>
 <p>From the maps above, we can see that there are some areas with little (&lt;200) water points and areas with &gt;800 water points. Also, towards the southern area of the map, we can see that there are areas where water pumps statuses are unknown, probably due to lack of updating. It appears that the top center of Nigeria have higher amount of functional water points.</p>

@@ -71,7 +71,7 @@ wp_nga <- write_rds(wp,
 
 ### Recoding NGA values into string
 
-We will read the saved .rsd file. It will look at the `status_cle` column and replace NA values with 'unknown' using *replace_na().*
+We will read the saved .rds file. It will look at the `status_cle` column and replace NA values with 'unknown' using *replace_na().*
 
 ```{r}
 #| eval: false
@@ -169,7 +169,7 @@ nga_wp <- nga %>%
 nga_wp <- nga_wp %>%
   mutate(pct_functional = `wpt_functional`/ `total_wpt`) %>%
   mutate(pct_nonfunctional = `wpt_nonfunctional`/ `total_wpt`) %>%
-  select(1, 6:10)
+  select(1, 6:12)
 ```
 
 Things to learn from the code chunk above:
@@ -196,6 +196,8 @@ nga_wp <- read_rds('data\\geospatial\\wp_nga.rds')
 ```
 
 ```{r}
+#| fig-width: 14
+#| fig-height: 12
 total <- qtm(nga_wp, fill = 'total_wpt')
 func <- qtm(nga_wp, fill = 'wpt_functional')
 nonfunc <- qtm(nga_wp, fill = 'wpt_nonfunctional')

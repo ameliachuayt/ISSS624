@@ -43,6 +43,10 @@ format:
     theme: lux #alternative: flatly
     css: styles.css
     toc: true
+    code-overflow: wrap
+    code-fold: true
+    code-block-border-left: true
+    code-summary: "Show the code"
 
 editor: visual
 

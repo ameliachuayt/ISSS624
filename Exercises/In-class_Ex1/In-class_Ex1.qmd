@@ -521,7 +521,7 @@ wm_q1 <- wm_q
 To add the diagonal element to the neighbour list, we can use *include.self()* from **spdep**.
 
 ```{r}
-include.self(wm_q1)
+wm_q1 <- include.self(wm_q1)
 ```
 
 Now obtain weights with *nb2listw()*.
@@ -567,7 +567,7 @@ wm_q1 <- wm_q
 To add the diagonal element to the neighbour list, we just need to use *include.self()* from **spdep**.
 
 ```{r}
-include.self(wm_q1)
+wm_q1 <- include.self(wm_q1)
 ```
 
 ```{r}

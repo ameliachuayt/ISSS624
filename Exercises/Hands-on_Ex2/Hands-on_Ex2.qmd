@@ -556,15 +556,13 @@ DV <- hunan$lag_GDPPC - mean(hunan$lag_GDPPC)
 
 If DV \> 0, it means that the spatially lagged GDPPC of the target county is higher than the mean.
 
-3.  Centre local Moran's around the mean
+3.  Derive a variable, `L_MI` using the Local Moran's I.
 
 ```{r}
-LM_I <- localMI[,1] - mean(localMI[,1])
+LM_I <- localMI[,1]
 ```
 
-If L_MI \> 0, suggests clustering. If L_MI \< 0 suggests an outlier or regular patterns.
-
-4.  Set statistical significance level for the local Moran.
+4.  Set statistical significance level for the Local Moran.
 
 ```{r}
 signif <- 0.05
@@ -609,7 +607,7 @@ Let's build the LISA map using the following code chunk.
 hunan.localMI$quadrant <- quadrant
 #Set the colours--one for each quadrant
 colors <- c("#ffffff", "#2c7bb6", "#abd9e9", "#fdae61", "#d7191c") 
-#Name the clusters 0 > 1 > 2 > 3 > 4
+
 clusters <- c("insignificant", "low-low", "low-high", "high-low", "high-high")
 
 LISAmap <- tm_shape(hunan.localMI) + 
