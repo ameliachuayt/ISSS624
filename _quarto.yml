@@ -40,7 +40,7 @@ website:
     #       - Exercises\\Hands-on_Ex1\\Hands-on_Ex1.qmd
 format:
   html:
-    theme: lux #alternative: flatly
+    theme: flatly #alternative: lux
     css: styles.css
     toc: true
     code-overflow: wrap
