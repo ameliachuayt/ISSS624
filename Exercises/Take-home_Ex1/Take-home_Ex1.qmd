@@ -173,7 +173,7 @@ Besides the above, we will also be performing data preparation and wrangling tec
 To learn which column(s) to use to filter for Nigeria's data, we can inspect the metadata. We will not display the entire metadata here as it is lengthy. However, here is an excerpt of some columns:
 
 | Column Name         | Description                                                                                                                                                                                                                                                                                                                                     |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------|------------------------------------------------------------|
 | #clean_country_name | Cleaned version of the country name based on provided GPS coordinates.                                                                                                                                                                                                                                                                          |
 | #clean_adm1         | Cleaned version of the Primary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                              |
 | #clean_adm2         | Cleaned version of the Secondary Administrative Division data based on provided GPS coordinates and GADM boundaries.                                                                                                                                                                                                                            |
@@ -1465,7 +1465,7 @@ There are four high-high clusters (red). The regions in this area and their neig
 
 We see pockets of outliers throughout the country. There are two low-high outliers that are situated next to clusters. The regions have low percentage of non-functional water points while their neighbours have higher percentage of the same. We can see two outliers Bagudo and Fakai near the top left area of the map. The former is situated next to a high-high cluster. There is no low-high clusters towards the top and top right of the map, which is probably because the area has a large low-low spatial cluster. On the other hand, there are pockets of high-low outliers like Tudun Wada and Karaye LGAs.
 
-![States of Nigeria[^15]](https://media.springernature.com/lw685/springer-static/image/art%253A10.1186%252Fs12879-021-05894-2/MediaObjects/12879_2021_5894_Fig1_HTML.png){fig-align="center" width="416"}
+![States of Nigeria[^15]](images/paste-F663486A.png){fig-align="center" width="378"}
 
 [^15]: Salubi, E.A., Elliott, S.J. Geospatial analysis of cholera patterns in Nigeria: findings from a cross-sectional study. *BMC Infect Dis* **21**, 202 (2021). https://doi.org/10.1186/s12879-021-05894-2
 
