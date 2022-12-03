@@ -1,0 +1,10 @@
+---
+title: "Take-home Exercise 2: Regionalisation of Nigeria by Water Points"
+author: "Amelia Chua"
+number-sections: true
+execute: 
+  warning: false 
+  message: false
+format: html
+editor: visual
+---

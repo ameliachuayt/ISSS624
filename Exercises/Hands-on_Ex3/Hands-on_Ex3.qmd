@@ -25,7 +25,7 @@ By the end of this hands-on exercise, I will be able:
 
 -   to convert simple feature data.frame into R's SpatialPolygonDataFrame object by using appropriate **sf** of package of R;
 
--   to perform custer analysis by using *hclust()* of Base R;
+-   to perform cluster analysis by using *hclust()* of Base R;
 
 -   to perform spatially constrained cluster analysis using *skater()* of Base R; and
 
@@ -38,6 +38,8 @@ By the end of this hands-on exercise, I will be able:
 In geobusiness and spatial policy, it is a common practice to delineate the market or planning area into homogeneous regions by using multivariate data.
 
 In this hands-on exercise, we are interested to delineate [Shan State](https://en.wikipedia.org/wiki/Shan_State), [Myanmar](https://en.wikipedia.org/wiki/Myanmar) into homogeneous regions by using multiple Information and Communication technology (ICT) measures, namely: Radio, Television, Land line phone, Mobile phone, Computer, and Internet at home.
+
+[![Myanmar States. [Source](https://www.researchgate.net/figure/Map-of-Myanmars-States-and-Regions_fig1_344329923/actions#reference)](https://www.researchgate.net/profile/Elin-Bjarnegard/publication/344329923/figure/fig1/AS:938207411720192@1600697486248/Map-of-Myanmars-States-and-Regions_Q320.jpg){fig-align="center" width="394"}](https://www.researchgate.net/figure/Map-of-Myanmars-States-and-Regions_fig1_344329923/actions#reference)
 
 ## The Data
 
@@ -97,7 +99,7 @@ shan_sf <- st_read(dsn = 'data\\geospatial',
   filter(ST %in% c("Shan (East)", "Shan (North)", "Shan (South)"))
 ```
 
-The imported township boundary object is called *shan_sf*. It is saved in **simple feature data.frame** format. Note that it is in the WGS 84 geographic coordinates system.
+The imported township boundary object is called *shan_sf*. It is saved in **simple feature data.frame** format. Note that it is in the WGS 84 geographic coordinates system. The Bounding box also informs us that the data is in the decimal degrees, which is consistent with the WGS 84 geographic coordinates system.
 
 We can view the content of the newly created *`shan_sf`* simple features data.frame by using the code chunk below.
 
@@ -152,6 +154,8 @@ ict_derived <- ict %>%
          `LLPHONE`=`Land line phone`, `MPHONE`=`Mobile phone`,
          `COMPUTER`=`Computer`, `INTERNET`=`Internet at home`) 
 ```
+
+Note that we multiply the variables by 1,000 as we want the results to be number of households using the particular InfoComm technology **per thousand households.**
 
 Let us review the summary statistics of the newly derived penetration rates using the code chunk below.
 
@@ -305,7 +309,7 @@ RADIO.map <- tm_shape(shan_sf) +
 tmap_arrange(TT_HOUSEHOLDS.map, RADIO.map)
 ```
 
-Notice that the choropleth maps above clearly show that townships with relatively larger number ot households are also showing relatively higher number of radio ownership.
+Notice that the choropleth maps above clearly show that townships with relatively larger number of households are also showing relatively higher number of radio ownership.
 
 Now let us plot the choropleth maps showing the distribution of total number of households and radio penetration rate by using the code chunk below.
 
@@ -337,15 +341,15 @@ corrplot.mixed(cluster_vars.cor,
          tl.col = "black") #title colour
 ```
 
-The correlation plot above shows that COMPUTER_PR and INTERNET_PR are highly correlated. This suggest that only one of them should be used in the cluster analysis instead of both.
+The correlation plot above shows that COMPUTER_PR and INTERNET_PR are highly correlated. This suggest that only one of them should be used in the cluster analysis instead of both. The direction and size of the ellipse corresponds to the sign and magnitude of the correlation coefficient.
 
 # Hierarchical Cluster Analysis
 
-In the this section, I learned how to perform hierarchical cluster analyssi. The analysis consists of four major steps:
+In the this section, I learned how to perform hierarchical cluster analysis. The analysis consists of four major steps:
 
 ## Extracting Clustering Variables
 
-The code chunk below will be used to extract the clustering variables from the *shan_sf* simple feature object into data.frame.
+The code chunk below will be used to extract the clustering variables from the *shan_sf* simple feature object into data.frame. Since we used the left_join() earlier, our `shan_sf` object includes a geometry column. Hence we need to explicitly use st_set_geometry(NULL) to drop the geometry column -- merely using *select()* would not remove that geometry column that is hidden.
 
 ```{r}
 cluster_vars <- shan_sf %>%
@@ -354,7 +358,7 @@ cluster_vars <- shan_sf %>%
 head(cluster_vars,10)
 ```
 
-Notice that the final clustering variables list does not include variable INTERNET_PR because it is highly correlated with variable COMPUTER_PR.
+Notice that the final clustering variables list does not include variable INTERNET_PR because it is highly correlated with variable COMPUTER_PR. At this stage, we also need to ensure that we only include the relevant clustering variables that we require and not any more data or it would cause errors in the clustering steps.
 
 Next, we need to change the rows by township name instead of row number by using the code chunk below
 
@@ -378,7 +382,7 @@ In general, multiple variables will be used in cluster analysis. It is not unusu
 
 ### Min-Max Standardisation
 
-In the code chunk below, [*normalize()*](https://cran.r-project.org/web/packages/heatmaply/vignettes/heatmaply.html#normalize) of [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package is used to stadardisation the clustering variables by using Min-Max method. The `normalize` function to brings data to the 0 to 1 scale by subtracting the minimum and dividing by the maximum of all observations. *summary()* is then used to display the summary statistics of the standardised clustering variables.
+In the code chunk below, [*normalize()*](https://cran.r-project.org/web/packages/heatmaply/vignettes/heatmaply.html#normalize) of [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package is used to standardisation the clustering variables by using Min-Max method. The `normalize` function to brings data to the 0 to 1 scale by subtracting the minimum and dividing by the maximum of all observations. *summary()* is then used to display the summary statistics of the standardised clustering variables.
 
 ```{r}
 shan_ict.std <- normalize(shan_ict)
@@ -389,7 +393,7 @@ Notice the change in the range of the values.
 
 ### Z-score Standardisation
 
-Z-score standardisation can be performed easily by using [*scale()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) of Base R. The code chunk below will be used to stadardisation the clustering variables by using Z-score method
+Z-score standardisation can be performed easily by using [*scale()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) of Base R. The code chunk below will be used to standardisation the clustering variables by using Z-score method
 
 ```{r}
 shan_ict.z <- scale(shan_ict)
@@ -398,11 +402,11 @@ describe(shan_ict.z)
 
 Notice the mean and standard deviation of the Z-score standardised clustering variables are 0 and 1 respectively.
 
-**Note:** [*describe()*](https://www.rdocumentation.org/packages/Hmisc/versions/4.4-0/topics/describe) of [**psych**](https://cran.r-project.org/web/packages/psych/) package is used here instead of *summary()* of Base R because the foerm provides standard deviation.
+**Note:** [*describe()*](https://www.rdocumentation.org/packages/Hmisc/versions/4.4-0/topics/describe) of [**psych**](https://cran.r-project.org/web/packages/psych/) package is used here instead of *summary()* of Base R because the former provides standard deviation.
 
 ## Visualising the standardised clustering variables
 
-Besides reviewing summary statistics of standardised clustering variables, it is a good practice to visusalise their distribution graphically.
+Besides reviewing summary statistics of standardised clustering variables, it is a good practice to visualise their distribution graphically.
 
 The code chunk below plot the scaled `Radio_PR` field.
 
@@ -439,7 +443,7 @@ ggarrange(r, s, z,
           nrow = 1)
 ```
 
-![](images/paste-E18FE972.png) Notice that the overall distribution of the clustering variables will change after the data standardisation. Hence, it is advisible **NOT** to perform data standardisation if the values range of the clustering variables are not very large.
+![](images/paste-E18FE972.png) Notice that the overall distribution of the clustering variables will change after the data standardisation. Hence, it is advisable **NOT** to perform data standardisation if the values range of the clustering variables are not very large.
 
 ## Computing Proximity Matrix
 
@@ -472,7 +476,7 @@ The code chunk below performs hierarchical cluster analysis using ward.D method.
 hclust_ward <- hclust(proxmat, method = 'ward.D')
 ```
 
-We can then plot the tree by using *plot()* of R Graphics as shown in the code chunk below.
+We can then plot the tree by using *plot()* of R Graphics as shown in the code chunk below. The *cex=* parameter scales the resolution of the dendogram to 60% so that we can view the names of the township.
 
 ```{r}
 
@@ -508,8 +512,6 @@ In addition, some information on different types of links (descriptions taken fr
 
     -   Ward's method tends to **join clusters with a small number of observations** and is strongly biased toward producing clusters with approximately the same number of observations. It is also **very sensitive to outliers**.
 
-<!-- -->
-
 -   Average Link refers to the average distance between data points in the first cluster and data points in the second cluster.
 
     -   At each stage of the process we **combine the two clusters that have the smallest average linkage** distance. 
@@ -518,7 +520,7 @@ In addition, some information on different types of links (descriptions taken fr
 
     -   At each stage of the process we **combine the two clusters that have the smallest complete linkage distance**.
 
--   Minimum or Single Link refers to the **mnimum distance** between any single data point in the first cluster and any single data point in the second cluster.
+-   Minimum or Single Link refers to the minimum **distance** between any single data point in the first cluster and any single data point in the second cluster.
 
     -   At each stage of the process we **combine the two clusters that have the smallest single linkage distance**.
 
@@ -580,7 +582,7 @@ rect.hclust(hclust_ward,
 
 ## Visually-driven Hierarchical Clustering Analysis
 
-In this section, I learned how to perform visually-driven hiearchical clustering analysis by using [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package.
+In this section, I learned how to perform visually-driven hierarchical clustering analysis by using [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package.
 
 With **heatmaply**, we are able to build both highly interactive cluster heatmap or static cluster heatmap.
 
@@ -650,7 +652,7 @@ The choropleth map above reveals the clusters are very fragmented. The is one of
 
 # Spatially Constrained Clustering - SKATER Approach
 
-In this section, you will learn how to derive spatially constrained cluster by using [*skater()*](https://r-spatial.github.io/spdep/reference/skater.html) method of [**spdep**](https://r-spatial.github.io/spdep/) package.
+In this section, you will learn how to derive spatially constrained cluster by using [*skater()*](https://r-spatial.github.io/spdep/reference/skater.html) method of [**spdep**](https://r-spatial.github.io/spdep/) package. The SKATER spatially constrained methods incorporates a hard requirement that spatial objects in the same cluster are also geographically linked ([reference](https://www.dshkol.com/post/spatially-constrained-clustering-and-regionalization/)).
 
 ## Converting into SpatialPolygonsDataFrame
 
@@ -673,8 +675,8 @@ summary(shan.nb)
 
 We can plot the neighbours list on `shan_sp` by using the code chunk below. Since we can now plot the community area boundaries as well, we plot this graph on top of the map.
 
-The first plot command gives the boundaries. \
-This is followed by the plot of the neighbor list object, with coordinates applied to the original SpatialPolygonDataFrame (Shan state township boundaries) to extract the centroids of the polygons. The centroids coordinates are used as the nodes for the graph representation. \
+The first plot command gives the boundaries.\
+This is followed by the plot of the neighbor list object, with coordinates applied to the original SpatialPolygonDataFrame (Shan state township boundaries) to extract the centroids of the polygons. The centroids coordinates are used as the nodes for the graph representation.\
 We also set the color to blue and specify add=TRUE to plot the network on top of the boundaries.
 
 ```{r}
@@ -755,11 +757,11 @@ The code chunk below compute the spatially constrained cluster using [*skater()*
 
 *skater()* takes three mandatory arguments:-
 
--    the first two columns of the MST matrix (i.e. not the cost),
+-   the first two columns of the MST matrix (i.e. not the cost),
 
 -   the data matrix (to update the costs as units are being grouped), and
 
--   the number of cuts, which is set to **one less than the number of clusters**. So, the value specified is **not** the number of clusters, but the number of cuts in the graph, one less than the number of clusters.
+-   the number of cuts, which is set to **one less than the number of clusters**. So, the value specified is **not** the number of clusters, but the number of cuts in the graph, one less than the number of clusters. In other words, to achieve 6 clusters, we need 6-1 = 5 cuts.
 
 ```{r}
 clust6 <- skater(edges = shan.mst[,1:2], 
@@ -774,7 +776,7 @@ The result of the *skater()* is an object of class **skater**. We can examine it
 str(clust6)
 ```
 
-The most interesting component of this list structure is the groups vector containing the labels of the cluster to which each observation belongs (as before, the label itself is arbitary). This is followed by a detailed summary for each of the clusters in the `edges.groups` list. Sum of squares measures are given as `ssto` for the total and `ssw` to show the effect of each of the cuts on the overall criterion.
+The most interesting component of this list structure is the groups vector containing the labels of the cluster to which each observation belongs (as before, the label itself is arbitrary). This is followed by a detailed summary for each of the clusters in the `edges.groups` list. Sum of squares measures are given as `ssto` for the total and `ssw` to show the effect of each of the cuts on the overall criterion.
 
 We can check the cluster assignment by using the cone chunk below.
 
@@ -803,7 +805,7 @@ plot(clust6,
 
 ## Visualising the clusters in choropleth map
 
-The code chunk below is used to plot the newly derived clusters by using SKATER method.
+The code chunk below is used to plot the newly derived clusters by using SKATER method. We joined back the results from the previous section to the `shan_sf` simple feature object.
 
 ```{r}
 groups_mat <- as.matrix(clust6$groups)
@@ -831,10 +833,10 @@ As seen above, the use of spatially constrained methods give less fragmented clu
 
 # Conclusion
 
-In this exercise, we have explored traditional clustering methods and spatially contrained clustering methods to identify homogeneous regions using multivariate data from Shan State, Myanmar. Through the exercise, we found there to be 6 clusters--3 larger sized clusters and 3 small sized clusters.
+In this exercise, we have explored traditional clustering methods and spatially constrained clustering methods to identify homogeneous regions using multivariate data from Shan State, Myanmar. Through the exercise, we found there to be 6 clusters--3 larger sized clusters and 3 small sized clusters.
 
+# References
 
+Gender and Local Politics in Myanmar: Women's and Men's Participation in Ward, Village Tract and Village Decision Making - Scientific Figure on ResearchGate. Available from: https://www.researchgate.net/figure/Map-of-Myanmars-States-and-Regions_fig1_344329923 \[accessed 3 Dec, 2022\]
 
-
-
-
+Spatially constrained clustering and regionalization. Available from: https://www.dshkol.com/post/spatially-constrained-clustering-and-regionalization/ \[accessed 3 Dec, 2022\]

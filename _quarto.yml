@@ -21,10 +21,14 @@ website:
             href: Exercises\\In-class_Ex1\\In-class_Ex1.qmd
           - text: In-class Exercise 2
             href: Exercises\\In-class_Ex2\\In-class_Ex2.qmd
+          - text: In-class Exercise 3
+            href: Exercises\\In-class_Ex3\\In-class_Ex3.qmd
       - text: "Take-Home Exercises"
         menu: 
           - text: Take-home Exercise 1
             href: Exercises\\Take-home_Ex1\\Take-home_Ex1.qmd
+          - text: Take-home Exercise 2
+            href: Exercises\\Take-home_Ex2\\Take-home_Ex2.qmd
     right:
       - href: index.qmd
         text: Home
