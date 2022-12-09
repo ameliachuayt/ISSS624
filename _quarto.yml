@@ -15,6 +15,8 @@ website:
             href: Exercises\\Hands-on_Ex2\\Hands-on_Ex2.qmd
           - text: Hands-on Exercise 3
             href: Exercises\\Hands-on_Ex3\\Hands-on_Ex3.qmd
+          - text: Hands-on Exercise 4
+            href: Exercises\\Hands-on_Ex4\\Hands-on_Ex4.qmd
       - text: "In-class Exercises"
         menu: 
           - text: In-class Exercise 1
