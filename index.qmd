@@ -1,7 +1,11 @@
 ---
-title: "ISSS624"
+title: "ISSS624 Geospatial Analysis & Applications"
 ---
 
-Welcome to ISSS624 Geospatial Analytics Applications!
+Welcome to ISSS624 Geospatial Analytics & Applications!
 
-In this webpage, I am going to share with you my learning journey of geospatial analytics.
+I'm Amelia and am pursing my Masters at the Singapore Management University.
+
+In this webpage, I am going to share with you my learning journey of geospatial analytics. The contents of the page is structured for reproducibility to help other avid learners of the subject.
+
+[![](images/O9FG400.jpg)](<a href="https://www.freepik.com/free-vector/blue-world-map-design_893721.htm#query=world%20map&position=2&from_view=keyword">Image by Layerace</a> on Freepik)
