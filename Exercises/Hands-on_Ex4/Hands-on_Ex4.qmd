@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Ex4: Calibrating Hedonic Pricing MOdel for PRivate Highrise Property with Geographically Weighted Regression"
+title: "Hands-on Ex4: Calibrating Hedonic Pricing Model for Private Highrise Property with Geographically Weighted Regression"
 author: "Amelia Chua"
 number-sections: true
 execute: 
@@ -266,13 +266,13 @@ tmap_mode("view")
 
 ```{r}
 tm_shape(mpsz_svy21)+
+  tmap_options(check.and.fix = TRUE) +
   tm_polygons() +
 tm_shape(condo_resale.sf) +  
   tm_dots(col = "SELLING_PRICE",
           alpha = 0.6,
           style="quantile") +
-  tm_view(set.zoom.limits = c(11,14)) + 
-  tmap_options(check.and.fix = TRUE)
+  tm_view(set.zoom.limits = c(11,14)) 
 ```
 
 Notice that [*tm_dots()*](https://www.rdocumentation.org/packages/tmap/versions/2.2/topics/tm_symbols) is used instead of [tm_bubbles()](https://www.rdocumentation.org/packages/tmap/versions/0.7/topics/tm_bubbles). Both are quite similar in that you can specify the colour and size. However, the former allows the shape to be changed to something other than circles.
@@ -533,7 +533,7 @@ tmap_mode("plot")
 
 The figure above reveal that there is sign of spatial autocorrelation.
 
-To prove that our observation is indeed true, the Moran\'s I test will be performed
+To prove that our observation is indeed true, the Moran's I test will be performed
 
 First, we will compute the distance-based weight matrix by using [`dnearneigh()`](https://r-spatial.github.io/spdep/reference/dnearneigh.html) function of **spdep**.
 
@@ -549,13 +549,13 @@ nb_lw <- nb2listw(nb, style = 'W')
 summary(nb_lw)
 ```
 
-Next, [*lm.morantest()*](https://r-spatial.github.io/spdep/reference/lm.morantest.html) of **spdep** package will be used to perform Moran\'s I test for residual spatial autocorrelation
+Next, [*lm.morantest()*](https://r-spatial.github.io/spdep/reference/lm.morantest.html) of **spdep** package will be used to perform Moran's I test for residual spatial autocorrelation
 
 ```{r}
 lm.morantest(condo.mlr1, nb_lw)
 ```
 
-The Global Moran\'s I test for residual spatial autocorrelation shows that it\'s p-value is less than 2.2e-16, which is less than the alpha value of 0.05. Hence, we will reject the null hypothesis that the residuals are randomly distributed.
+The Global Moran's I test for residual spatial autocorrelation shows that it's p-value is less than 2.2e-16, which is less than the alpha value of 0.05. Hence, we will reject the null hypothesis that the residuals are randomly distributed.
 
 Since the Observed Global Moran I = 0.1424418 which is greater than 0, we can infer than the residuals resemble cluster distribution.
 
@@ -587,7 +587,7 @@ bw.fixed <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD +
 The result shows that the recommended bandwidth is 971.3398 metres. (Quiz: Do you know why it is in metre?)
 
 ::: callout-tip
-We know that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m ", which indicates that the units are in metres.
+We know that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m", which indicates that the units are in metres.
 :::
 
 ### GWModel method - Fixed Bandwidth
@@ -606,7 +606,7 @@ gwr.fixed <- gwr.basic(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD +
                        longlat = FALSE)
 ```
 
-The output is saved in a list of class \"gwrm\". The code below can be used to display the model output.
+The output is saved in a list of class "gwrm". The code below can be used to display the model output.
 
 ```{r}
 gwr.fixed
@@ -677,7 +677,7 @@ In addition to regression residuals, the output feature class table includes fie
 
 -   Coefficient Standard Error: these values measure the reliability of each coefficient estimate. Confidence in those estimates are higher when standard errors are small in relation to the actual coefficient values. Large standard errors may indicate problems with local collinearity.
 
-They are all stored in a SpatialPointsDataFrame or SpatialPolygonsDataFrame object integrated with fit.points, GWR coefficient estimates, y value, predicted values, coefficient standard errors and t-values in its \"data\" slot in an object called **SDF** of the output list.
+They are all stored in a SpatialPointsDataFrame or SpatialPolygonsDataFrame object integrated with fit.points, GWR coefficient estimates, y value, predicted values, coefficient standard errors and t-values in its "data" slot in an object called **SDF** of the output list.
 
 ### Converting SDF into sf data.frame
 
@@ -743,6 +743,6 @@ tm_shape(condo_resale.sf.adaptive) +
 
 # References
 
-Tin Seong Kam. \"6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method\" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap04.html>
+Tin Seong Kam. "6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap04.html>
 
 Other references are indicated in the footnotes.
