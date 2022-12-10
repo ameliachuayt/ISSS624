@@ -394,6 +394,10 @@ ols_regress(condo.mlr1)
 
 We can see that the Adj R-Square is 0.647. We are using the adjusted value to penalise the model as it includes more than 1 explanatory variable.
 
+Looking at the coefficients, we can interpret both the value and the sign. For instance, if the coefficient is a negative value, we can infer that there is an inverse relationship between the explanatory variable and dependent variable. For instance, there is an inverse relationship (between distance to MRT and price. This means that the further away from the MRT station, the lower the price of the condo.
+
+An area for further investigation is the coefficient for proximity to primary school. Since the coefficient is positive, it means that the further away from the school, the more expensive the condo. This may be counter-intuitive as parents would want schools nearer to home. On the other hand, living near primary schools may also have disadvantages like noise (school alarm bells).
+
 ### Preparing Publication Quality Table: gtsummary method
 
 The [**gtsummary**](https://www.danieldsjoberg.com/gtsummary/) package provides an elegant and flexible way to create publication-ready summary tables in R.
@@ -490,13 +494,13 @@ The hedonic model we try to build are using geographically referenced attributes
 
 In order to perform spatial autocorrelation test, we need to convert *condo_resale.sf* from sf data frame into a **SpatialPointsDataFrame**.
 
-First, we will export the residuals of the hedonic pricing model and save it as a data frame.
+First, we will export the **residuals** of the hedonic pricing model and save it as a data frame.
 
 ```{r}
 mlr.output <- as.data.frame(condo.mlr1$residuals)
 ```
 
-Next, we will join the newly created data frame with `condo_resale.sf` object.
+Next, we will join the newly created data frame of the residuals with `condo_resale.sf` object.
 
 ```{r}
 condo_resale.res.sf <- cbind(condo_resale.sf, 
@@ -572,9 +576,9 @@ In this section, we will model hedonic pricing using both the fixed and adaptive
 
 ### Computing fixed bandwidth
 
-In the code chunk below *bw.gwr()* of **GWModel** package is used to determine the optimal fixed bandwidth to use in the model. Notice that the argument ***adaptive*** is set to **FALSE** indicates that we are interested to compute the fixed bandwidth.
+In the code chunk below *bw.gwr()* of **GWModel** package is used to determine the optimal fixed bandwidth to use in the model. Notice that the argument ***adaptive*** is set to **FALSE** indicates that we are interested to compute the **fixed bandwidth**. Note that when we indicate longlat = FALSE, our input data is already in the project coordinate system and no conversion is required.
 
-There are two possible approaches can be uused to determine the stopping rule, they are: CV cross-validation approach and AIC corrected (AICc) approach. We define the stopping rule using ***approach*** agreement.
+There are two possible approaches can be used to determine the stopping rule, they are: CV cross-validation approach and AIC corrected (AICc) approach. We define the stopping rule using ***approach*** agreement.
 
 ```{r}
 bw.fixed <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD + 
@@ -586,13 +590,15 @@ bw.fixed <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD +
                    approach="CV", 
                    kernel="gaussian", 
                    adaptive=FALSE, 
-                   longlat=FALSE)
+                   longlat=FALSE) 
 ```
 
-The result shows that the recommended bandwidth is 971.3398 metres. (Quiz: Do you know why it is in metre?)
+The CV score is to be minimised. The result shows that the recommended bandwidth is 971.3405 metres.
 
 ::: callout-tip
-We know that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m", which indicates that the units are in metres.
+**Quiz: Do you know why it is in metres?**
+
+SVY21 is in metres, therefore, the results is in metres. We can also check that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m", which indicates that the units are in metres.
 :::
 
 ### GWModel method - Fixed Bandwidth
@@ -617,7 +623,7 @@ The output is saved in a list of class "gwrm". The code below can be used to dis
 gwr.fixed
 ```
 
-The report shows that the adjusted r-square of the gwr is 0.8430 which is significantly better than the globel multiple linear regression model of 0.6472.
+The report shows that the adjusted r-square of the gwr is 0.8430 which is significantly better than the global multiple linear regression model of 0.6472. Similarly, we can also compare the AICc values.
 
 ## Building Adaptive Bandwidth GWR Model
 
@@ -642,7 +648,7 @@ bw.adaptive <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE  +
                       longlat=FALSE)
 ```
 
-The result shows that the 30 is the recommended data points to be used.
+The CV score is to be minimised. The result shows that the 30 is the recommended data points to be used.
 
 ### Constructing the adaptive bandwidth GWR model
 
@@ -715,9 +721,9 @@ We will use *summary()* of Base R to print out the statistics for the predicted 
 summary(gwr.adaptive$SDF$yhat)
 ```
 
-### Visualising Local R2
+### Visualising Local R^2^
 
-The code chunks below is used to create an interactive point symbol map.
+The code chunks below is used to create an interactive point symbol map. The zoom limits basically limits the zoom limits, beyond which, the maps cannot be further zoomed in or out.
 
 ```{r}
 tmap_mode("view")
@@ -734,7 +740,7 @@ tm_shape(condo_resale.sf.adaptive) +
 tmap_mode("plot")
 ```
 
-#### Visualising Local R2 by Planning Area
+#### Visualising Local R^2^ by Planning Area
 
 ```{r}
 tm_shape(mpsz_svy21[mpsz_svy21$REGION_N=="CENTRAL REGION", ])+
@@ -748,7 +754,9 @@ tm_shape(condo_resale.sf.adaptive) +
 
 ### Visualising  Coefficient Estimates
 
-The code chunks below is used to create an interactive point symbol map.
+The code chunks below is used to create an interactive point symbol map. By including 'sync = TRUE' both maps will synchronise together with cursor movements which allows for easy viewing and better user experience.
+
+The two maps plotted are the observed values and the t-statistics.
 
 ```{r}
 tmap_mode("view")

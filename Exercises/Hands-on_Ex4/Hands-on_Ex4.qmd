@@ -584,10 +584,12 @@ bw.fixed <- bw.gwr(formula = SELLING_PRICE ~ AREA_SQM + AGE + PROX_CBD +
                    longlat=FALSE)
 ```
 
-The result shows that the recommended bandwidth is 971.3398 metres. (Quiz: Do you know why it is in metre?)
+The result shows that the recommended bandwidth is 971.3405 metres (see the last line).
 
 ::: callout-tip
-We know that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m", which indicates that the units are in metres.
+**Quiz: Do you know why it is in metres?**
+
+SVY21 is in metres, therefore, the results is in metres. We can also check that the results is in metres if we go back to the previous sub-section [Testing for Spatial Autocorrelation], and notice that in the print out report of 'condo_resale.sp', we can see "+units=m", which indicates that the units are in metres.
 :::
 
 ### GWModel method - Fixed Bandwidth
@@ -710,7 +712,7 @@ We will use *summary()* of Base R to print out the statistics for the predicted 
 summary(gwr.adaptive$SDF$yhat)
 ```
 
-### Visualising Local R2
+### Visualising Local R^2^
 
 The code chunks below is used to create an interactive point symbol map.
 
@@ -729,7 +731,7 @@ tm_shape(condo_resale.sf.adaptive) +
 tmap_mode("plot")
 ```
 
-#### Visualising Local R2 by Planning Area
+#### Visualising Local R^2^ by Planning Area
 
 ```{r}
 tm_shape(mpsz_svy21[mpsz_svy21$REGION_N=="CENTRAL REGION", ])+
