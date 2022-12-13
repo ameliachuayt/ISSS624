@@ -752,7 +752,7 @@ tm_shape(condo_resale.sf.adaptive) +
            border.lwd = 1)
 ```
 
-### Visualising  Coefficient Estimates
+### Visualising Coefficient Estimates
 
 The code chunks below is used to create an interactive point symbol map. By including 'sync = TRUE' both maps will synchronise together with cursor movements which allows for easy viewing and better user experience.
 
@@ -795,6 +795,6 @@ tm_shape(condo_resale.sf.adaptive) +
 
 # References
 
-Tin Seong Kam. "6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap04.html>
+Tin Seong Kam. "6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap06.html>
 
 Other references are indicated in the footnotes.

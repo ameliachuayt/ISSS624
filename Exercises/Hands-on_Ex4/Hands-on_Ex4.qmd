@@ -745,6 +745,6 @@ tm_shape(condo_resale.sf.adaptive) +
 
 # References
 
-Tin Seong Kam. "6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap04.html>
+Tin Seong Kam. "6 Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap06.html>
 
 Other references are indicated in the footnotes.
