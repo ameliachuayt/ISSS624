@@ -1182,8 +1182,6 @@ hclust_members
 Next, *qtm()* of **tmap** package is used to plot the choropleth map showing the cluster formed.
 
 ```{r}
-#| eval: false
-#| fig.width = 20, fig.size = 20
 hclust.map <- tm_shape(nigeria_cluster) +
   tm_fill(col = "CLUSTER", 
           title = "Clusters") +
@@ -1196,8 +1194,6 @@ hclust.map <- tm_shape(nigeria_cluster) +
             legend.title.size = 3,
             legend.text.size = 3,
             frame = TRUE)
-
-hclust.map
 ```
 
 ![](images/paste-DBC825B6.png){fig-align="center" width="623"}
