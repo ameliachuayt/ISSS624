@@ -842,3 +842,5 @@ In this exercise, we have explored traditional clustering methods and spatially 
 Gender and Local Politics in Myanmar: Women's and Men's Participation in Ward, Village Tract and Village Decision Making - Scientific Figure on ResearchGate. Available from: https://www.researchgate.net/figure/Map-of-Myanmars-States-and-Regions_fig1_344329923 \[accessed 3 Dec, 2022\]
 
 Spatially constrained clustering and regionalization. Available from: https://www.dshkol.com/post/spatially-constrained-clustering-and-regionalization/ \[accessed 3 Dec, 2022\]
+
+Tin Seong Kam. "5 Geographical Segmentation with Spatially Constrained Clustering Techniques" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap05.html>
