@@ -479,7 +479,7 @@ Looking at the plot for the standard error of the coefficient for `distance_to_t
 
 ### Visualising Functional & Non-Functional Water Points (based on prediction)
 
-TThe code chunk below is used to create an interactive point symbol map that allows us to visualise each water point based on the probability of it being functional (or non-functional).
+The code chunk below is used to create an interactive point symbol map that allows us to visualise each water point based on the probability of it being functional (or non-functional).
 
 ```{r}
 tmap_mode("view")
@@ -798,31 +798,6 @@ The code chunk below will plot the choropleth maps with the threshold levels set
 #| fig.width = 20, fig.height = 15
 tmap_mode("plot")
 
-prob_T2_segment30 <- tm_shape(osun) + 
-  tm_polygons(alpha = 0.1) +
-tm_shape(gwr_sf.fixed2_f30) + 
-  tm_bubbles(col = 'lightgreen',
-          border.col = "gray60",
-          border.lwd = 1) +
-tm_shape(gwr_sf.fixed2_nf30) + 
-  tm_bubbles(col = 'orange',
-          border.col = "gray60",
-          border.lwd = 1) +
-  tm_view(set.zoom.limits = c(8.5,14))
-
-tmap_arrange(prob_T2_segment, prob_T2_segment30, 
-             asp=1, ncol=2,
-             sync = TRUE)
-```
-
-As expected, we can observe that with a lower threshold of 0.30 (map on the right), we see that there are lesser predicted non-functional water points (orange coloured) and more predicted functional water points (green coloured) as compared to using the threshold of 0.50 (map on the left).
-
-Let's also plot the choropleth maps with the threshold levels set as 0.50 (left map) and 0.70 (right map).
-
-```{r}
-#| fig.width = 20, fig.height = 15
-tmap_mode("plot")
-
 prob_T2_segment50 <- tm_shape(osun) + 
   tm_polygons(alpha = 0.1) +
 tm_shape(gwr_sf.fixed2_f) + 
@@ -835,6 +810,29 @@ tm_shape(gwr_sf.fixed2_nf) +
           border.lwd = 1) +
   tm_view(set.zoom.limits = c(8.5,14))
 
+prob_T2_segment30 <- tm_shape(osun) + 
+  tm_polygons(alpha = 0.1) +
+tm_shape(gwr_sf.fixed2_f30) + 
+  tm_bubbles(col = 'lightgreen',
+          border.col = "gray60",
+          border.lwd = 1) +
+tm_shape(gwr_sf.fixed2_nf30) + 
+  tm_bubbles(col = 'orange',
+          border.col = "gray60",
+          border.lwd = 1) +
+  tm_view(set.zoom.limits = c(8.5,14))
+
+tmap_arrange(prob_T2_segment50, prob_T2_segment30, 
+             asp=1, ncol=2,
+             sync = TRUE)
+```
+
+As expected, we can observe that with a lower threshold of 0.30 (map on the right), we see that there are lesser predicted non-functional water points (orange coloured) and more predicted functional water points (green coloured) as compared to using the threshold of 0.50 (map on the left).
+
+Let's also plot the choropleth maps with the threshold levels set as 0.50 (left map) and 0.70 (right map).
+
+```{r}
+#| fig.width = 20, fig.height = 15
 prob_T2_segment70 <- tm_shape(osun) + 
   tm_polygons(alpha = 0.1) +
 tm_shape(gwr_sf.fixed2_f70) + 
