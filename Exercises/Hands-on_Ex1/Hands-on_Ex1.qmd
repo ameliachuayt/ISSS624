@@ -1,7 +1,14 @@
 ---
 title: "Hands-on Exercise 1: Geospatial Data Wrangling and Choropleth Mapping with R"
-editor: visual
+author: "Amelia Chua"
+date: 'Nov 2022'
+date-format: "MMM YYYY"
 number-sections: true
+execute: 
+  warning: false 
+  message: false
+format: html
+editor: visual
 ---
 
 There are two parts in this hands-on exercise:

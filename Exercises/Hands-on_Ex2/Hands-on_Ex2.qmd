@@ -1,8 +1,14 @@
 ---
 title: "Global and Local Measures of Spatial Autocorrelation"
 author: "Amelia Chua"
-editor: visual
+date: 'Nov 2022'
+date-format: "MMM YYYY"
 number-sections: true
+execute: 
+  warning: false 
+  message: false
+format: html
+editor: visual
 ---
 
 ## Overview

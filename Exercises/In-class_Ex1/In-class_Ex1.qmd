@@ -1,7 +1,14 @@
 ---
-title: "In-class Exercise 1"
-editor: visual
+title: "In-class Exercise 1: Spatial Weights and Applications"
+author: "Amelia Chua"
+date: 'Nov 2022'
+date-format: "MMM YYYY"
 number-sections: true
+execute: 
+  warning: false 
+  message: false
+format: html
+editor: visual
 ---
 
 ## Overview
@@ -614,5 +621,5 @@ tmap_arrange(gdppc, w_sum_gdppc, asp = 1, ncol = 2)
 
 ## References
 
-1.  https://r4gdsa.netlify.app/chap03.html#spatial-lag-as-a-sum-of-neighboring-values
+1.  Tin Seong Kam. "3 Spatial Weights and Applications" From **R for Geospatial Data Science and Analytics** <https://r4gdsa.netlify.app/chap03.html>
 2.  https://spatialanalysis.github.io/handsonspatialdata/contiguity-based-spatial-weights.html

@@ -1,6 +1,8 @@
 ---
 title: "Hands-on Ex3 - Geographical Segmentation with Spatially Constrained Clustering Techniques"
 author: "Amelia Chua"
+date: 'Dec 2022'
+date-format: "MMM YYYY"
 number-sections: true
 execute: 
   warning: false 
