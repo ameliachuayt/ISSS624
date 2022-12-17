@@ -81,11 +81,12 @@ Before we get started, it is important for us to install the necessary R package
 The code chunk below installs and loads the required packages into R environment using *pacman()*, which is a R package management tool.
 
 ```{r}
-pacman::p_load(sf, rgdal, spdep,rgeoda,
-               tidyverse,
+pacman::p_load(tidyverse,
+               cluster, ClustGeo,
                tmap,
-               corrplot, ggpubr,  heatmaply,GGally, funModeling, patchwork,
-               cluster, ClustGeo, factoextra ) #NbClust
+               rgdal, rgeoda, sf,spdep,
+               corrplot, factoextra, funModeling, GGally, ggpubr, heatmaply,
+               patchwork)
 ```
 
 # Data Preparation
