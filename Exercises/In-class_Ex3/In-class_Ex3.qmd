@@ -1,6 +1,8 @@
 ---
 title: "In-class Exercise 3"
 author: "Amelia Chua"
+date: 'Dec 2022'
+date-format: "MMM YYYY"
 number-sections: true
 execute: 
   warning: false 

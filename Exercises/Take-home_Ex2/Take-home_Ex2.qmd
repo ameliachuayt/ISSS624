@@ -1,6 +1,8 @@
 ---
 title: "Take-home Exercise 2 - Regionalisation of Multivariate Water Point Attributes with Non-spatially Constrained and Spatially Constrained Clustering Methods"
 author: "Amelia Chua"
+date: 'Dec 2022'
+date-format: "MMM YYYY"
 number-sections: true
 execute: 
   warning: false 

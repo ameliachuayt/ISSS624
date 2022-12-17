@@ -1,6 +1,8 @@
 ---
 title: "In-class Ex4: Calibrating Hedonic Pricing Model for Private Highrise Property with Geographically Weighted Regression"
 author: "Amelia Chua"
+date: 'Dec 2022'
+date-format: "MMM YYYY"
 number-sections: true
 execute: 
   warning: false 
